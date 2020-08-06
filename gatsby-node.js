@@ -10,7 +10,7 @@ require('ts-node').register({
 exports.createPages = async ({ actions, graphql, reporter }) => {
   const { createPage } = actions
 
-  const blogPostTemplate = path.resolve(`src/pages/mdTemplate.tsx`)
+  const blogPostTemplate = path.resolve(`src/templates/MdTemplate.tsx`)
 
   const result = await graphql(`
     {
