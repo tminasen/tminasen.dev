@@ -17,8 +17,9 @@ const BodyWrapper = styled.div`
 const MainWrapper = styled.div`
   flex: 1 0 auto;
   margin: 0 auto;
-  max-width: 9.6rem;
+  max-width: 96rem;
   padding: 0 1.1rem 1.5rem;
+  width: 100%;
 `;
 
 export const PageTemplate: React.FC<Props> = ({ children }) => {
@@ -35,13 +36,7 @@ export const PageTemplate: React.FC<Props> = ({ children }) => {
   return (
     <BodyWrapper>
       <HeaderComponent siteTitle={data.site.siteMetadata.title} />
-      <MainWrapper
-        style={{
-          margin: `0 auto`,
-          maxWidth: 960,
-          padding: `0 1.0875rem 1.45rem`,
-        }}
-      >
+      <MainWrapper>
         <main>{children}</main>
       </MainWrapper>
       <FooterComponent />

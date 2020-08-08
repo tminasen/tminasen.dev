@@ -1,8 +1,8 @@
 module.exports = {
   siteMetadata: {
-    title: `Gatsby Default Starter`,
-    description: `Kick off your next, great Gatsby project with this default starter. This barebones starter ships with the main Gatsby configuration files you might need.`,
-    author: `@gatsbyjs`,
+    title: `水無瀬のプログラミング日記`,
+    description: `プログラミング周りのメモ`,
+    author: `@minase_tetsuya`,
   },
   plugins: [
     `gatsby-plugin-react-helmet`,
@@ -31,9 +31,16 @@ module.exports = {
       resolve: `gatsby-source-filesystem`,
       options: {
         name: `markdown-pages`,
-        path: `${__dirname}/src/md-pages`
-      }
+        path: `${__dirname}/src/md-pages`,
+      },
     },
-    `gatsby-transformer-remark`
+    `gatsby-transformer-remark`,
+    `gatsby-plugin-typescript`,
+    {
+      resolve: 'gatsby-plugin-graphql-codegen',
+      options: {
+        fileName: `types/graphql-types.d.ts`,
+      },
+    },
   ],
-}
+};

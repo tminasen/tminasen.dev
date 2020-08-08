@@ -56,7 +56,7 @@ const SEO: React.FC<Props> = ({ description, meta, title }) => {
         },
         {
           name: `twitter:creator`,
-          content: `@minase_tetsuya`,
+          content: site.siteMetadata.author,
         },
         {
           name: `twitter:title`,
