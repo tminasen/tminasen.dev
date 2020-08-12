@@ -2,8 +2,9 @@ import React from 'react';
 import { useStaticQuery, graphql } from 'gatsby';
 
 import { HeaderComponent } from '../components/HeaderComponent';
-import { FooterComponent } from '../components/FooterComponents';
+import { FooterComponent } from '../components/FooterComponent';
 import styled from 'styled-components';
+import { SubColumnComponent } from '../components/SubColumnComponent';
 
 type Props = {
   children: JSX.Element;
@@ -14,12 +15,13 @@ const BodyWrapper = styled.div`
   flex-direction: column;
   min-height: 100vh;
 `;
-const MainWrapper = styled.div`
+const ContentsWrapper = styled.div`
   flex: 1 0 auto;
-  margin: 0 auto;
-  max-width: 96rem;
-  padding: 0 1.1rem 1.5rem;
-  width: 100%;
+  display: flex;
+  justify-content: space-between;
+`;
+const Main = styled.main`
+  margin: 1rem 4rem 1rem;
 `;
 
 export const PageTemplate: React.FC<Props> = ({ children }) => {
@@ -36,9 +38,10 @@ export const PageTemplate: React.FC<Props> = ({ children }) => {
   return (
     <BodyWrapper>
       <HeaderComponent siteTitle={data.site.siteMetadata.title} />
-      <MainWrapper>
-        <main>{children}</main>
-      </MainWrapper>
+      <ContentsWrapper>
+        <Main>{children}</Main>
+        <SubColumnComponent />
+      </ContentsWrapper>
       <FooterComponent />
     </BodyWrapper>
   );

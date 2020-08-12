@@ -1,4 +1,4 @@
-const path = require(`path`)
+const path = require(`path`);
 
 require('ts-node').register({
   compilerOptions: {
@@ -8,9 +8,7 @@ require('ts-node').register({
 });
 
 exports.createPages = async ({ actions, graphql, reporter }) => {
-  const { createPage } = actions
-
-  const blogPostTemplate = path.resolve(`src/templates/MdTemplate.tsx`)
+  const { createPage } = actions;
 
   const result = await graphql(`
     {
@@ -25,21 +23,35 @@ exports.createPages = async ({ actions, graphql, reporter }) => {
             }
           }
         }
+        tags: group(field: frontmatter___tag) {
+          fieldValue
+        }
       }
     }
-  `)
+  `);
 
   // Handle errors
   if (result.errors) {
-    reporter.panicOnBuild(`Error while running GraphQL query.`)
-    return
+    reporter.panicOnBuild(`Error while running GraphQL query.`);
+    return;
   }
+  const mdPostTemplate = path.resolve('src/templates/MdTemplate.tsx');
 
   result.data.allMarkdownRemark.edges.forEach(({ node }) => {
     createPage({
       path: node.frontmatter.path,
-      component: blogPostTemplate,
-      context: {}, // additional data can be passed via context
-    })
-  })
-}
+      component: mdPostTemplate,
+    });
+  });
+
+  const tagListTemplate = path.resolve('src/templates/TagListTemplate.tsx');
+  result.data.allMarkdownRemark.tags.forEach(tag => {
+    createPage({
+      path: `/tags/${tag.fieldValue}`,
+      component: tagListTemplate,
+      context: {
+        tagName: tag.fieldValue,
+      },
+    });
+  });
+};
