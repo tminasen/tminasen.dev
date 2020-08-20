@@ -1,0 +1,43 @@
+/* markdown記事全体にかけるstyle */
+#mdArticle {
+    font-size: 1.6rem;
+}
+
+/* 要素ごとにスペースを開ける */
+#mdArticle > p, pre, ul, ol {
+    margin: 1.2rem 0;
+}
+/* タイトルの上下は文章部分よりも開ける */
+#mdArticle > h1, h2, h3 {
+    margin: 1.6rem 0;
+}
+
+/* 見出しのStyle */
+#mdArticle h1 {
+    font-size: 2.8rem;
+}
+#mdArticle h2 {
+    font-size: 2.4rem;
+}
+#mdArticle h3 {
+    font-size: 2rem;
+}
+
+/* リンクにカーソル合わせたとき色を変える */
+#mdArticle a:hover {
+    color: #ed0077;
+}
+
+/* リストの先頭に点出す */
+#mdArticle ul > li:before {
+    content: '\025b7';
+}
+
+/* olの場合数字を出すようにする */
+#mdArticle ol {
+    counter-reset: item;
+}
+#mdArticle ol > li:before {
+    counter-increment: item;
+    content: counter(item) ". ";
+}

@@ -2,10 +2,22 @@ import React from 'react';
 import { graphql } from 'gatsby';
 import { PageTemplate } from './PageTemplate';
 import { MdPageDataQuery } from '../../types/graphql-types';
+import styled from 'styled-components';
+import './MdArticleStyle.css';
 
 type Props = {
   data: MdPageDataQuery;
 };
+const Article = styled.article``;
+const TitleWrapper = styled.div`
+  margin: 0 0 1.6rem 0;
+`;
+const ArticleTitle = styled.h1`
+  font-size: 2.8rem;
+`;
+const ArticleDate = styled.time`
+  font-size: 1.6rem;
+`;
 
 export const MdTemplate: React.FC<Props> = ({ data: { markdownRemark } }) => {
   const { frontmatter, html } = markdownRemark ?? {};
@@ -14,16 +26,13 @@ export const MdTemplate: React.FC<Props> = ({ data: { markdownRemark } }) => {
   }
   return (
     <PageTemplate>
-      <div className="blog-post-container">
-        <div className="blog-post">
-          <h1>{frontmatter.title}</h1>
-          <h2>{frontmatter.date}</h2>
-          <div
-            className="blog-post-content"
-            dangerouslySetInnerHTML={{ __html: html }}
-          />
-        </div>
-      </div>
+      <Article>
+        <TitleWrapper>
+          <ArticleTitle>{frontmatter.title}</ArticleTitle>
+          <ArticleDate>{frontmatter.date}</ArticleDate>
+        </TitleWrapper>
+        <div id="mdArticle" dangerouslySetInnerHTML={{ __html: html }} />
+      </Article>
     </PageTemplate>
   );
 };
@@ -35,7 +44,7 @@ export const pageQuery = graphql`
     markdownRemark(frontmatter: { path: { eq: $path } }) {
       html
       frontmatter {
-        date(formatString: "MMMM DD, YYYY")
+        date
         path
         title
       }

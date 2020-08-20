@@ -1,6 +1,7 @@
 import { Link } from 'gatsby';
 import React from 'react';
 import styled from 'styled-components';
+import { fontColor } from '../styles/variable';
 
 type Props = {
   siteTitle: string;
@@ -15,12 +16,11 @@ const Heading = styled.h1`
   font-size: 3rem;
 `;
 const Wrapper = styled.div`
-  margin: 0 auto;
   max-width: 96rem;
   padding: 1.5rem 1.1rem;
 `;
-const linkStyle: React.CSSProperties = {
-  color: '#ffffff',
+const LinkStyle: React.CSSProperties = {
+  color: fontColor.white,
   textDecoration: 'none',
 };
 
@@ -28,7 +28,7 @@ export const HeaderComponent: React.FC<Props> = ({ siteTitle }) => (
   <Header>
     <Wrapper>
       <Heading>
-        <Link to="/" style={linkStyle}>
+        <Link to="/" style={LinkStyle}>
           {siteTitle}
         </Link>
       </Heading>

@@ -5,7 +5,7 @@ const Footer = styled.footer`
   display: flex;
   align-items: center;
   flex-direction: column;
-  background-color: #e9ecef;
+  background-color: #c8d1d6;
 `;
 const Small = styled.small`
   font-size: 1.2rem;

@@ -11,6 +11,7 @@ type Props = {
 };
 
 const BodyWrapper = styled.div`
+  background-color: #ffffff;
   display: flex;
   flex-direction: column;
   min-height: 100vh;
@@ -19,9 +20,10 @@ const ContentsWrapper = styled.div`
   flex: 1 0 auto;
   display: flex;
   justify-content: space-between;
+  margin: 0 3rem;
 `;
 const Main = styled.main`
-  margin: 1rem 4rem 1rem;
+  width: 70%;
 `;
 
 export const PageTemplate: React.FC<Props> = ({ children }) => {
