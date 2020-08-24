@@ -2446,6 +2446,12 @@ export type SitePageFieldsEnum =
   | 'pluginCreator___resolve'
   | 'pluginCreator___name'
   | 'pluginCreator___version'
+  | 'pluginCreator___pluginOptions___plugins'
+  | 'pluginCreator___pluginOptions___plugins___resolve'
+  | 'pluginCreator___pluginOptions___plugins___id'
+  | 'pluginCreator___pluginOptions___plugins___name'
+  | 'pluginCreator___pluginOptions___plugins___version'
+  | 'pluginCreator___pluginOptions___plugins___pluginFilepath'
   | 'pluginCreator___pluginOptions___name'
   | 'pluginCreator___pluginOptions___path'
   | 'pluginCreator___pluginOptions___short_name'
@@ -2460,6 +2466,11 @@ export type SitePageFieldsEnum =
   | 'pluginCreator___pluginOptions___theme_color_in_head'
   | 'pluginCreator___pluginOptions___cacheDigest'
   | 'pluginCreator___pluginOptions___fileName'
+  | 'pluginCreator___pluginOptions___classPrefix'
+  | 'pluginCreator___pluginOptions___aliases___ts'
+  | 'pluginCreator___pluginOptions___aliases___js'
+  | 'pluginCreator___pluginOptions___showLineNumbers'
+  | 'pluginCreator___pluginOptions___noInlineHighlight'
   | 'pluginCreator___pluginOptions___pathCheck'
   | 'pluginCreator___nodeAPIs'
   | 'pluginCreator___browserAPIs'
@@ -2648,6 +2659,15 @@ export type SitePluginFieldsEnum =
   | 'resolve'
   | 'name'
   | 'version'
+  | 'pluginOptions___plugins'
+  | 'pluginOptions___plugins___resolve'
+  | 'pluginOptions___plugins___id'
+  | 'pluginOptions___plugins___name'
+  | 'pluginOptions___plugins___version'
+  | 'pluginOptions___plugins___pluginOptions___classPrefix'
+  | 'pluginOptions___plugins___pluginOptions___showLineNumbers'
+  | 'pluginOptions___plugins___pluginOptions___noInlineHighlight'
+  | 'pluginOptions___plugins___pluginFilepath'
   | 'pluginOptions___name'
   | 'pluginOptions___path'
   | 'pluginOptions___short_name'
@@ -2662,6 +2682,11 @@ export type SitePluginFieldsEnum =
   | 'pluginOptions___theme_color_in_head'
   | 'pluginOptions___cacheDigest'
   | 'pluginOptions___fileName'
+  | 'pluginOptions___classPrefix'
+  | 'pluginOptions___aliases___ts'
+  | 'pluginOptions___aliases___js'
+  | 'pluginOptions___showLineNumbers'
+  | 'pluginOptions___noInlineHighlight'
   | 'pluginOptions___pathCheck'
   | 'nodeAPIs'
   | 'browserAPIs'
@@ -2778,6 +2803,7 @@ export type SitePluginPackageJsonPeerDependenciesFilterListInput = {
 };
 
 export type SitePluginPluginOptions = {
+  plugins?: Maybe<Array<Maybe<SitePluginPluginOptionsPlugins>>>;
   name?: Maybe<Scalars['String']>;
   path?: Maybe<Scalars['String']>;
   short_name?: Maybe<Scalars['String']>;
@@ -2792,10 +2818,25 @@ export type SitePluginPluginOptions = {
   theme_color_in_head?: Maybe<Scalars['Boolean']>;
   cacheDigest?: Maybe<Scalars['String']>;
   fileName?: Maybe<Scalars['String']>;
+  classPrefix?: Maybe<Scalars['String']>;
+  aliases?: Maybe<SitePluginPluginOptionsAliases>;
+  showLineNumbers?: Maybe<Scalars['Boolean']>;
+  noInlineHighlight?: Maybe<Scalars['Boolean']>;
   pathCheck?: Maybe<Scalars['Boolean']>;
 };
 
+export type SitePluginPluginOptionsAliases = {
+  ts?: Maybe<Scalars['String']>;
+  js?: Maybe<Scalars['String']>;
+};
+
+export type SitePluginPluginOptionsAliasesFilterInput = {
+  ts?: Maybe<StringQueryOperatorInput>;
+  js?: Maybe<StringQueryOperatorInput>;
+};
+
 export type SitePluginPluginOptionsFilterInput = {
+  plugins?: Maybe<SitePluginPluginOptionsPluginsFilterListInput>;
   name?: Maybe<StringQueryOperatorInput>;
   path?: Maybe<StringQueryOperatorInput>;
   short_name?: Maybe<StringQueryOperatorInput>;
@@ -2810,7 +2851,57 @@ export type SitePluginPluginOptionsFilterInput = {
   theme_color_in_head?: Maybe<BooleanQueryOperatorInput>;
   cacheDigest?: Maybe<StringQueryOperatorInput>;
   fileName?: Maybe<StringQueryOperatorInput>;
+  classPrefix?: Maybe<StringQueryOperatorInput>;
+  aliases?: Maybe<SitePluginPluginOptionsAliasesFilterInput>;
+  showLineNumbers?: Maybe<BooleanQueryOperatorInput>;
+  noInlineHighlight?: Maybe<BooleanQueryOperatorInput>;
   pathCheck?: Maybe<BooleanQueryOperatorInput>;
+};
+
+export type SitePluginPluginOptionsPlugins = {
+  resolve?: Maybe<Scalars['String']>;
+  id?: Maybe<Scalars['String']>;
+  name?: Maybe<Scalars['String']>;
+  version?: Maybe<Scalars['String']>;
+  pluginOptions?: Maybe<SitePluginPluginOptionsPluginsPluginOptions>;
+  pluginFilepath?: Maybe<Scalars['String']>;
+};
+
+export type SitePluginPluginOptionsPluginsFilterInput = {
+  resolve?: Maybe<StringQueryOperatorInput>;
+  id?: Maybe<StringQueryOperatorInput>;
+  name?: Maybe<StringQueryOperatorInput>;
+  version?: Maybe<StringQueryOperatorInput>;
+  pluginOptions?: Maybe<SitePluginPluginOptionsPluginsPluginOptionsFilterInput>;
+  pluginFilepath?: Maybe<StringQueryOperatorInput>;
+};
+
+export type SitePluginPluginOptionsPluginsFilterListInput = {
+  elemMatch?: Maybe<SitePluginPluginOptionsPluginsFilterInput>;
+};
+
+export type SitePluginPluginOptionsPluginsPluginOptions = {
+  classPrefix?: Maybe<Scalars['String']>;
+  aliases?: Maybe<SitePluginPluginOptionsPluginsPluginOptionsAliases>;
+  showLineNumbers?: Maybe<Scalars['Boolean']>;
+  noInlineHighlight?: Maybe<Scalars['Boolean']>;
+};
+
+export type SitePluginPluginOptionsPluginsPluginOptionsAliases = {
+  ts?: Maybe<Scalars['String']>;
+  js?: Maybe<Scalars['String']>;
+};
+
+export type SitePluginPluginOptionsPluginsPluginOptionsAliasesFilterInput = {
+  ts?: Maybe<StringQueryOperatorInput>;
+  js?: Maybe<StringQueryOperatorInput>;
+};
+
+export type SitePluginPluginOptionsPluginsPluginOptionsFilterInput = {
+  classPrefix?: Maybe<StringQueryOperatorInput>;
+  aliases?: Maybe<SitePluginPluginOptionsPluginsPluginOptionsAliasesFilterInput>;
+  showLineNumbers?: Maybe<BooleanQueryOperatorInput>;
+  noInlineHighlight?: Maybe<BooleanQueryOperatorInput>;
 };
 
 export type SitePluginSortInput = {

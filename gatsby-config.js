@@ -42,5 +42,25 @@ module.exports = {
         fileName: `types/graphql-types.d.ts`,
       },
     },
+    {
+      resolve: `gatsby-transformer-remark`,
+      options: {
+        plugins: [
+          {
+            resolve: `gatsby-remark-prismjs`,
+            options: {
+              classPrefix: 'language-',
+              inlineCodeMarker: null,
+              aliases: {
+                ts: 'typescript',
+                js: 'javascript',
+              },
+              showLineNumbers: true,
+              noInlineHighlight: false,
+            },
+          },
+        ],
+      },
+    },
   ],
 };

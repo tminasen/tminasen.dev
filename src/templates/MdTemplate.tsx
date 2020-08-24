@@ -14,6 +14,8 @@ const TitleWrapper = styled.div`
 `;
 const ArticleTitle = styled.h1`
   font-size: 2.8rem;
+  font-weight: bolder;
+  margin: 0 0 0.8rem 0;
 `;
 const ArticleDate = styled.time`
   font-size: 1.6rem;

@@ -15,12 +15,15 @@
 /* 見出しのStyle */
 #mdArticle h1 {
     font-size: 2.8rem;
+    font-weight: bolder;
 }
 #mdArticle h2 {
     font-size: 2.4rem;
+    font-weight: bolder;
 }
 #mdArticle h3 {
     font-size: 2rem;
+    font-weight: bolder;
 }
 
 /* リンクにカーソル合わせたとき色を変える */
