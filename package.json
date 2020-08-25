@@ -12,6 +12,7 @@
     "gatsby-plugin-react-helmet": "^3.3.10",
     "gatsby-plugin-sharp": "^2.6.24",
     "gatsby-plugin-typescript": "^2.4.16",
+    "gatsby-remark-images": "^3.3.26",
     "gatsby-remark-prismjs": "^3.5.10",
     "gatsby-source-filesystem": "^2.3.24",
     "gatsby-transformer-remark": "^2.8.29",

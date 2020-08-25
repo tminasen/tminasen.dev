@@ -4,6 +4,7 @@ import { PageTemplate } from './PageTemplate';
 import { MdPageDataQuery } from '../../types/graphql-types';
 import styled from 'styled-components';
 import './MdArticleStyle.css';
+import SEO from '../components/seo';
 
 type Props = {
   data: MdPageDataQuery;
@@ -25,16 +26,20 @@ export const MdTemplate: React.FC<Props> = ({ data: { markdownRemark } }) => {
   const { frontmatter, html } = markdownRemark ?? {};
   if (frontmatter == null || html == null) {
     return null;
+    z;
   }
   return (
     <PageTemplate>
-      <Article>
-        <TitleWrapper>
-          <ArticleTitle>{frontmatter.title}</ArticleTitle>
-          <ArticleDate>{frontmatter.date}</ArticleDate>
-        </TitleWrapper>
-        <div id="mdArticle" dangerouslySetInnerHTML={{ __html: html }} />
-      </Article>
+      <React.Fragment>
+        <SEO title={frontmatter.title || '水無瀬のプログラミング日記'} />
+        <Article>
+          <TitleWrapper>
+            <ArticleTitle>{frontmatter.title}</ArticleTitle>
+            <ArticleDate>{frontmatter.date}</ArticleDate>
+          </TitleWrapper>
+          <div id="mdArticle" dangerouslySetInnerHTML={{ __html: html }} />
+        </Article>
+      </React.Fragment>
     </PageTemplate>
   );
 };

@@ -3,6 +3,7 @@ module.exports = {
     title: `水無瀬のプログラミング日記`,
     description: `プログラミング周りのメモ`,
     author: `@minase_tetsuya`,
+    domain: `https://compassionate-babbage-77c519.netlify.app`,
   },
   plugins: [
     `gatsby-plugin-react-helmet`,
@@ -24,7 +25,7 @@ module.exports = {
         background_color: `#663399`,
         theme_color: `#663399`,
         display: `minimal-ui`,
-        icon: `src/images/gatsby-icon.png`, // This path is relative to the root of the site.
+        icon: `src/images/icon32x.png`, // This path is relative to the root of the site.
       },
     },
     {
@@ -57,6 +58,13 @@ module.exports = {
               },
               showLineNumbers: true,
               noInlineHighlight: false,
+            },
+          },
+          {
+            resolve: `gatsby-remark-images`,
+            options: {
+              maxWidth: 700,
+              quality: 70,
             },
           },
         ],
