@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+import media from 'styled-media-query';
 import { graphql, Link } from 'gatsby';
 import { TagArticlesQuery } from '../../types/graphql-types';
 import { PageTemplate } from './PageTemplate';
@@ -15,6 +16,9 @@ const PageTitle = styled.h1`
   color: ${fontColor.black};
   font-size: 2.8rem;
   margin-bottom: 1.5rem;
+  ${media.lessThan('small')`
+    font-size:2rem;
+  `}
 `;
 const ArticleList = styled.ul`
   display: flex;
@@ -29,6 +33,9 @@ const ArticleWrapper = styled.section`
 `;
 const ArticleTitle = styled.h1`
   font-size: 2.4rem;
+  ${media.lessThan('small')`
+    font-size: 2rem;
+  `}
 `;
 const ArticleTitleWrapper = styled.div`
   background-color: #b0bec5;
@@ -40,16 +47,25 @@ const ArticleTitleWrapper = styled.div`
 `;
 const ArticleDate = styled.time`
   font-size: 1.6rem;
+  ${media.lessThan('small')`
+    font-size: 1.2rem;
+  `}
 `;
 const TitleTagList = styled.ul`
   display: flex;
   font-size: 1.6rem;
+  ${media.lessThan('small')`
+    font-size: 1.2rem;
+  `}
 `;
 const TitleTagListItem = styled.li`
   margin-right: 0.5rem;
 `;
 const ArticleDescription = styled.p`
   font-size: 2rem;
+  ${media.lessThan('small')`
+    font-size: 1.6rem;
+  `}
 `;
 const DescriptionWrapper = styled.div`
   background-color: #eceff1;

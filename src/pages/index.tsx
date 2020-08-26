@@ -2,13 +2,16 @@ import React from 'react';
 import { graphql, Link } from 'gatsby';
 
 import { PageTemplate } from '../templates/PageTemplate';
-import SEO from '../components/seo';
 import { IndexPageQuery } from '../../types/graphql-types';
 import styled from 'styled-components';
+import media from 'styled-media-query';
 
 const Title = styled.h1`
   font-size: 2.4rem;
   font-weight: bold;
+  ${media.lessThan('small')`
+    font-size: 2rem;
+  `}
 `;
 const Ul = styled.ul`
   font-size: 1.6rem;
@@ -48,7 +51,6 @@ const IndexPage: React.FC<Props> = ({ data }) => {
   return (
     <PageTemplate>
       <ArticleWrapper>
-        <SEO title="Home" />
         <Title>記事一覧</Title>
         {articles}
       </ArticleWrapper>

@@ -36,6 +36,11 @@ const SEO: React.FC<Props> = ({ description, meta, title }) => {
       title={metaTitle}
       meta={[
         {
+          name: `viewport`,
+          content:
+            'width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0',
+        },
+        {
           name: `description`,
           content: metaDescription,
         },

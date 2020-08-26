@@ -4,7 +4,9 @@ import { useStaticQuery, graphql } from 'gatsby';
 import { HeaderComponent } from '../components/HeaderComponent';
 import { FooterComponent } from '../components/FooterComponent';
 import styled from 'styled-components';
+import media from 'styled-media-query';
 import { SubColumnComponent } from '../components/SubColumnComponent';
+import SEO from '../components/seo';
 
 type Props = {
   children: JSX.Element;
@@ -21,9 +23,15 @@ const ContentsWrapper = styled.div`
   display: flex;
   justify-content: space-between;
   margin: 0 3rem;
+  ${media.lessThan('small')`
+    margin: 0 1rem;
+  `}
 `;
 const Main = styled.main`
   width: 70%;
+  ${media.lessThan('small')`
+    width: 100%;
+  `}
 `;
 
 export const PageTemplate: React.FC<Props> = ({ children }) => {
@@ -39,6 +47,7 @@ export const PageTemplate: React.FC<Props> = ({ children }) => {
 
   return (
     <BodyWrapper>
+      <SEO title="水無瀬のプログラミング日記" />
       <HeaderComponent siteTitle={data.site.siteMetadata.title} />
       <ContentsWrapper>
         <Main>{children}</Main>

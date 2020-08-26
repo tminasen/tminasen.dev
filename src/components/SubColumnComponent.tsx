@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+import media from 'styled-media-query';
 import { useStaticQuery, graphql, Link } from 'gatsby';
 import { TagListQuery } from '../../types/graphql-types';
 import { fontColor } from '../styles/variable';
@@ -15,6 +16,9 @@ const Aside = styled.aside`
   flex-direction: column;
   width: 30%;
   align-items: center;
+  ${media.lessThan('small')`
+    display: none;
+  `}
 `;
 const Title = styled.h1`
   font-size: 2.4rem;

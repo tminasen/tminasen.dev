@@ -3,8 +3,8 @@ import { graphql } from 'gatsby';
 import { PageTemplate } from './PageTemplate';
 import { MdPageDataQuery } from '../../types/graphql-types';
 import styled from 'styled-components';
+import media from 'styled-media-query';
 import './MdArticleStyle.css';
-import SEO from '../components/seo';
 
 type Props = {
   data: MdPageDataQuery;
@@ -17,21 +17,25 @@ const ArticleTitle = styled.h1`
   font-size: 2.8rem;
   font-weight: bolder;
   margin: 0 0 0.8rem 0;
+  ${media.lessThan('small')`
+    font-size: 2rem;
+  `}
 `;
 const ArticleDate = styled.time`
   font-size: 1.6rem;
+  ${media.lessThan('small')`
+    font-size: 1.2rem;
+  `}
 `;
 
 export const MdTemplate: React.FC<Props> = ({ data: { markdownRemark } }) => {
   const { frontmatter, html } = markdownRemark ?? {};
   if (frontmatter == null || html == null) {
     return null;
-    z;
   }
   return (
     <PageTemplate>
       <React.Fragment>
-        <SEO title={frontmatter.title || '水無瀬のプログラミング日記'} />
         <Article>
           <TitleWrapper>
             <ArticleTitle>{frontmatter.title}</ArticleTitle>

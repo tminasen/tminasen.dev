@@ -1,6 +1,7 @@
 import { Link } from 'gatsby';
 import React from 'react';
 import styled from 'styled-components';
+import media from 'styled-media-query';
 import { fontColor } from '../styles/variable';
 
 type Props = {
@@ -13,7 +14,10 @@ const Header = styled.header`
 `;
 const Heading = styled.h1`
   margin: 0;
-  font-size: 3rem;
+  font-size: 3.2rem;
+  ${media.lessThan('small')`
+    font-size: 2.4rem;
+  `}
 `;
 const Wrapper = styled.div`
   max-width: 96rem;
