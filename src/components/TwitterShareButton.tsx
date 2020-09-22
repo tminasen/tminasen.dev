@@ -13,7 +13,7 @@ const TweetButtonWrapper = styled.div`
 
 export const TwitterShareButton: React.FC<Props> = ({ title }) => {
   const shareText = useMemo(() => {
-    return `${title}\n#水無瀬のプログラミング日記`;
+    return `${title}\n#水無瀬のプログラミング日記\n`;
   }, [title]);
   return (
     <TweetButtonWrapper>
