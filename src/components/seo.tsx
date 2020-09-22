@@ -81,7 +81,13 @@ const SEO: React.FC<Props> = ({ description, meta, title }) => {
           content: `${site.siteMetadata.domain}${imageSharp.fluid.originalImg}`,
         },
       ].concat(meta || [])}
-    />
+    >
+      <script
+        async
+        src="https://platform.twitter.com/widgets.js"
+        charSet="utf-8"
+      />
+    </Helmet>
   );
 };
 

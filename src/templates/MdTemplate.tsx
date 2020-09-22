@@ -5,6 +5,7 @@ import { MdPageDataQuery } from '../../types/graphql-types';
 import styled from 'styled-components';
 import media from 'styled-media-query';
 import './MdArticleStyle.css';
+import { TwitterShareButton } from '../components/TwitterShareButton';
 
 type Props = {
   data: MdPageDataQuery;
@@ -12,6 +13,10 @@ type Props = {
 const Article = styled.article``;
 const TitleWrapper = styled.div`
   margin: 0 0 1.6rem 0;
+`;
+const TitleSubWrapper = styled.div`
+  display: flex;
+  align-items: center;
 `;
 const ArticleTitle = styled.h1`
   font-size: 2.8rem;
@@ -39,7 +44,10 @@ export const MdTemplate: React.FC<Props> = ({ data: { markdownRemark } }) => {
         <Article>
           <TitleWrapper>
             <ArticleTitle>{frontmatter.title}</ArticleTitle>
-            <ArticleDate>{frontmatter.date}</ArticleDate>
+            <TitleSubWrapper>
+              <ArticleDate>{frontmatter.date}</ArticleDate>
+              <TwitterShareButton title={frontmatter.title} />
+            </TitleSubWrapper>
           </TitleWrapper>
           <div id="mdArticle" dangerouslySetInnerHTML={{ __html: html }} />
         </Article>
