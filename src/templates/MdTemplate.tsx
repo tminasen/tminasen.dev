@@ -6,6 +6,7 @@ import styled from 'styled-components';
 import media from 'styled-media-query';
 import './MdArticleStyle.css';
 import { TwitterShareButton } from '../components/TwitterShareButton';
+import { HatenaBookmarkButton } from '../components/HatenaBookmarkButton';
 
 type Props = {
   data: MdPageDataQuery;
@@ -47,6 +48,7 @@ export const MdTemplate: React.FC<Props> = ({ data: { markdownRemark } }) => {
             <TitleSubWrapper>
               <ArticleDate>{frontmatter.date}</ArticleDate>
               <TwitterShareButton title={frontmatter.title} />
+              <HatenaBookmarkButton />
             </TitleSubWrapper>
           </TitleWrapper>
           <div id="mdArticle" dangerouslySetInnerHTML={{ __html: html }} />

@@ -87,6 +87,12 @@ const SEO: React.FC<Props> = ({ description, meta, title }) => {
         src="https://platform.twitter.com/widgets.js"
         charSet="utf-8"
       />
+      <script
+        type="text/javascript"
+        src="https://b.st-hatena.com/js/bookmark_button.js"
+        charSet="utf-8"
+        async
+      />
     </Helmet>
   );
 };
