@@ -14,7 +14,7 @@ type TagLink = {
 const Aside = styled.aside`
   display: flex;
   flex-direction: column;
-  width: 30%;
+  width: 20%;
   align-items: center;
   ${media.lessThan('small')`
     display: none;

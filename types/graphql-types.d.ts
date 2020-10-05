@@ -3110,7 +3110,10 @@ export type TagArticlesQueryVariables = Exact<{
 
 export type TagArticlesQuery = { allMarkdownRemark: { nodes: Array<(
       Pick<MarkdownRemark, 'excerpt'>
-      & { frontmatter?: Maybe<Pick<MarkdownRemarkFrontmatter, 'path' | 'title' | 'date' | 'tag'>> }
+      & { frontmatter?: Maybe<(
+        Pick<MarkdownRemarkFrontmatter, 'path' | 'title' | 'date' | 'tag'>
+        & { thumbnailImage?: Maybe<Pick<File, 'publicURL'>> }
+      )> }
     )> } };
 
 export type GatsbyImageSharpFixedFragment = Pick<ImageSharpFixed, 'base64' | 'width' | 'height' | 'src' | 'srcSet'>;

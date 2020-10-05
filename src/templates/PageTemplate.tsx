@@ -28,7 +28,7 @@ const ContentsWrapper = styled.div`
   `}
 `;
 const Main = styled.main`
-  width: 70%;
+  width: 80%;
   ${media.lessThan('small')`
     width: 100%;
   `}

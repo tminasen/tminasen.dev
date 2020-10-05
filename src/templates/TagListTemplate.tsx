@@ -40,7 +40,7 @@ const ArticleTitle = styled.h1`
 const ArticleTitleWrapper = styled.div`
   background-color: #b0bec5;
   height: 8rem;
-  padding: 0.8rem 2rem;
+  padding: 0.4rem 2rem;
   display: flex;
   flex-direction: column;
   justify-content: space-around;
@@ -54,6 +54,8 @@ const ArticleDate = styled.time`
 const TitleTagList = styled.ul`
   display: flex;
   font-size: 1.6rem;
+  /** 上下の間が広いので減らしておく */
+  margin: -0.2rem 0;
   ${media.lessThan('small')`
     font-size: 1.2rem;
   `}
@@ -63,6 +65,7 @@ const TitleTagListItem = styled.li`
 `;
 const ArticleDescription = styled.p`
   font-size: 2rem;
+  padding: 8px;
   ${media.lessThan('small')`
     font-size: 1.6rem;
   `}
@@ -70,11 +73,13 @@ const ArticleDescription = styled.p`
 const DescriptionWrapper = styled.div`
   background-color: #eceff1;
   height: 10rem;
+  display: flex;
 `;
 const ArticleReadMore = styled.div`
-  bottom: 0;
-  right: 0;
+  font-size: 1.6rem;
+  padding: 4px 0;
 `;
+const ArticleImage = styled.img``;
 const LinkStyle: React.CSSProperties = {
   display: 'inline-block',
   color: fontColor.black,
@@ -90,6 +95,7 @@ const getArticles = (
         frontmatter?.path == null ||
         frontmatter?.title == null ||
         frontmatter?.date == null ||
+        frontmatter.thumbnailImage?.publicURL == undefined ||
         frontmatter?.tag == null
       ) {
         return null;
@@ -119,12 +125,16 @@ const getArticles = (
               ) : null}
             </ArticleTitleWrapper>
             <DescriptionWrapper>
-              <ArticleDescription>{excerpt}</ArticleDescription>
-              <ArticleReadMore>
+              <ArticleImage
+                src={frontmatter.thumbnailImage?.publicURL}
+                width="150px"
+                height="100px"
+              />
+              <ArticleDescription>
                 <Link to={path} style={LinkStyle}>
-                  続きを読む……
+                  {excerpt}
                 </Link>
-              </ArticleReadMore>
+              </ArticleDescription>
             </DescriptionWrapper>
           </ArticleWrapper>
         </ArticleListItem>
@@ -167,8 +177,11 @@ export const articleData = graphql`
           title
           date
           tag
+          thumbnailImage {
+            publicURL
+          }
         }
-        excerpt(format: PLAIN, truncate: true, pruneLength: 100)
+        excerpt(format: PLAIN, truncate: true, pruneLength: 150)
       }
     }
   }
