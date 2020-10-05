@@ -5,6 +5,7 @@ import { PageTemplate } from '../templates/PageTemplate';
 import { IndexPageQuery } from '../../types/graphql-types';
 import styled from 'styled-components';
 import media from 'styled-media-query';
+import { CardComponent } from '../components/CardComponent';
 
 const Title = styled.h1`
   font-size: 2.4rem;
@@ -30,13 +31,23 @@ const createArticle = (
   const linkItems = articleData
     .map(item => {
       const frontmatter = item.frontmatter;
-      if (frontmatter?.path == undefined || frontmatter?.title == undefined) {
+      const excerpt = item.excerpt;
+      if (
+        frontmatter?.path == undefined ||
+        frontmatter?.title == undefined ||
+        frontmatter.thumbnailImage?.publicURL == undefined ||
+        excerpt == undefined
+      ) {
         return undefined;
       }
       return (
-        <li key={`${frontmatter.title}:${frontmatter.path}`}>
-          <Link to={frontmatter.path}>{frontmatter.title}</Link>
-        </li>
+        <CardComponent
+          key={`${frontmatter.title}:${frontmatter.path}`}
+          title={frontmatter.title}
+          path={frontmatter.path}
+          imagePath={frontmatter.thumbnailImage.publicURL}
+          excerpt={excerpt}
+        />
       );
     })
     .filter((item): item is JSX.Element => item !== undefined);
@@ -68,7 +79,11 @@ export const pageQuery = graphql`
           path
           tag
           title
+          thumbnailImage {
+            publicURL
+          }
         }
+        excerpt(format: PLAIN, truncate: true, pruneLength: 130)
       }
     }
   }

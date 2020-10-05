@@ -9,7 +9,7 @@ import { SubColumnComponent } from '../components/SubColumnComponent';
 import SEO from '../components/seo';
 
 type Props = {
-  children: JSX.Element;
+  children: JSX.Element | JSX.Element[];
 };
 
 const BodyWrapper = styled.div`
