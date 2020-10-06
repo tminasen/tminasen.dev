@@ -2,8 +2,8 @@ module.exports = {
   siteMetadata: {
     title: `水無瀬のプログラミング日記`,
     description: `プログラミング周りのメモ`,
-    author: `@minase_tetsuya`,
-    domain: `https://compassionate-babbage-77c519.netlify.app`,
+    author: `@tminasen`,
+    domain: `https://tminasen.dev/`,
   },
   plugins: [
     `gatsby-plugin-react-helmet`,

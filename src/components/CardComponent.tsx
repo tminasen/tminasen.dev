@@ -1,7 +1,13 @@
 import React from 'react';
 import styled from 'styled-components';
-import { DeepReadonly } from '../../types/utility';
-import { bodyFontSize, fontColor, headerFontSize } from '../styles/variable';
+import { DeepReadonly, ImageValue } from '../../types/utility';
+import {
+  bodyFontSize,
+  fontColor,
+  headerFontSize,
+  imageStyle,
+} from '../styles/variable';
+import { Image } from './ImageComponent';
 
 const Article = styled.article`
   display: flex;
@@ -14,9 +20,6 @@ const Title = styled.div`
   font-size: ${headerFontSize.h1};
   text-align: center;
   margin-top: 8px;
-`;
-const Image = styled.img`
-  border-radius: 10px 10px 0 0;
 `;
 const Description = styled.div`
   font-size: ${bodyFontSize.medium};
@@ -32,19 +35,19 @@ type Props = {
   title: string;
   path: string;
   excerpt: string;
-  imagePath: string;
+  image: ImageValue;
 };
 
 export const CardComponent: React.FC<DeepReadonly<Props>> = ({
   title,
   path,
   excerpt,
-  imagePath,
+  image,
 }) => {
   return (
     <Article>
       <Link href={path}>
-        <Image src={imagePath} width="350px" height="200px" />
+        <Image image={image} imageStyle={imageStyle} />
         <Title>{title}</Title>
         <Description>{excerpt}</Description>
       </Link>

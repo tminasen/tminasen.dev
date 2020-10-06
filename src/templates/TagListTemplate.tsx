@@ -75,10 +75,6 @@ const DescriptionWrapper = styled.div`
   height: 10rem;
   display: flex;
 `;
-const ArticleReadMore = styled.div`
-  font-size: 1.6rem;
-  padding: 4px 0;
-`;
 const ArticleImage = styled.img``;
 const LinkStyle: React.CSSProperties = {
   display: 'inline-block',
@@ -105,7 +101,7 @@ const getArticles = (
         tag
           ?.filter((t): t is string => !!t)
           .map(t => (
-            <TitleTagListItem>
+            <TitleTagListItem key={`/tags/${t}`}>
               <Link to={`/tags/${t}`} style={LinkStyle}>
                 {t}
               </Link>

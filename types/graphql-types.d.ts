@@ -3059,11 +3059,6 @@ export type StringQueryOperatorInput = {
   glob?: Maybe<Scalars['String']>;
 };
 
-export type Unnamed_1_QueryVariables = Exact<{ [key: string]: never; }>;
-
-
-export type Unnamed_1_Query = { placeholderImage?: Maybe<{ childImageSharp?: Maybe<{ fluid?: Maybe<GatsbyImageSharpFluidFragment> }> }> };
-
 export type TagListQueryVariables = Exact<{ [key: string]: never; }>;
 
 
@@ -3084,7 +3079,7 @@ export type IndexPageQuery = { allMarkdownRemark: { nodes: Array<(
       Pick<MarkdownRemark, 'excerpt'>
       & { frontmatter?: Maybe<(
         Pick<MarkdownRemarkFrontmatter, 'path' | 'tag' | 'title'>
-        & { thumbnailImage?: Maybe<Pick<File, 'publicURL'>> }
+        & { thumbnailImage?: Maybe<{ childImageSharp?: Maybe<{ fluid?: Maybe<Pick<ImageSharpFluid, 'src' | 'aspectRatio' | 'srcSet' | 'sizes'>> }> }> }
       )> }
     )> } };
 

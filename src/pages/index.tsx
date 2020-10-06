@@ -1,5 +1,5 @@
 import React from 'react';
-import { graphql, Link } from 'gatsby';
+import { graphql } from 'gatsby';
 
 import { PageTemplate } from '../templates/PageTemplate';
 import { IndexPageQuery } from '../../types/graphql-types';
@@ -14,12 +14,17 @@ const Title = styled.h1`
     font-size: 2rem;
   `}
 `;
-const Ul = styled.ul`
+const ArticleCardList = styled.ul`
   font-size: 1.6rem;
-`;
-const ArticleWrapper = styled.article`
   width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  align-content: flex-start;
 `;
+const CardWrapper = styled.li`
+  margin: 12px 20px 0 0;
+`;
+const Article = styled.article``;
 
 type Props = {
   data: IndexPageQuery;
@@ -35,36 +40,37 @@ const createArticle = (
       if (
         frontmatter?.path == undefined ||
         frontmatter?.title == undefined ||
-        frontmatter.thumbnailImage?.publicURL == undefined ||
+        frontmatter.thumbnailImage?.childImageSharp?.fluid == undefined ||
         excerpt == undefined
       ) {
         return undefined;
       }
       return (
-        <CardComponent
-          key={`${frontmatter.title}:${frontmatter.path}`}
-          title={frontmatter.title}
-          path={frontmatter.path}
-          imagePath={frontmatter.thumbnailImage.publicURL}
-          excerpt={excerpt}
-        />
+        <CardWrapper key={`${frontmatter.title}:${frontmatter.path}`}>
+          <CardComponent
+            title={frontmatter.title}
+            path={frontmatter.path}
+            image={frontmatter.thumbnailImage?.childImageSharp?.fluid}
+            excerpt={excerpt}
+          />
+        </CardWrapper>
       );
     })
     .filter((item): item is JSX.Element => item !== undefined);
   if (linkItems.length === 0) {
     return null;
   }
-  return <Ul>{linkItems}</Ul>;
+  return <ArticleCardList>{linkItems}</ArticleCardList>;
 };
 
 const IndexPage: React.FC<Props> = ({ data }) => {
   const articles = createArticle(data.allMarkdownRemark.nodes);
   return (
     <PageTemplate>
-      <ArticleWrapper>
+      <Article>
         <Title>記事一覧</Title>
         {articles}
-      </ArticleWrapper>
+      </Article>
     </PageTemplate>
   );
 };
@@ -80,7 +86,14 @@ export const pageQuery = graphql`
           tag
           title
           thumbnailImage {
-            publicURL
+            childImageSharp {
+              fluid(maxWidth: 300) {
+                src
+                aspectRatio
+                srcSet
+                sizes
+              }
+            }
           }
         }
         excerpt(format: PLAIN, truncate: true, pruneLength: 130)
