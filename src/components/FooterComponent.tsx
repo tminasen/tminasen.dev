@@ -19,5 +19,6 @@ export const FooterComponent: React.FC = () => (
       &copy;{new Date().getFullYear()}, Built with
       <a href="https://www.gatsbyjs.org">Gatsby</a>
     </Small>
+    <Small>This site uses Google Analytics.</Small>
   </Footer>
 );

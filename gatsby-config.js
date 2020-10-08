@@ -6,6 +6,13 @@ module.exports = {
     domain: `https://tminasen.dev/`,
   },
   plugins: [
+    {
+      resolve: `gatsby-plugin-gtag`,
+      options: {
+        trackingId: `UA-145135064-2`,
+        head: true,
+      },
+    },
     `gatsby-plugin-react-helmet`,
     {
       resolve: `gatsby-source-filesystem`,
