@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import media from 'styled-media-query';
 import { graphql, Link } from 'gatsby';
 import { TagArticlesQuery } from '../../types/graphql-types';
-import { PageTemplate } from './PageTemplate';
+import { PageTemplate } from '../templates/PageTemplate';
 import { fontColor } from '../styles/variable';
 
 type Props = {
@@ -143,14 +143,14 @@ const getArticles = (
   return <ArticleList>{articleList}</ArticleList>;
 };
 
-export const TagListTemplate: React.FC<Props> = ({
+export const TagListPage: React.FC<Props> = ({
   pageContext: { tagName },
   data: {
     allMarkdownRemark: { nodes },
   },
 }) => {
   return (
-    <PageTemplate>
+    <PageTemplate title={`${tagName}の記事一覧`}>
       <article>
         <PageTitle>{tagName}の記事一覧</PageTitle>
         {getArticles(nodes)}
@@ -159,7 +159,7 @@ export const TagListTemplate: React.FC<Props> = ({
   );
 };
 
-export default TagListTemplate;
+export default TagListPage;
 
 export const articleData = graphql`
   query TagArticles($tagName: String) {

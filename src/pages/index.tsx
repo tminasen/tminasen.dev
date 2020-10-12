@@ -66,7 +66,7 @@ const createArticle = (
 const IndexPage: React.FC<Props> = ({ data }) => {
   const articles = createArticle(data.allMarkdownRemark.nodes);
   return (
-    <PageTemplate>
+    <PageTemplate title={undefined}>
       <Article>
         <Title>記事一覧</Title>
         {articles}

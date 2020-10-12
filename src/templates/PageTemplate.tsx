@@ -7,8 +7,11 @@ import styled from 'styled-components';
 import media from 'styled-media-query';
 import { SubColumnComponent } from '../components/SubColumnComponent';
 import SEO from '../components/seo';
+import { SiteTitleQueryQuery } from '../../types/graphql-types';
+import { Maybe } from '../../types/utility';
 
 type Props = {
+  title: Maybe<string>;
   children: JSX.Element | JSX.Element[];
 };
 
@@ -34,8 +37,8 @@ const Main = styled.main`
   `}
 `;
 
-export const PageTemplate: React.FC<Props> = ({ children }) => {
-  const data = useStaticQuery(graphql`
+export const PageTemplate: React.FC<Props> = ({ title, children }) => {
+  const data: SiteTitleQueryQuery = useStaticQuery(graphql`
     query SiteTitleQuery {
       site {
         siteMetadata {
@@ -44,11 +47,10 @@ export const PageTemplate: React.FC<Props> = ({ children }) => {
       }
     }
   `);
-
   return (
     <BodyWrapper>
-      <SEO title="水無瀬のプログラミング日記" />
-      <HeaderComponent siteTitle={data.site.siteMetadata.title} />
+      <SEO title={title} meta={undefined} description={undefined} />
+      <HeaderComponent siteTitle={data.site?.siteMetadata?.title || ''} />
       <ContentsWrapper>
         <Main>{children}</Main>
         <SubColumnComponent />

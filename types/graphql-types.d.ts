@@ -3080,6 +3080,19 @@ export type SeoDataQueryVariables = Exact<{ [key: string]: never; }>;
 
 export type SeoDataQuery = { site?: Maybe<{ siteMetadata?: Maybe<Pick<SiteSiteMetadata, 'title' | 'description' | 'author' | 'domain'>> }>, imageSharp?: Maybe<{ fluid?: Maybe<Pick<ImageSharpFluid, 'originalImg'>> }> };
 
+export type TagArticlesQueryVariables = Exact<{
+  tagName?: Maybe<Scalars['String']>;
+}>;
+
+
+export type TagArticlesQuery = { allMarkdownRemark: { nodes: Array<(
+      Pick<MarkdownRemark, 'excerpt'>
+      & { frontmatter?: Maybe<(
+        Pick<MarkdownRemarkFrontmatter, 'path' | 'title' | 'date' | 'tag'>
+        & { thumbnailImage?: Maybe<Pick<File, 'publicURL'>> }
+      )> }
+    )> } };
+
 export type IndexPageQueryVariables = Exact<{ [key: string]: never; }>;
 
 
@@ -3105,19 +3118,6 @@ export type SiteTitleQueryQueryVariables = Exact<{ [key: string]: never; }>;
 
 
 export type SiteTitleQueryQuery = { site?: Maybe<{ siteMetadata?: Maybe<Pick<SiteSiteMetadata, 'title'>> }> };
-
-export type TagArticlesQueryVariables = Exact<{
-  tagName?: Maybe<Scalars['String']>;
-}>;
-
-
-export type TagArticlesQuery = { allMarkdownRemark: { nodes: Array<(
-      Pick<MarkdownRemark, 'excerpt'>
-      & { frontmatter?: Maybe<(
-        Pick<MarkdownRemarkFrontmatter, 'path' | 'title' | 'date' | 'tag'>
-        & { thumbnailImage?: Maybe<Pick<File, 'publicURL'>> }
-      )> }
-    )> } };
 
 export type GatsbyImageSharpFixedFragment = Pick<ImageSharpFixed, 'base64' | 'width' | 'height' | 'src' | 'srcSet'>;
 

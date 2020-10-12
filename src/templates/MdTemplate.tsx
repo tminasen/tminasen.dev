@@ -40,7 +40,7 @@ export const MdTemplate: React.FC<Props> = ({ data: { markdownRemark } }) => {
     return null;
   }
   return (
-    <PageTemplate>
+    <PageTemplate title={frontmatter.title}>
       <React.Fragment>
         <Article>
           <TitleWrapper>

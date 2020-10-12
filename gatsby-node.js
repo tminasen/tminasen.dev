@@ -44,7 +44,7 @@ exports.createPages = async ({ actions, graphql, reporter }) => {
     });
   });
 
-  const tagListTemplate = path.resolve('src/templates/TagListTemplate.tsx');
+  const tagListTemplate = path.resolve('src/pages/TagListPage.tsx');
   result.data.allMarkdownRemark.tags.forEach(tag => {
     createPage({
       path: `/tags/${tag.fieldValue}`,

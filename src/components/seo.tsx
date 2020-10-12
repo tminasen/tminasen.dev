@@ -1,11 +1,12 @@
 import React from 'react';
 import { useStaticQuery, graphql } from 'gatsby';
 import { Helmet } from 'react-helmet';
+import { Maybe, Optional } from '../../types/utility';
 
 type Props = {
-  title: string;
-  meta?: Array<{ name: string; content: string }>;
-  description?: string;
+  title: Maybe<string>;
+  meta: Optional<Array<{ name: string; content: string }>>;
+  description: Optional<string>;
 };
 
 const SEO: React.FC<Props> = ({ description, meta, title }) => {
@@ -29,7 +30,9 @@ const SEO: React.FC<Props> = ({ description, meta, title }) => {
     `,
   );
   const metaDescription = description || site.siteMetadata.description;
-  const metaTitle = title || site.siteMetadata.title;
+  const metaTitle = title
+    ? `${title} - ${site.siteMetadata.title}`
+    : site.siteMetadata.title;
   return (
     <Helmet
       htmlAttributes={{ lang: 'ja' }}
