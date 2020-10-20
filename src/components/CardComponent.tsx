@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import { DeepReadonly, ImageValue } from '../../types/utility';
 import {
   bodyFontSize,
+  contentsBackgroundColor,
   fontColor,
   headerFontSize,
   imageStyle,
@@ -14,6 +15,7 @@ const Article = styled.article`
   flex-direction: column;
   width: 35rem;
   border-radius: 10px;
+  background-color: ${contentsBackgroundColor.white};
   box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
 `;
 const Title = styled.div`

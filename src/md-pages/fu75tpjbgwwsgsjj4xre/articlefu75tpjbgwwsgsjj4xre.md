@@ -168,10 +168,10 @@ async fn main() -> std::io::Result<()> {
 クライアントサイドの変更が終わったら、serverディレクトリに移動する。  
 `cargo run`で起動後↓のようなURLで問題なく表示できればOK。
 
-**localhost:8080/**
+### localhost:8080/
 ![ssfu75tpjbgwwsgsjj4xre-5.png](./images/ssfu75tpjbgwwsgsjj4xre-5.png)
 
-**localhost:8080/hey**
+### localhost:8080/hey
 ![ssfu75tpjbgwwsgsjj4xre-1.png](./images/ssfu75tpjbgwwsgsjj4xre-1.png)
 
 # Angularのルーティングを追加する
@@ -580,12 +580,12 @@ Rustでやった場合の個人的なメリット、デメリットは↓の通�
 ## メリット
 - サーバーの起動が早い(気がする)
 - Rustの安心感
-    - ちゃんと静的な型がある + 怪しい実装はそもそもコンパイルが通らない
+  - ちゃんと静的な型がある + 怪しい実装はそもそもコンパイルが通らない
 
 ## デメリット
 - そもそも言語2つ使うのが難しい
 - 環境設定が手間
-    - tsで書いてもめんどくさい気がしなくも無いけど
+  - tsで書いてもめんどくさい気がしなくも無いけど
 
 自分としてはRust書くのがちょっと楽しかったのでもう少し試して見ようと思った。  
 ただ、やっぱりtsのみの方が楽な気もする。

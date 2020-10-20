@@ -1,11 +1,19 @@
 /* markdown記事全体にかけるstyle */
 #mdArticle {
+    background-color: #ffffff;
     font-size: 1.6rem;
+    border-radius: 1rem;
+    margin-bottom: 1rem;
+    padding: 0.2rem 0.4rem;
 }
 
 /* 要素ごとにスペースを開ける */
 #mdArticle > p, pre, ul, ol {
     margin: 1.2rem 0;
+}
+
+#mdArticle p > strong {
+    font-weight: bold;
 }
 
 /* タイトルの上下は文章部分よりも開ける */
@@ -37,6 +45,21 @@
 /* リストの先頭に点出す */
 #mdArticle ul > li:before {
     content: '\025b7';
+    margin-right: 0.4rem;
+}
+#mdArticle ul > li {
+    margin-top: 0.4rem;
+}
+#mdArticle li > p {
+    display: inline-block;
+}
+/* 入れ子対応 */
+#mdArticle li > ul > li:before {
+    content: '\025CB';
+    margin-right: 0.4rem;
+}
+#mdArticle li > ul {
+    margin: 0.4rem 0 0 2rem;
 }
 
 /* olの場合数字を出すようにする */

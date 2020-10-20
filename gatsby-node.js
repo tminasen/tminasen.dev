@@ -35,7 +35,9 @@ exports.createPages = async ({ actions, graphql, reporter }) => {
     reporter.panicOnBuild(`Error while running GraphQL query.`);
     return;
   }
-  const mdPostTemplate = path.resolve('src/templates/MdTemplate.tsx');
+  const mdPostTemplate = path.resolve(
+    'src/templates/mdTemplate/MdTemplate.tsx',
+  );
 
   result.data.allMarkdownRemark.edges.forEach(({ node }) => {
     createPage({

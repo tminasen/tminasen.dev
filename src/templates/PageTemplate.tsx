@@ -16,7 +16,7 @@ type Props = {
 };
 
 const BodyWrapper = styled.div`
-  background-color: #ffffff;
+  background-color: #f5f5f5;
   display: flex;
   flex-direction: column;
   min-height: 100vh;

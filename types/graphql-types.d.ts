@@ -1683,23 +1683,15 @@ export type MarkdownRemarkFilterInput = {
 export type MarkdownRemarkFrontmatter = {
   title?: Maybe<Scalars['String']>;
   path?: Maybe<Scalars['String']>;
-  date?: Maybe<Scalars['Date']>;
+  date?: Maybe<Scalars['String']>;
   tag?: Maybe<Array<Maybe<Scalars['String']>>>;
   thumbnailImage?: Maybe<File>;
-};
-
-
-export type MarkdownRemarkFrontmatterDateArgs = {
-  formatString?: Maybe<Scalars['String']>;
-  fromNow?: Maybe<Scalars['Boolean']>;
-  difference?: Maybe<Scalars['String']>;
-  locale?: Maybe<Scalars['String']>;
 };
 
 export type MarkdownRemarkFrontmatterFilterInput = {
   title?: Maybe<StringQueryOperatorInput>;
   path?: Maybe<StringQueryOperatorInput>;
-  date?: Maybe<DateQueryOperatorInput>;
+  date?: Maybe<StringQueryOperatorInput>;
   tag?: Maybe<StringQueryOperatorInput>;
   thumbnailImage?: Maybe<FileFilterInput>;
 };
@@ -3104,6 +3096,11 @@ export type IndexPageQuery = { allMarkdownRemark: { nodes: Array<(
       )> }
     )> } };
 
+export type SiteTitleQueryQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type SiteTitleQueryQuery = { site?: Maybe<{ siteMetadata?: Maybe<Pick<SiteSiteMetadata, 'title'>> }> };
+
 export type MdPageDataQueryVariables = Exact<{
   path: Scalars['String'];
 }>;
@@ -3113,11 +3110,6 @@ export type MdPageDataQuery = { markdownRemark?: Maybe<(
     Pick<MarkdownRemark, 'html'>
     & { frontmatter?: Maybe<Pick<MarkdownRemarkFrontmatter, 'date' | 'path' | 'title'>> }
   )> };
-
-export type SiteTitleQueryQueryVariables = Exact<{ [key: string]: never; }>;
-
-
-export type SiteTitleQueryQuery = { site?: Maybe<{ siteMetadata?: Maybe<Pick<SiteSiteMetadata, 'title'>> }> };
 
 export type GatsbyImageSharpFixedFragment = Pick<ImageSharpFixed, 'base64' | 'width' | 'height' | 'src' | 'srcSet'>;
 

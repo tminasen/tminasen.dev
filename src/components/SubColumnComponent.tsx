@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import media from 'styled-media-query';
 import { useStaticQuery, graphql, Link } from 'gatsby';
 import { TagListQuery } from '../../types/graphql-types';
-import { fontColor } from '../styles/variable';
+import { contentsBackgroundColor, fontColor } from '../styles/variable';
 
 type TagLink = {
   name: string;
@@ -14,8 +14,12 @@ type TagLink = {
 const Aside = styled.aside`
   display: flex;
   flex-direction: column;
-  width: 20%;
+  width: 15%;
   align-items: center;
+  background-color: ${contentsBackgroundColor.white};
+  border-radius: 1rem;
+  margin-bottom: 1rem;
+  padding: 0.2rem 0.4rem;
   ${media.lessThan('small')`
     display: none;
   `}
