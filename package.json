@@ -45,6 +45,7 @@
     "format": "prettier --write \"**/*.{js,jsx,ts,tsx,json,md}\"",
     "start": "npm run develop",
     "serve": "gatsby serve",
+    "serve:local": "yarn build && yarn serve",
     "clean": "gatsby clean",
     "create:md": "./scripts/target/release/article-scripts"
   }

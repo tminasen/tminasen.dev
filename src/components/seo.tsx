@@ -41,7 +41,7 @@ const SEO: React.FC<Props> = ({ description, meta, title }) => {
         {
           name: `viewport`,
           content:
-            'width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0',
+            'width=device-width, initial-scale=1.0, maximum-scale=5.0, minimum-scale=1.0',
         },
         {
           name: `description`,
@@ -91,10 +91,10 @@ const SEO: React.FC<Props> = ({ description, meta, title }) => {
         charSet="utf-8"
       />
       <script
+        async
         type="text/javascript"
         src="https://b.st-hatena.com/js/bookmark_button.js"
         charSet="utf-8"
-        async
       />
     </Helmet>
   );

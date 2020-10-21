@@ -1921,8 +1921,6 @@ export type QueryAllSitePageArgs = {
 export type QuerySiteArgs = {
   buildTime?: Maybe<DateQueryOperatorInput>;
   siteMetadata?: Maybe<SiteSiteMetadataFilterInput>;
-  port?: Maybe<IntQueryOperatorInput>;
-  host?: Maybe<StringQueryOperatorInput>;
   polyfill?: Maybe<BooleanQueryOperatorInput>;
   pathPrefix?: Maybe<StringQueryOperatorInput>;
   id?: Maybe<StringQueryOperatorInput>;
@@ -2033,8 +2031,6 @@ export type QueryAllSitePluginArgs = {
 export type Site = Node & {
   buildTime?: Maybe<Scalars['Date']>;
   siteMetadata?: Maybe<SiteSiteMetadata>;
-  port?: Maybe<Scalars['Int']>;
-  host?: Maybe<Scalars['String']>;
   polyfill?: Maybe<Scalars['Boolean']>;
   pathPrefix?: Maybe<Scalars['String']>;
   id: Scalars['ID'];
@@ -2238,8 +2234,7 @@ export type SiteFieldsEnum =
   | 'siteMetadata___description'
   | 'siteMetadata___author'
   | 'siteMetadata___domain'
-  | 'port'
-  | 'host'
+  | 'siteMetadata___githubUrl'
   | 'polyfill'
   | 'pathPrefix'
   | 'id'
@@ -2332,8 +2327,6 @@ export type SiteFieldsEnum =
 export type SiteFilterInput = {
   buildTime?: Maybe<DateQueryOperatorInput>;
   siteMetadata?: Maybe<SiteSiteMetadataFilterInput>;
-  port?: Maybe<IntQueryOperatorInput>;
-  host?: Maybe<StringQueryOperatorInput>;
   polyfill?: Maybe<BooleanQueryOperatorInput>;
   pathPrefix?: Maybe<StringQueryOperatorInput>;
   id?: Maybe<StringQueryOperatorInput>;
@@ -3032,6 +3025,7 @@ export type SiteSiteMetadata = {
   description?: Maybe<Scalars['String']>;
   author?: Maybe<Scalars['String']>;
   domain?: Maybe<Scalars['String']>;
+  githubUrl?: Maybe<Scalars['String']>;
 };
 
 export type SiteSiteMetadataFilterInput = {
@@ -3039,6 +3033,7 @@ export type SiteSiteMetadataFilterInput = {
   description?: Maybe<StringQueryOperatorInput>;
   author?: Maybe<StringQueryOperatorInput>;
   domain?: Maybe<StringQueryOperatorInput>;
+  githubUrl?: Maybe<StringQueryOperatorInput>;
 };
 
 export type SiteSortInput = {
@@ -3059,6 +3054,11 @@ export type StringQueryOperatorInput = {
   glob?: Maybe<Scalars['String']>;
 };
 
+export type GithubLinkDataQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type GithubLinkDataQuery = { site?: Maybe<{ siteMetadata?: Maybe<Pick<SiteSiteMetadata, 'githubUrl'>> }>, imageSharp?: Maybe<{ fluid?: Maybe<Pick<ImageSharpFluid, 'aspectRatio' | 'src' | 'srcSet' | 'sizes'>> }> };
+
 export type TagListQueryVariables = Exact<{ [key: string]: never; }>;
 
 
@@ -3066,6 +3066,11 @@ export type TagListQuery = { allMarkdownRemark: { group: Array<(
       Pick<MarkdownRemarkGroupConnection, 'fieldValue'>
       & { nodes: Array<{ frontmatter?: Maybe<Pick<MarkdownRemarkFrontmatter, 'path' | 'title'>> }> }
     )> } };
+
+export type LinkDataQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type LinkDataQuery = { site?: Maybe<{ siteMetadata?: Maybe<Pick<SiteSiteMetadata, 'domain'>> }>, imageSharp?: Maybe<{ fluid?: Maybe<Pick<ImageSharpFluid, 'aspectRatio' | 'src' | 'srcSet' | 'sizes'>> }> };
 
 export type SeoDataQueryVariables = Exact<{ [key: string]: never; }>;
 

@@ -4,6 +4,7 @@ module.exports = {
     description: `プログラミング周りのメモ`,
     author: `@tminasen`,
     domain: `https://tminasen.dev/`,
+    githubUrl: `https://github.com/Tetsuya-Minase/`,
   },
   plugins: [
     {

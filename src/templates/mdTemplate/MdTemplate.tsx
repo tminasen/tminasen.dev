@@ -8,6 +8,7 @@ import './MdArticleStyle.css';
 import { TwitterShareButton } from '../../components/TwitterShareButton';
 import { HatenaBookmarkButton } from '../../components/HatenaBookmarkButton';
 import { contentsBackgroundColor } from '../../styles/variable';
+import { GithubArticleButton } from '../../components/GithubArticleButton';
 
 type Props = {
   data: MdPageDataQuery;
@@ -51,11 +52,14 @@ export const MdTemplate: React.FC<Props> = ({ data: { markdownRemark } }) => {
             <ArticleTitle>{frontmatter.title}</ArticleTitle>
             <TitleSubWrapper>
               <ArticleDate>{frontmatter.date}</ArticleDate>
-              <TwitterShareButton title={frontmatter.title} />
-              <HatenaBookmarkButton />
             </TitleSubWrapper>
           </TitleWrapper>
           <div id="mdArticle" dangerouslySetInnerHTML={{ __html: html }} />
+          <TwitterShareButton
+            title={frontmatter.title}
+            path={frontmatter.path}
+          />
+          <GithubArticleButton path={frontmatter.path} />
         </Article>
       </React.Fragment>
     </PageTemplate>
