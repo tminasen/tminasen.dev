@@ -9,6 +9,7 @@ import {
   imageStyle,
 } from '../styles/variable';
 import { Image } from './ImageComponent';
+import media from 'styled-media-query';
 
 const Article = styled.article`
   display: flex;
@@ -17,6 +18,9 @@ const Article = styled.article`
   border-radius: 10px;
   background-color: ${contentsBackgroundColor.white};
   box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+  ${media.lessThan('small')`
+    width: 30rem;
+  `}
 `;
 const Title = styled.div`
   font-size: ${headerFontSize.h1};

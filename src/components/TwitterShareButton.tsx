@@ -4,6 +4,7 @@ import styled from 'styled-components';
 import { Image } from './ImageComponent';
 import { graphql, useStaticQuery } from 'gatsby';
 import { LinkDataQuery } from '../../types/graphql-types';
+import media from 'styled-media-query';
 
 type Props = {
   title: Maybe<string>;
@@ -18,6 +19,10 @@ const TweetButton = styled.a`
   display: block;
   height: 4rem;
   width: 4rem;
+  ${media.lessThan('small')`
+    height: 3rem;
+    width: 3rem;
+  `}
 `;
 
 const useFetchingLinkData = (): [Maybe<ImageValue>, Maybe<string>] => {

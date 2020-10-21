@@ -28,6 +28,7 @@ const ContentsWrapper = styled.div`
   margin: 0 3rem;
   ${media.lessThan('small')`
     margin: 0 1rem;
+    justify-content: center;
   `}
 `;
 const Main = styled.main`

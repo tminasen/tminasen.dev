@@ -7,7 +7,7 @@ thumbnailImage: "./images/ssfu75tpjbgwwsgsjj4xre-3.png"
 ---
 # はじめに
 Rustが気になっている今日このごろ。  
-最近[Rustの基本的なことをやった]()＋実践Rustプログラミング入門のWebアプリケーションの開発辺りまで読み終えたので、今回はActixWebを触ってみる。  
+最近[Rustの基本的なことをやった](https://tminasen.dev/blog/oaputhved38ajekgpcz9)＋実践Rustプログラミング入門のWebアプリケーションの開発辺りまで読み終えたので、今回はActixWebを触ってみる。  
 公式のチュートリアルを進めつつ、Angularで作ったページを表示できるようにしてみる。
 
 # TL;DR.

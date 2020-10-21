@@ -20,9 +20,15 @@ const ArticleCardList = styled.ul`
   display: flex;
   flex-wrap: wrap;
   align-content: flex-start;
+  ${media.lessThan('small')`
+    justify-content: center;
+  `}
 `;
 const CardWrapper = styled.li`
   margin: 12px 20px 0 0;
+  ${media.lessThan('small')`
+    margin: 12px 0 0 0;
+  `}
 `;
 const Article = styled.article``;
 

@@ -4,6 +4,7 @@ import styled from 'styled-components';
 import { graphql, useStaticQuery } from 'gatsby';
 import { Image } from './ImageComponent';
 import { GithubLinkDataQuery } from '../../types/graphql-types';
+import media from 'styled-media-query';
 
 type Props = {
   path: Maybe<string>;
@@ -17,6 +18,10 @@ const GithubButton = styled.a`
   display: block;
   height: 4rem;
   width: 4rem;
+  ${media.lessThan('small')`
+    height: 3rem;
+    width: 3rem;
+  `}
 `;
 
 const useFetchingLinkData = (): [Maybe<ImageValue>, Maybe<string>] => {

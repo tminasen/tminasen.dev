@@ -6,7 +6,6 @@ import styled from 'styled-components';
 import media from 'styled-media-query';
 import './MdArticleStyle.css';
 import { TwitterShareButton } from '../../components/TwitterShareButton';
-import { HatenaBookmarkButton } from '../../components/HatenaBookmarkButton';
 import { contentsBackgroundColor } from '../../styles/variable';
 import { GithubArticleButton } from '../../components/GithubArticleButton';
 
