@@ -3,7 +3,7 @@ module.exports = {
     title: `水無瀬のプログラミング日記`,
     description: `プログラミング周りのメモ`,
     author: `@tminasen`,
-    domain: `https://tminasen.dev/`,
+    domain: `https://tminasen.dev`,
     githubUrl: `https://github.com/Tetsuya-Minase/`,
   },
   plugins: [
@@ -79,5 +79,55 @@ module.exports = {
       },
     },
     `gatsby-plugin-styled-components`,
+    {
+      resolve: `gatsby-plugin-feed`,
+      options: {
+        query: `
+          {
+            site {
+              siteMetadata {
+                title
+                description
+                domain
+              }
+            }
+          }
+        `,
+        feeds: [
+          {
+            serialize: ({ query: { site, allMarkdownRemark } }) => {
+              return allMarkdownRemark.edges.map(edge => {
+                return Object.assign({}, edge.node.frontmatter, {
+                  description: edge.node.excerpt,
+                  date: edge.node.frontmatter.date,
+                  url: `${site.siteMetadata.domain}${edge.node.frontmatter.path}`,
+                  guid: `${site.siteMetadata.domain}${edge.node.frontmatter.path}`,
+                });
+              });
+            },
+            query: `
+              {
+                allMarkdownRemark(
+                  sort: {order: DESC, fields: [frontmatter___date]},
+                ) {
+                  edges {
+                    node {
+                      excerpt
+                      frontmatter {
+                        title
+                        date
+                        path
+                      }
+                    }
+                  }
+                }
+              }
+            `,
+            output: '/rss.xml',
+            title: 'tminasen RSS Feed',
+          },
+        ],
+      },
+    },
   ],
 };
