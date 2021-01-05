@@ -3,7 +3,7 @@ path: "/blog/n4jehn2qav1xhtawosqy"
 date: "2020/10/25"
 title: "Vue3.0 + Vuex + tailwindcssを試してみる"
 tag: ["vue"]
-thumbnailImage: "./images/ssn4jehn2qav1xhtawosqy-2.png"
+thumbnailImage: "/images/article/n4jehn2qav1xhtawosqy/ssn4jehn2qav1xhtawosqy-2.png"
 ---
 # はじめに
 vue3.0が出てしばらくたった今日このごろ。  
@@ -51,7 +51,7 @@ $ npx @vue/cli add typescript
 ここまでできたら一旦`npm run serve`で起動してみる。  
 画像の様なデフォルトの画面が出てくればOK。
 
-![ssn4jehn2qav1xhtawosqy-3.png](./images/ssn4jehn2qav1xhtawosqy-3.png)
+![ssn4jehn2qav1xhtawosqy-3.png](/images/article/n4jehn2qav1xhtawosqy/ssn4jehn2qav1xhtawosqy-3.png)
 
 # TODOリストを作ってみる
 お試しとしてTODOリストを作ってみる。  
@@ -85,7 +85,7 @@ $ npm install vuex@v4.0.0-beta.4 --save
 ### TodoForm.vue
 テキストボックスとリストに追加するためのボタンを用意しておく。
 
-```vue
+```
 <template>
   <div>
     <input v-model="value" />
@@ -120,7 +120,7 @@ export default defineComponent({
 ### TodoList.vue
 リストにあるデータを表示する。
 
-```vue
+```
 <template>
   <ul>
     <li v-for="item in todoList" :key="item">
@@ -146,7 +146,7 @@ export default defineComponent({
 ### Todo.vue
 上記コンポーネントをまとめておく用。  
 
-```vue
+```
 <template>
   <div>
     <h1>TodoList</h1>
@@ -240,14 +240,14 @@ $ touch src/assets/styles/main.css
 
 cssを使えるようにApp.vueを修正する。
 
-```vue
+```
 <style src="./assets/styles/main.css">
 </style>
 ```
 
 画像のようにデフォルトの見た目から変わっていればOK。
 
-![ssn4jehn2qav1xhtawosqy-1.png](./images/ssn4jehn2qav1xhtawosqy-1.png)
+![ssn4jehn2qav1xhtawosqy-1.png](/images/article/n4jehn2qav1xhtawosqy/ssn4jehn2qav1xhtawosqy-1.png)
 
 # 見た目修正
 このままでも良いがせっかくtailwindcssを導入したのでちょろっと見た目を修正する。
@@ -256,7 +256,7 @@ cssを使えるようにApp.vueを修正する。
 テキストボックスとボタンが全然わからないので、ボーダーを付けて目立たせる。  
 ついでにボタンの色の変更と上のコンポーネントにくっつきすぎているので間を開ける。
 
-```vue
+```
 <template>
   <!-- 上のコンポーネントと1rem話す -->
   <div class="mt-4">
@@ -272,7 +272,7 @@ cssを使えるようにApp.vueを修正する。
 リストの先頭の点がなくなってしまったので、独自で実装する。  
 ついでにリスト毎がくっつきすぎているので離す。
 
-```vue
+```
 <template>
   <ul>
     <li v-for="item in todoList" :key="item">
@@ -291,7 +291,7 @@ cssを使えるようにApp.vueを修正する。
 ### Todo.vue
 `h1`の文字サイズが小さいので適度に大きくしておく。
 
-```vue
+```
 <template>
   <div>
     <!-- font bold & font size 3rem -->
@@ -305,7 +305,7 @@ cssを使えるようにApp.vueを修正する。
 ### App.vue
 縦並びにしておく。
 
-```vue
+```
 <template>
   <!-- 縦並び & 中央揃え -->
   <div class="flex flex-col items-center">
@@ -317,7 +317,7 @@ cssを使えるようにApp.vueを修正する。
 
 修正したところで画像の様になっていればOK。
 
-![ssn4jehn2qav1xhtawosqy-2.png](./images/ssn4jehn2qav1xhtawosqy-2.png)
+![ssn4jehn2qav1xhtawosqy-2.png](/images/article/n4jehn2qav1xhtawosqy/ssn4jehn2qav1xhtawosqy-2.png)
 
 # まとめ
 今回はvue3 + vuex + tailwindcssを試してみた。  

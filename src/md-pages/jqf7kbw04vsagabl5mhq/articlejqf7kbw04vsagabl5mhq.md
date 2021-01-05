@@ -3,7 +3,7 @@ path: "/blog/jqf7kbw04vsagabl5mhq"
 date: "2020/12/28"
 title: "Next.jsでmdxを使ってみる"
 tag: ["Next.js"]
-thumbnailImage: "./images/ssjqf7kbw04vsagabl5mhq-3.png"
+thumbnailImage: "/images/article/jqf7kbw04vsagabl5mhq/ssjqf7kbw04vsagabl5mhq-3.png"
 ---
 
 # はじめに
@@ -25,7 +25,7 @@ markdownだとやりにくい細かいレイアウトの調整とかやりやす
 必要なファイル、ライブラリの準備をする。  
 `Next.js`ベースで進めるので、`create-next-app`からスタート。
 
-```sh
+```bash
 # デフォのままだとjsなので、ts対応したexampleから始める
 $ npx create-next-app --example with-typescript mdx-sample
 $ cd mdx-sample
@@ -37,7 +37,7 @@ $ yarn add yarn add @next/mdx @mdx-js/loader
 ページとして`mdx`を使えるように、`next.config.js`を修正する。
 ↑の通りに進めるとおそらく無いので作るところから。
 
-```sh
+```bash
 $ touch next.config.js
 ```
 
@@ -53,14 +53,14 @@ module.exports = withMDX({
 # サンプルページ追加
 早速mdxでページを作ってみる。
 
-```sh
+```bash
 # pages配下にmdxファイルを追加
 $ touch pages/hello.mdx
 ```
 
 コードは下記の様にした。
 
-```mdx: hello.mdx
+```markdown :hello.mdx
 # sample
 ここから↓がjsx.
 <article>
@@ -73,7 +73,7 @@ $ touch pages/hello.mdx
 
 `yarn dev`で起動後、`localhost:3000/hello`で↓の様な画面が表示されればOK。
 
-![ssjqf7kbw04vsagabl5mhq-1.png](images/ssjqf7kbw04vsagabl5mhq-1.png)
+![ssjqf7kbw04vsagabl5mhq-1.png](/images/article/jqf7kbw04vsagabl5mhq/ssjqf7kbw04vsagabl5mhq-1.png)
 
 # component読みこむ
 ## header component作成
@@ -102,7 +102,7 @@ export const HeaderComponent: React.FC<Props> = ({heading, color}) => {
 }
 ```
 
-```css: Header.module.css
+```css :Header.module.css
 .header {
   font-size: 28px;
 }
@@ -115,7 +115,7 @@ export const HeaderComponent: React.FC<Props> = ({heading, color}) => {
 ```
 
 ## mdx修正
-```mdx: hello.mdx
+```markdown :hello.mdx
 import {HeaderComponent} from '../components/header/Header.tsx';
 
 # sample
@@ -141,19 +141,19 @@ import {HeaderComponent} from '../components/header/Header.tsx';
 ```
 
 ↓の画像のように変更されていればOK。
-![ssjqf7kbw04vsagabl5mhq-2.png](images/ssjqf7kbw04vsagabl5mhq-2.png)
+![ssjqf7kbw04vsagabl5mhq-2.png](/images/article/jqf7kbw04vsagabl5mhq/ssjqf7kbw04vsagabl5mhq-2.png)
 
 # コードブロック作ってみる
 mdのコードブロックでシンタックスハイライトが効かないっぽかったので自作する。  
 これは絶対うまいやり方がある気がするので一旦試してみるところまで……
 
 ## ライブラリ追加
-```sh
+```bash
 $ yarn add prism-react-renderer
 ```
 
 ## コンポーネント作成
-```tsx: Codeblock.tsx
+```tsx :Codeblock.tsx
 import React from 'react';
 import Highlight, {defaultProps, Language} from 'prism-react-renderer';
 
@@ -177,7 +177,7 @@ export const CodeBlockComponent: React.FC<{code: string, language: Language}> = 
 ```
 
 # mdx修正
-```mdx: hello.mdx
+```markdown :hello.mdx
 import {HeaderComponent} from '../components/header/Header.tsx';
 import {CodeBlockComponent} from '../components/codeblock/CodeBlock.tsx';
 
@@ -217,7 +217,7 @@ console.log(hoge);
 ```
 
 ↓の様にコンポーネントに渡した方はちゃんとハイライトが効くようになる。  
-![ssjqf7kbw04vsagabl5mhq-3.png](images/ssjqf7kbw04vsagabl5mhq-3.png)
+![ssjqf7kbw04vsagabl5mhq-3.png](/images/article/jqf7kbw04vsagabl5mhq/ssjqf7kbw04vsagabl5mhq-3.png)
 
 # まとめ
 今回はNext.jsでmdxを使うのを試してみた。  

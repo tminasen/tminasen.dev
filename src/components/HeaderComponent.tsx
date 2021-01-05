@@ -1,8 +1,7 @@
-import { Link } from 'gatsby';
 import React from 'react';
 import styled from 'styled-components';
 import media from 'styled-media-query';
-import { fontColor } from '../styles/variable';
+import { LinkComponent } from './LinkComponent';
 
 type Props = {
   siteTitle: string;
@@ -23,18 +22,14 @@ const Wrapper = styled.div`
   max-width: 96rem;
   padding: 1.5rem 1.1rem;
 `;
-const LinkStyle: React.CSSProperties = {
-  color: fontColor.white,
-  textDecoration: 'none',
-};
 
 export const HeaderComponent: React.FC<Props> = ({ siteTitle }) => (
   <Header>
     <Wrapper>
       <Heading>
-        <Link to="/" style={LinkStyle}>
+        <LinkComponent url="/" color="white">
           {siteTitle}
-        </Link>
+        </LinkComponent>
       </Heading>
     </Wrapper>
   </Header>

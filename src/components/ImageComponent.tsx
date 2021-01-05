@@ -1,12 +1,12 @@
 import React from 'react';
-import Img from 'gatsby-image';
-import { ImageValue } from '../../types/utility';
 
 type Props = {
-  image: ImageValue;
-  imageStyle?: { [key: string]: string };
+  imageSrc: string;
+  alt: string;
+  width: number;
+  height: number;
 };
 
-export const Image: React.FC<Props> = ({ image, imageStyle }) => (
-  <Img fluid={image} imgStyle={imageStyle} />
+export const Image: React.FC<Props> = ({ imageSrc, alt, width, height }) => (
+  <img src={imageSrc} alt={alt} width={width} height={height} />
 );

@@ -14,11 +14,7 @@ const Small = styled.small`
 
 export const FooterComponent: React.FC = () => (
   <Footer>
-    <Small>&copy; Tetsuya Minase</Small>
-    <Small>
-      &copy;{new Date().getFullYear()}, Built with
-      <a href="https://www.gatsbyjs.org">Gatsby</a>
-    </Small>
+    <Small>&copy;{new Date().getFullYear()} tminasen</Small>
     <Small>This site uses Google Analytics.</Small>
   </Footer>
 );

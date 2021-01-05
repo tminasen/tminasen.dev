@@ -3,7 +3,7 @@ path: "/blog/fu75tpjbgwwsgsjj4xre"
 date: "2020/10/15"
 title: "ActixWeb+Angularを試してみる"
 tag: ["Rust", "Angular"]
-thumbnailImage: "./images/ssfu75tpjbgwwsgsjj4xre-3.png"
+thumbnailImage: "/images/article/fu75tpjbgwwsgsjj4xre/ssfu75tpjbgwwsgsjj4xre-3.png"
 ---
 # はじめに
 Rustが気になっている今日このごろ。  
@@ -169,10 +169,10 @@ async fn main() -> std::io::Result<()> {
 `cargo run`で起動後↓のようなURLで問題なく表示できればOK。
 
 ### localhost:8080/
-![ssfu75tpjbgwwsgsjj4xre-5.png](./images/ssfu75tpjbgwwsgsjj4xre-5.png)
+![ssfu75tpjbgwwsgsjj4xre-5.png](/images/article/fu75tpjbgwwsgsjj4xre/ssfu75tpjbgwwsgsjj4xre-5.png)
 
 ### localhost:8080/hey
-![ssfu75tpjbgwwsgsjj4xre-1.png](./images/ssfu75tpjbgwwsgsjj4xre-1.png)
+![ssfu75tpjbgwwsgsjj4xre-1.png](/images/article/fu75tpjbgwwsgsjj4xre/ssfu75tpjbgwwsgsjj4xre-1.png)
 
 # Angularのルーティングを追加する
 ここまででビルドしたクライアントアプリを返せるようにした。  
@@ -248,7 +248,7 @@ $ cargo run
 
 画像のようなページが表示されればOK。
 
-![ssfu75tpjbgwwsgsjj4xre-2.png](./images/ssfu75tpjbgwwsgsjj4xre-2.png)
+![ssfu75tpjbgwwsgsjj4xre-2.png](/images/article/fu75tpjbgwwsgsjj4xre/ssfu75tpjbgwwsgsjj4xre-2.png)
 
 # APIからデータを取れるようにする
 ルーティングは問題なくできたので、次はAPIからデータを取って画面に表示できるようにする。  
@@ -265,7 +265,7 @@ $ cargo add serde_json
 
 それぞれのバージョンは下記の通り。 
 
-```txt
+```
 [dependencies]
 serde = "1.0.116"
 serde_json = "1.0.59"
@@ -513,7 +513,7 @@ export class FirstPageComponent implements OnInit {
 ビルド(`npm run build`)してサーバー起動(`cargo run`)後、  
 `localhost:8080/first-page`にアクセスし画像の様に表示されればOK。
 
-![ssfu75tpjbgwwsgsjj4xre-3.png](./images/ssfu75tpjbgwwsgsjj4xre-3.png)
+![ssfu75tpjbgwwsgsjj4xre-3.png](/images/article/fu75tpjbgwwsgsjj4xre/ssfu75tpjbgwwsgsjj4xre-3.png)
 
 次に、`second-page`の方を修正する。  
 大体`first-page`と同じだが、データ形式が違う分をちょろっと修正。
@@ -569,7 +569,7 @@ export class SecondPageComponent implements OnInit {
 
 `first-page`の時と同じく`second-page`にアクセスし、画像のように表示されればOK。
 
-![ssfu75tpjbgwwsgsjj4xre-4.png](./images/ssfu75tpjbgwwsgsjj4xre-4.png)
+![ssfu75tpjbgwwsgsjj4xre-4.png](/images/article/fu75tpjbgwwsgsjj4xre/ssfu75tpjbgwwsgsjj4xre-4.png)
 
 # まとめ
 今回はActixWeb + Angularを試してみた。  

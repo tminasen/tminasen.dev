@@ -1,10 +1,9 @@
-import React, { useMemo } from 'react';
-import { ImageValue, Maybe } from '../../types/utility';
+import React from 'react';
+import { Maybe } from '../../types/utility';
 import styled from 'styled-components';
 import { Image } from './ImageComponent';
-import { graphql, useStaticQuery } from 'gatsby';
-import { LinkDataQuery } from '../../types/graphql-types';
 import media from 'styled-media-query';
+import { metaData } from '../constants/metaData';
 
 type Props = {
   title: Maybe<string>;
@@ -25,58 +24,32 @@ const TweetButton = styled.a`
   `}
 `;
 
-const useFetchingLinkData = (): [Maybe<ImageValue>, Maybe<string>] => {
-  const linkData: LinkDataQuery = useStaticQuery(graphql`
-    query LinkData {
-      site {
-        siteMetadata {
-          domain
-        }
-      }
-      imageSharp(fixed: { originalName: { eq: "TwitterSocialIcon.png" } }) {
-        fluid {
-          aspectRatio
-          src
-          srcSet
-          sizes
-        }
-      }
-    }
-  `);
-  return [linkData?.imageSharp?.fluid, linkData?.site?.siteMetadata?.domain];
-};
 const useFormatShareData = (
   title: Maybe<string>,
-  domain: string,
   path: Maybe<string>,
 ): [string, string] => {
-  const shareText = useMemo(() => {
-    const message = `${title}\n#水無瀬のプログラミング日記`;
-    return encodeURIComponent(message);
-  }, [title]);
-  const shareUrl = useMemo(() => {
-    const currentUrl = new URL(path || '', domain);
-    return encodeURIComponent(currentUrl.toString());
-  }, [domain, path]);
+  const shareText = encodeURIComponent(`${title}\n#水無瀬のプログラミング日記`);
+  const shareUrl = encodeURIComponent(
+    new URL(path || '', metaData.domain).toString(),
+  );
   return [shareText, shareUrl];
 };
 
 export const TwitterShareButton: React.FC<Props> = ({ title, path }) => {
-  const [twitterIcon, domain]: [
-    Maybe<ImageValue>,
-    Maybe<string>,
-  ] = useFetchingLinkData();
-  if (twitterIcon == undefined || domain == undefined) {
-    return null;
-  }
-  const [shareText, shareUrl] = useFormatShareData(title, domain, path);
+  const [shareText, shareUrl] = useFormatShareData(title, path);
   return (
     <TweetButtonWrapper>
       <TweetButton
         href={`https://twitter.com/intent/tweet?text=${shareText}&url=${shareUrl}`}
         title="Twitterに投稿する"
       >
-        <Image image={twitterIcon} />
+        {/* TODO: スマホは30*30 */}
+        <Image
+          imageSrc={metaData.twitterIcon}
+          alt="twitterに投稿する"
+          width={40}
+          height={40}
+        />
       </TweetButton>
     </TweetButtonWrapper>
   );

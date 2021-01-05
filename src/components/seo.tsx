@@ -1,7 +1,7 @@
 import React from 'react';
-import { useStaticQuery, graphql } from 'gatsby';
 import { Helmet } from 'react-helmet';
 import { Maybe, Optional } from '../../types/utility';
+import { metaData } from '../constants/metaData';
 
 type Props = {
   title: Maybe<string>;
@@ -10,29 +10,8 @@ type Props = {
 };
 
 const SEO: React.FC<Props> = ({ description, meta, title }) => {
-  const { site, imageSharp } = useStaticQuery(
-    graphql`
-      query SEOData {
-        site {
-          siteMetadata {
-            title
-            description
-            author
-            domain
-          }
-        }
-        imageSharp(fluid: { originalName: { eq: "ogp.png" } }) {
-          fluid {
-            originalImg
-          }
-        }
-      }
-    `,
-  );
-  const metaDescription = description || site.siteMetadata.description;
-  const metaTitle = title
-    ? `${title} - ${site.siteMetadata.title}`
-    : site.siteMetadata.title;
+  const metaDescription = description || metaData.description;
+  const metaTitle = title ? `${title} - ${metaData.title}` : metaData.title;
   return (
     <Helmet
       htmlAttributes={{ lang: 'ja' }}
@@ -61,7 +40,7 @@ const SEO: React.FC<Props> = ({ description, meta, title }) => {
         },
         {
           property: `og:image`,
-          content: `${site.siteMetadata.domain}${imageSharp.fluid.originalImg}`,
+          content: `${metaData.domain}${metaData.ogpImage}`,
         },
         {
           name: `twitter:card`,
@@ -69,7 +48,7 @@ const SEO: React.FC<Props> = ({ description, meta, title }) => {
         },
         {
           name: `twitter:creator`,
-          content: site.siteMetadata.author,
+          content: metaData.author,
         },
         {
           name: `twitter:title`,
@@ -81,7 +60,7 @@ const SEO: React.FC<Props> = ({ description, meta, title }) => {
         },
         {
           name: `twitter:image`,
-          content: `${site.siteMetadata.domain}${imageSharp.fluid.originalImg}`,
+          content: `${metaData.domain}${metaData.ogpImage}`,
         },
       ].concat(meta || [])}
     />
