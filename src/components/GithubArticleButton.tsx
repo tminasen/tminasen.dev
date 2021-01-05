@@ -43,12 +43,11 @@ export const GithubArticleButton: React.FC<Props> = ({ path }) => {
   return (
     <GithubButtonWrapper>
       <GithubButton href={buttonLink} title="Githubリンク">
-        {/* TODO: スマホは30*30 */}
         <Image
           imageSrc={metaData.githubIcon}
           alt="Githubリンク"
-          width={40}
-          height={40}
+          width={{ pc: 40, sp: 30 }}
+          height={{ pc: 40, sp: 30 }}
         />
       </GithubButton>
     </GithubButtonWrapper>
