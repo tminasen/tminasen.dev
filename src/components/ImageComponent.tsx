@@ -1,4 +1,5 @@
 import React from 'react';
+import NextImage from 'next/image';
 import styled from 'styled-components';
 import media from 'styled-media-query';
 
@@ -26,7 +27,7 @@ interface ImageProps {
   };
 }
 
-const Img = styled.img<ImageProps>`
+const StyledImage = styled(NextImage)<ImageProps>`
   width: ${({ styledWidth: { pc } }) => pc}px;
   height: ${({ styledHeight: { pc } }) => pc}px;
   ${media.lessThan<ImageProps>('small')`
@@ -35,13 +36,15 @@ const Img = styled.img<ImageProps>`
   `}
 `;
 
-export const Image: React.FC<Props> = ({ imageSrc, alt, width, height }) => (
-  <Img
-    src={imageSrc}
-    alt={alt}
-    width={width.pc}
-    height={height.pc}
-    styledWidth={width}
-    styledHeight={height}
-  />
-);
+export const Image: React.FC<Props> = ({ imageSrc, alt, width, height }) => {
+  return (
+    <StyledImage
+      src={imageSrc}
+      alt={alt}
+      width={width.pc}
+      height={height.pc}
+      styledWidth={width}
+      styledHeight={height}
+    />
+  );
+};
