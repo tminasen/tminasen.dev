@@ -28,6 +28,7 @@ interface ImageProps {
 }
 
 const StyledImage = styled(NextImage)<ImageProps>`
+  border-radius: 10px 10px 0 0;
   width: ${({ styledWidth: { pc } }) => pc}px;
   height: ${({ styledHeight: { pc } }) => pc}px;
   ${media.lessThan<ImageProps>('small')`

@@ -15,20 +15,17 @@ const Title = styled.h1`
 `;
 const ArticleCardList = styled.ul`
   font-size: 1.6rem;
-  width: 100%;
-  display: flex;
-  flex-wrap: wrap;
-  align-content: flex-start;
+  display: grid;
+  justify-content: center;
+  grid-template-columns: repeat(auto-fill, 384px);
+  grid-column-gap: 2rem;
+  grid-row-gap: 2rem;
+  margin: 1rem 0;
   ${media.lessThan('small')`
-    justify-content: center;
+    grid-template-columns: repeat(auto-fill, 320px);
   `}
 `;
-const CardWrapper = styled.li`
-  margin: 12px 20px 0 0;
-  ${media.lessThan('small')`
-    margin: 12px 0 0 0;
-  `}
-`;
+const CardWrapper = styled.li``;
 const Article = styled.article``;
 
 const createArticle = (articleData: ArticleMetaData[]) => {

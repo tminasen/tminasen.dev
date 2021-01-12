@@ -11,7 +11,3 @@ export const bodyFontSize = {
 export const contentsBackgroundColor = {
   white: '#ffffff',
 } as const;
-
-export const imageStyle = {
-  borderRadius: '10px 10px 0 0',
-} as const;

@@ -85,7 +85,7 @@ $ npm install vuex@v4.0.0-beta.4 --save
 ### TodoForm.vue
 テキストボックスとリストに追加するためのボタンを用意しておく。
 
-```
+``` javascript
 <template>
   <div>
     <input v-model="value" />
@@ -120,7 +120,7 @@ export default defineComponent({
 ### TodoList.vue
 リストにあるデータを表示する。
 
-```
+``` javascript
 <template>
   <ul>
     <li v-for="item in todoList" :key="item">
@@ -146,7 +146,7 @@ export default defineComponent({
 ### Todo.vue
 上記コンポーネントをまとめておく用。  
 
-```
+``` javascript
 <template>
   <div>
     <h1>TodoList</h1>
@@ -203,7 +203,7 @@ import App from './App.vue'
 import Store from './store';
 
 createApp(App)
-	// ここを追加
+  // ここを追加
   .use(Store)
   .mount('#app')
 ```
@@ -240,7 +240,7 @@ $ touch src/assets/styles/main.css
 
 cssを使えるようにApp.vueを修正する。
 
-```
+``` javascript
 <style src="./assets/styles/main.css">
 </style>
 ```
@@ -256,7 +256,7 @@ cssを使えるようにApp.vueを修正する。
 テキストボックスとボタンが全然わからないので、ボーダーを付けて目立たせる。  
 ついでにボタンの色の変更と上のコンポーネントにくっつきすぎているので間を開ける。
 
-```
+``` javascript
 <template>
   <!-- 上のコンポーネントと1rem話す -->
   <div class="mt-4">
@@ -272,7 +272,7 @@ cssを使えるようにApp.vueを修正する。
 リストの先頭の点がなくなってしまったので、独自で実装する。  
 ついでにリスト毎がくっつきすぎているので離す。
 
-```
+``` javascript
 <template>
   <ul>
     <li v-for="item in todoList" :key="item">
@@ -291,7 +291,7 @@ cssを使えるようにApp.vueを修正する。
 ### Todo.vue
 `h1`の文字サイズが小さいので適度に大きくしておく。
 
-```
+``` javascript
 <template>
   <div>
     <!-- font bold & font size 3rem -->
@@ -305,7 +305,7 @@ cssを使えるようにApp.vueを修正する。
 ### App.vue
 縦並びにしておく。
 
-```
+``` javascript
 <template>
   <!-- 縦並び & 中央揃え -->
   <div class="flex flex-col items-center">

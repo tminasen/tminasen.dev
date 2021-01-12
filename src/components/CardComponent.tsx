@@ -9,16 +9,17 @@ import {
 } from '../styles/variable';
 import media from 'styled-media-query';
 import { Image } from './ImageComponent';
+import { ThumbnailImage } from '../../types/article';
 
 const Article = styled.article`
   display: flex;
   flex-direction: column;
-  width: 35rem;
+  width: 38.4rem;
   border-radius: 10px;
   background-color: ${contentsBackgroundColor.white};
   box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
   ${media.lessThan('small')`
-    width: 30rem;
+    width: 32rem;
   `}
 `;
 const Title = styled.div`
@@ -40,7 +41,7 @@ type Props = {
   title: string;
   path: string;
   excerpt: string;
-  image: string;
+  image: ThumbnailImage;
 };
 
 export const CardComponent: React.FC<DeepReadonly<Props>> = ({
@@ -53,10 +54,10 @@ export const CardComponent: React.FC<DeepReadonly<Props>> = ({
     <Article>
       <Link href={path}>
         <Image
-          imageSrc={image}
+          imageSrc={image.url}
           alt={title}
-          width={{ pc: 350, sp: 300 }}
-          height={{ pc: 300, sp: 250 }}
+          width={{ pc: image.size.pc.width, sp: image.size.sp.width }}
+          height={{ pc: image.size.pc.height, sp: image.size.sp.height }}
         />
         <Title>{title}</Title>
         <Description>{excerpt}</Description>

@@ -1,9 +1,31 @@
-interface _ArticleMetaData {
+interface _MarkdownMetaData {
   path: string;
   date: string;
   title: string;
   tag: string[];
   thumbnailImage: string;
+}
+export type MarkdownMetaData = Readonly<_MarkdownMetaData>;
+
+interface ThumbnailImage {
+  readonly url: string;
+  readonly size: {
+    readonly pc: {
+      readonly width: number;
+      readonly height: number;
+    };
+    readonly sp: {
+      readonly width: number;
+      readonly height: number;
+    };
+  };
+}
+interface _ArticleMetaData {
+  path: string;
+  date: string;
+  title: string;
+  tag: string[];
+  thumbnailImage: ThumbnailImage;
   html: string;
   description: string;
 }

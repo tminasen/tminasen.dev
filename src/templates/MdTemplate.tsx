@@ -83,7 +83,7 @@ const MarkDownArticle = styled.div`
 
   /* 画像はみ出すのでリサイズ */
   & img {
-    width: 100%;
+    width: 80%;
   }
 
   ${media.lessThan('small')`
@@ -117,7 +117,7 @@ const MarkDownArticle = styled.div`
     
     /* 画像はみ出すのでリサイズ */
     & img {
-      width: 100%;
+      width: 80%;
     }
 
   `}

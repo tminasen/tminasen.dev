@@ -126,10 +126,10 @@ const getArticles = (
             </ArticleTitleWrapper>
             <DescriptionWrapper>
               <Image
-                imageSrc={data.thumbnailImage}
+                imageSrc={data.thumbnailImage.url}
                 alt={data.title}
-                width={150}
-                height={100}
+                width={{ pc: 150, sp: 150 }}
+                height={{ pc: 100, sp: 100 }}
               />
               <ArticleDescription>
                 <LinkComponent url={data.path} color="black">

@@ -1,13 +1,19 @@
 import fs from 'fs';
 import path from 'path';
 import matter from 'gray-matter';
-import { ArticleMetaData, Tag, TagCount } from '../../types/article';
+import {
+  ArticleMetaData,
+  MarkdownMetaData,
+  Tag,
+  TagCount,
+} from '../../types/article';
 import { markdown2Html, removeTags } from './markdown';
 import { parseStringDate } from './data';
+import { getImageSize } from './image';
 
 /**
  * 記事の概要表示に必要なデータを取得する
- * @return {@see ArticleMetaData}
+ * @return {@see MarkdownMetaData}
  */
 export async function getArticleMetaData(): Promise<ArticleMetaData[]> {
   const mdPagePath: string = path.join(process.cwd(), 'src/md-pages');
@@ -66,13 +72,15 @@ async function convertArticleMetaData(
     throw new Error('data is invalid.');
   }
   const highlightHtml = await markdown2Html(context);
-
   return {
     path: data.path,
     date: data.date,
     title: data.title,
     tag: data.tag,
-    thumbnailImage: data.thumbnailImage,
+    thumbnailImage: {
+      url: data.thumbnailImage,
+      size: getImageSize(data.thumbnailImage),
+    },
     html: highlightHtml,
     description: `${removeTags(context).substring(0, 130)}…`,
   };
@@ -80,7 +88,7 @@ async function convertArticleMetaData(
 
 function isArticleMetaData(data: {
   [key: string]: any;
-}): data is ArticleMetaData {
+}): data is MarkdownMetaData {
   return (
     !!data?.path &&
     !!data?.date &&

@@ -1,5 +1,4 @@
 import React from 'react';
-// import { useStaticQuery, graphql } from 'gatsby';
 
 import { HeaderComponent } from '../components/HeaderComponent';
 import { FooterComponent } from '../components/FooterComponent';
@@ -7,7 +6,6 @@ import styled from 'styled-components';
 import media from 'styled-media-query';
 import { SubColumnComponent } from '../components/SubColumnComponent';
 import SEO from '../components/seo';
-// import { SiteTitleQueryQuery } from '../../types/graphql-types';
 import { Maybe } from '../../types/utility';
 import { ArticleMetaData, TagCount } from '../../types/article';
 
@@ -54,21 +52,11 @@ export const PageTemplate: React.FC<Props> = ({
       }
       return result;
     }, {});
-  // TODO: graphql箇所修正
-  // const data: SiteTitleQueryQuery = useStaticQuery(graphql`
-  //   query SiteTitleQuery {
-  //     site {
-  //       siteMetadata {
-  //         title
-  //       }
-  //     }
-  //   }
-  // `);
+
   return (
     <BodyWrapper>
       <SEO title={title} meta={undefined} description={undefined} />
       <HeaderComponent siteTitle="水無瀬のプログラミング日記" />
-      {/*<HeaderComponent siteTitle={data.site?.siteMetadata?.title || ''} />*/}
       <ContentsWrapper>
         <Main>{children}</Main>
         <SubColumnComponent tagCount={tagCount} />
