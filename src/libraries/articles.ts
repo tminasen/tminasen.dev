@@ -79,7 +79,7 @@ async function convertArticleMetaData(
     tag: data.tag,
     thumbnailImage: {
       url: data.thumbnailImage,
-      size: getImageSize(data.thumbnailImage),
+      size: getImageSize(data.thumbnailImage, 'thumbnail'),
     },
     html: highlightHtml,
     description: `${removeTags(context).substring(0, 130)}…`,

@@ -83,7 +83,7 @@ const MarkDownArticle = styled.div`
 
   /* 画像はみ出すのでリサイズ */
   & img {
-    width: 80%;
+    display: block;
   }
 
   ${media.lessThan('small')`
@@ -117,6 +117,8 @@ const MarkDownArticle = styled.div`
     
     /* 画像はみ出すのでリサイズ */
     & img {
+      display: block;
+      height: 100%;
       width: 80%;
     }
 

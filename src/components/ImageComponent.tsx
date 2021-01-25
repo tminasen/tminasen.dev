@@ -1,5 +1,4 @@
 import React from 'react';
-import NextImage from 'next/image';
 import styled from 'styled-components';
 import media from 'styled-media-query';
 
@@ -27,7 +26,7 @@ interface ImageProps {
   };
 }
 
-const StyledImage = styled(NextImage)<ImageProps>`
+const StyledImage = styled.img<ImageProps>`
   border-radius: 10px 10px 0 0;
   width: ${({ styledWidth: { pc } }) => pc}px;
   height: ${({ styledHeight: { pc } }) => pc}px;
@@ -39,13 +38,19 @@ const StyledImage = styled(NextImage)<ImageProps>`
 
 export const Image: React.FC<Props> = ({ imageSrc, alt, width, height }) => {
   return (
-    <StyledImage
-      src={imageSrc}
-      alt={alt}
-      width={width.pc}
-      height={height.pc}
-      styledWidth={width}
-      styledHeight={height}
-    />
+    <picture>
+      <source
+        type="image/webp"
+        srcSet={imageSrc.replace(/\.png$/, '.webp')}
+      />
+      <StyledImage
+        src={imageSrc}
+        alt={alt}
+        width={width.pc}
+        height={height.pc}
+        styledWidth={width}
+        styledHeight={height}
+      />
+    </picture>
   );
 };
