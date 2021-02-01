@@ -12,7 +12,7 @@ const MarkDownArticle = styled.div`
   border-radius: 1rem;
   margin-bottom: 1rem;
   padding: 0.2rem 0.4rem;
-
+  
   & > p,
   pre,
   ul,
@@ -101,7 +101,7 @@ const MarkDownArticle = styled.div`
 
     /* 見出しのStyle */
     & h1 {
-        font-size: 2.4rem !important;
+        font-size: 2.4rem;
         font-weight: bolder;
     }
 

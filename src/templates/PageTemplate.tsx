@@ -12,6 +12,7 @@ import { ArticleMetaData, TagCount } from '../../types/article';
 interface Props {
   title: Maybe<string>;
   metaData: ArticleMetaData[];
+  isEnableViewPort: boolean;
   children: JSX.Element | JSX.Element[];
 }
 
@@ -42,6 +43,7 @@ export const PageTemplate: React.FC<Props> = ({
   title,
   metaData,
   children,
+  isEnableViewPort
 }) => {
   const tagCount = metaData
     .map(data => data.tag)
@@ -55,7 +57,7 @@ export const PageTemplate: React.FC<Props> = ({
 
   return (
     <BodyWrapper>
-      <SEO title={title} meta={undefined} description={undefined} />
+      <SEO title={title} meta={undefined} description={undefined} isEnableViewPort={isEnableViewPort} />
       <HeaderComponent siteTitle="水無瀬のプログラミング日記" />
       <ContentsWrapper>
         <Main>{children}</Main>

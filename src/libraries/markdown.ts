@@ -52,36 +52,56 @@ function setImageSize() {
           return child;
         }
         const imagePath = image.properties.src;
+        const imageAlt = image.properties.alt;
         const imageSize = getImageSize(imagePath, 'article');
+        // 既存の画像をamp-imgに置き換え
         const replacedImage = {
           ...image,
+          tagName: 'amp-img',
           properties: {
             ...image.properties,
-            height: imageSize.pc.height,
             width: imageSize.pc.width,
-            sizes: `(max-width: 450px) ${imageSize.sp.width}px, ${imageSize.pc.width}`
+            height: imageSize.pc.height,
+            media: '(min-width: 451px)'
           }
         };
-        // webpタグ作成
+        const replacedImageSp = {
+          ...image,
+          tagName: 'amp-img',
+          properties: {
+            ...image.properties,
+            width: imageSize.sp.width,
+            height: imageSize.sp.height,
+            media: '(max-width: 450px)'
+          }
+        };
+        // webp用のamp-img作成
         const webpImage = {
           type: 'element',
-          tagName: 'source',
+          tagName: 'amp-img',
+          children: [replacedImage],
           properties: {
-            type: 'image/webp',
-            srcset: image.properties.src.replace(/\.png$/, '.webp')
+            src: image.properties.src.replace(/\.png$/, '.webp'),
+            alt: imageAlt,
+            width: imageSize.pc.width,
+            height: imageSize.pc.height,
+            media: '(min-width: 451px)'
           }
-        };
-        // webpとimg使えるようにpicture tag追加
-        const pictureTag = {
+        };  
+        const webpImageSp = {
           type: 'element',
-          tagName: 'picture',
-          children: [webpImage, replacedImage],
+          tagName: 'amp-img',
+          children: [replacedImageSp],
           properties: {
-            style: 'display: flex; justify-content: center;'
+            src: image.properties.src.replace(/\.png$/, '.webp'),
+            alt: imageAlt,
+            width: imageSize.sp.width,
+            height: imageSize.sp.height,
+            media: '(max-width: 450px)'
           }
         };
         // webp込のデータ使うので今あるimgは削除
-        child.children = [...child.children.filter((c:any) => c.type !== 'element' && c.tagName !== 'img'), pictureTag];
+        child.children = [...child.children.filter((c:any) => c.type !== 'element' && c.tagName !== 'img'), webpImage, webpImageSp];
       }
       return child;
     });

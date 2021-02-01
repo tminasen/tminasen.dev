@@ -17,6 +17,8 @@ const GithubButton = styled.a`
   display: block;
   height: 4rem;
   width: 4rem;
+  position: relative;
+
   ${media.lessThan('small')`
     height: 3rem;
     width: 3rem;
@@ -43,12 +45,25 @@ export const GithubArticleButton: React.FC<Props> = ({ path }) => {
   return (
     <GithubButtonWrapper>
       <GithubButton href={buttonLink} title="Githubリンク">
-        <Image
-          imageSrc={metaData.githubIcon}
+        {/* amp-imgが怒られるので一旦回避 */}
+        {/* @ts-expect-error */}
+        <amp-img
+          src={metaData.githubIcon.replace(/\.png$/, '.webp')}
           alt="Githubリンク"
-          width={{ pc: 40, sp: 30 }}
-          height={{ pc: 40, sp: 30 }}
-        />
+          width={40}
+          height={40}
+          layout="fill"
+        >
+          {/* @ts-expect-error */}
+          <amp-img
+            src={metaData.githubIcon}
+            alt="Githubリンク"
+            width={40}
+            height={40}
+            layout="fill"
+          />
+          {/* @ts-expect-error */}
+        </amp-img>
       </GithubButton>
     </GithubButtonWrapper>
   );

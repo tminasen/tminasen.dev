@@ -10,8 +10,8 @@ interface Props {
   color: LinkColor;
 }
 
-const StyledLink = styled.a<{ color: LinkColor }>`
-  color: ${({ color }) => getLinkColor(color)};
+const StyledLink = styled.a<{ linkColor: LinkColor }>`
+  color: ${({ linkColor }) => getLinkColor(linkColor)};
   text-decoration: none;
 `;
 const getLinkColor = (color: LinkColor): string => {
@@ -30,7 +30,7 @@ const getLinkColor = (color: LinkColor): string => {
 export const LinkComponent: React.FC<Props> = ({ url, color, children }) => {
   return (
     <Link href={url} passHref>
-      <StyledLink color={color}>{children}</StyledLink>
+      <StyledLink linkColor={color}>{children}</StyledLink>
     </Link>
   );
 };

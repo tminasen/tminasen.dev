@@ -11,6 +11,8 @@ import { TwitterShareButton } from '../../src/components/TwitterShareButton';
 import { GithubArticleButton } from '../../src/components/GithubArticleButton';
 import { MdTemplate } from '../../src/templates/MdTemplate';
 
+export const config = {amp: true};
+
 const Article = styled.article``;
 const TitleWrapper = styled.div`
   background-color: ${contentsBackgroundColor.white};
@@ -50,7 +52,7 @@ const articlePage = ({ id, articleMetaData }: Props) => {
     return null;
   }
   return (
-    <PageTemplate title={targetMetaData.title} metaData={articleMetaData}>
+    <PageTemplate title={targetMetaData.title} metaData={articleMetaData} isEnableViewPort={false}>
       <React.Fragment>
         <Article>
           <TitleWrapper>

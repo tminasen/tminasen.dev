@@ -18,6 +18,8 @@ const TweetButton = styled.a`
   display: block;
   height: 4rem;
   width: 4rem;
+  position:relative;
+
   ${media.lessThan('small')`
     height: 3rem;
     width: 3rem;
@@ -43,12 +45,24 @@ export const TwitterShareButton: React.FC<Props> = ({ title, path }) => {
         href={`https://twitter.com/intent/tweet?text=${shareText}&url=${shareUrl}`}
         title="Twitterに投稿する"
       >
-        <Image
-          imageSrc={metaData.twitterIcon}
+        {/* @ts-expect-error */}
+        <amp-img
+          src={metaData.twitterIcon.replace(/\.png$/, '.webp')}
           alt="twitterに投稿する"
-          width={{ pc: 40, sp: 30 }}
-          height={{ pc: 40, sp: 30 }}
-        />
+          width={40}
+          height={40}
+          layout="fill"
+        >
+          {/* @ts-expect-error */}
+          <amp-img
+            src={metaData.twitterIcon}
+            alt="twitterに投稿する"
+            width={40}
+            height={40}
+            layout="fill"
+          />
+          {/* @ts-expect-error */}
+        </amp-img>
       </TweetButton>
     </TweetButtonWrapper>
   );
