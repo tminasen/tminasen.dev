@@ -5,14 +5,15 @@ import { FooterComponent } from '../components/FooterComponent';
 import styled from 'styled-components';
 import media from 'styled-media-query';
 import { SubColumnComponent } from '../components/SubColumnComponent';
-import SEO from '../components/seo';
-import { Maybe } from '../../types/utility';
+import { HeadComponent } from '../components/HeadComponent';
+import { Maybe, Optional } from '../../types/utility';
 import { ArticleMetaData, TagCount } from '../../types/article';
 
 interface Props {
   title: Maybe<string>;
   metaData: ArticleMetaData[];
   isEnableViewPort: boolean;
+  canonicalPath: Optional<string>;
   children: JSX.Element | JSX.Element[];
 }
 
@@ -43,7 +44,8 @@ export const PageTemplate: React.FC<Props> = ({
   title,
   metaData,
   children,
-  isEnableViewPort
+  isEnableViewPort,
+  canonicalPath
 }) => {
   const tagCount = metaData
     .map(data => data.tag)
@@ -57,7 +59,7 @@ export const PageTemplate: React.FC<Props> = ({
 
   return (
     <BodyWrapper>
-      <SEO title={title} meta={undefined} description={undefined} isEnableViewPort={isEnableViewPort} />
+      <HeadComponent title={title} additionalMetaData={undefined} description={undefined} isEnableViewPort={isEnableViewPort} canonicalPath={canonicalPath} />
       <HeaderComponent siteTitle="水無瀬のプログラミング日記" />
       <ContentsWrapper>
         <Main>{children}</Main>

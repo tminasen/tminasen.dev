@@ -4,6 +4,7 @@ import media from 'styled-media-query';
 
 interface Props {
   imageSrc: string;
+  isRounded: boolean;
   alt: string;
   width: {
     pc: number;
@@ -16,6 +17,7 @@ interface Props {
 }
 
 interface ImageProps {
+  isRounded: boolean;
   styledWidth: {
     pc: number;
     sp: number;
@@ -27,7 +29,7 @@ interface ImageProps {
 }
 
 const StyledImage = styled.img<ImageProps>`
-  border-radius: 10px 10px 0 0;
+  ${({isRounded}) => isRounded ? `border-radius: 10px 10px 0 0;` : ''}
   width: ${({ styledWidth: { pc } }) => pc}px;
   height: ${({ styledHeight: { pc } }) => pc}px;
   ${media.lessThan<ImageProps>('small')`
@@ -36,7 +38,7 @@ const StyledImage = styled.img<ImageProps>`
   `}
 `;
 
-export const Image: React.FC<Props> = ({ imageSrc, alt, width, height }) => {
+export const Image: React.FC<Props> = ({ imageSrc, isRounded, alt, width, height }) => {
   return (
     <picture>
       <source
@@ -46,6 +48,7 @@ export const Image: React.FC<Props> = ({ imageSrc, alt, width, height }) => {
       <StyledImage
         src={imageSrc}
         alt={alt}
+        isRounded={isRounded}
         width={width.pc}
         height={height.pc}
         styledWidth={width}

@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import media from 'styled-media-query';
-import { LinkComponent } from './LinkComponent';
+import { LinkComponent } from './atoms/LinkComponent';
 
 type Props = {
   siteTitle: string;

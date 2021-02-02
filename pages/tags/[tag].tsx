@@ -6,8 +6,8 @@ import media from 'styled-media-query';
 import { PageTemplate } from '../../src/templates/PageTemplate';
 import { getArticleMetaData } from '../../src/libraries/articles';
 import { ArticleMetaData } from '../../types/article';
-import { LinkComponent } from '../../src/components/LinkComponent';
-import { Image } from '../../src/components/ImageComponent';
+import { LinkComponent } from '../../src/components/atoms/LinkComponent';
+import { Image } from '../../src/components/atoms/ImageComponent';
 
 interface Props {
   tagName: string;
@@ -127,6 +127,7 @@ const getArticles = (
             <DescriptionWrapper>
               <Image
                 imageSrc={data.thumbnailImage.url}
+                isRounded={false}
                 alt={data.title}
                 width={{ pc: 150, sp: 150 }}
                 height={{ pc: 100, sp: 100 }}
@@ -150,7 +151,7 @@ const getArticles = (
 
 const tagPage: React.FC<Props> = ({ tagName, articleMetaData }) => {
   return (
-    <PageTemplate title={`${tagName}の記事一覧`} metaData={articleMetaData}>
+    <PageTemplate title={`${tagName}の記事一覧`} metaData={articleMetaData} isEnableViewPort={true} canonicalPath={`/tags/${tagName}`}>
       <article>
         <PageTitle>{tagName}の記事一覧</PageTitle>
         {getArticles(tagName, articleMetaData)}

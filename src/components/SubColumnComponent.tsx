@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import media from 'styled-media-query';
 import { contentsBackgroundColor } from '../styles/variable';
 import { TagCount } from '../../types/article';
-import { LinkComponent } from './LinkComponent';
+import { LinkComponent } from './atoms/LinkComponent';
 import { convertTagList } from '../libraries/articles';
 
 type TagLink = {

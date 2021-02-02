@@ -8,7 +8,7 @@ import {
   headerFontSize,
 } from '../styles/variable';
 import media from 'styled-media-query';
-import { Image } from './ImageComponent';
+import { Image } from './atoms/ImageComponent';
 import { ThumbnailImage } from '../../types/article';
 
 const Article = styled.article`
@@ -55,6 +55,7 @@ export const CardComponent: React.FC<DeepReadonly<Props>> = ({
       <Link href={path}>
         <Image
           imageSrc={image.url}
+          isRounded={true}
           alt={title}
           width={{ pc: image.size.pc.width, sp: image.size.sp.width }}
           height={{ pc: image.size.pc.height, sp: image.size.sp.height }}

@@ -1,9 +1,8 @@
 import React from 'react';
-import { Maybe, Optional } from '../../types/utility';
+import { Maybe, Optional } from '../../../types/utility';
 import styled from 'styled-components';
-import { Image } from './ImageComponent';
 import media from 'styled-media-query';
-import { metaData } from '../constants/metaData';
+import { metaData } from '../../constants/metaData';
 
 type Props = {
   path: Maybe<string>;

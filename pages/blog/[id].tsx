@@ -7,11 +7,11 @@ import { Optional } from '../../types/utility';
 import styled from 'styled-components';
 import { contentsBackgroundColor } from '../../src/styles/variable';
 import media from 'styled-media-query';
-import { TwitterShareButton } from '../../src/components/TwitterShareButton';
-import { GithubArticleButton } from '../../src/components/GithubArticleButton';
+import { TwitterShareButton } from '../../src/components/atoms/TwitterShareButton';
+import { GithubArticleButton } from '../../src/components/atoms/GithubArticleButton';
 import { MdTemplate } from '../../src/templates/MdTemplate';
 
-export const config = {amp: true};
+export const config = { amp: true };
 
 const Article = styled.article``;
 const TitleWrapper = styled.div`
@@ -52,23 +52,21 @@ const articlePage = ({ id, articleMetaData }: Props) => {
     return null;
   }
   return (
-    <PageTemplate title={targetMetaData.title} metaData={articleMetaData} isEnableViewPort={false}>
-      <React.Fragment>
-        <Article>
-          <TitleWrapper>
-            <ArticleTitle>{targetMetaData.title}</ArticleTitle>
-            <TitleSubWrapper>
-              <ArticleDate>{targetMetaData.date}</ArticleDate>
-            </TitleSubWrapper>
-          </TitleWrapper>
-          <MdTemplate html={targetMetaData.html} />
-          <TwitterShareButton
-            title={targetMetaData.title}
-            path={targetMetaData.path}
-          />
-          <GithubArticleButton path={targetMetaData.path} />
-        </Article>
-      </React.Fragment>
+    <PageTemplate title={targetMetaData.title} metaData={articleMetaData} isEnableViewPort={false} canonicalPath={articleMetaData[0]?.path}>
+      <Article>
+        <TitleWrapper>
+          <ArticleTitle>{targetMetaData.title}</ArticleTitle>
+          <TitleSubWrapper>
+            <ArticleDate>{targetMetaData.date}</ArticleDate>
+          </TitleSubWrapper>
+        </TitleWrapper>
+        <MdTemplate html={targetMetaData.html} />
+        <TwitterShareButton
+          title={targetMetaData.title}
+          path={targetMetaData.path}
+        />
+        <GithubArticleButton path={targetMetaData.path} />
+      </Article>
     </PageTemplate>
   );
 };
