@@ -44,7 +44,6 @@ export async function markdown2Html(markdownText: string): Promise<any> {
 function setImageSize() {
   return function(node: any, vfile: any, done: any) {
     const children = node.children.map((child: any) => {
-
       // 画像のサイズ指定
       if (child.type === 'element' && child.tagName === 'p') {
         const image = child.children.find((c: any) => c.type === 'element' && c.tagName === 'img');
@@ -55,31 +54,33 @@ function setImageSize() {
         const imageAlt = image.properties.alt;
         const imageSize = getImageSize(imagePath, 'article');
         // 既存の画像をamp-imgに置き換え
-        const replacedImage = {
+        const fallbackImage = {
           ...image,
           tagName: 'amp-img',
           properties: {
             ...image.properties,
             width: imageSize.pc.width,
             height: imageSize.pc.height,
-            media: '(min-width: 451px)'
+            media: '(min-width: 451px)',
+            fallback: true
           }
         };
-        const replacedImageSp = {
+        const fallbackImageSp = {
           ...image,
           tagName: 'amp-img',
           properties: {
             ...image.properties,
             width: imageSize.sp.width,
             height: imageSize.sp.height,
-            media: '(max-width: 450px)'
+            media: '(max-width: 450px)',
+            fallback: true
           }
         };
         // webp用のamp-img作成
         const webpImage = {
           type: 'element',
           tagName: 'amp-img',
-          children: [replacedImage],
+          children: [fallbackImage],
           properties: {
             src: image.properties.src.replace(/\.png$/, '.webp'),
             alt: imageAlt,
@@ -91,7 +92,7 @@ function setImageSize() {
         const webpImageSp = {
           type: 'element',
           tagName: 'amp-img',
-          children: [replacedImageSp],
+          children: [fallbackImageSp],
           properties: {
             src: image.properties.src.replace(/\.png$/, '.webp'),
             alt: imageAlt,
