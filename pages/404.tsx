@@ -17,7 +17,7 @@ const Message = styled.p`
 
 
 const NotFoundPage = () => (
-  <PageTemplate title="Not found" metaData={[]} isEnableViewPort={true}>
+  <PageTemplate title="Not found" metaData={[]} isEnableViewPort={true} canonicalPath={undefined}>
     <React.Fragment>
       <Heading>NOT FOUND</Heading>
       <Message>そんなページないです🙈</Message>
