@@ -43,6 +43,7 @@
     "format": "prettier --write \"**/*.{js,jsx,ts,tsx,json,md}\"",
     "start": "next start",
     "create:md": "./scripts/target/release/article-scripts",
+    "rename:files": "./scripts/target/release/article-scripts --rename ",
     "type-check": "tsc"
   },
   "resolutions": {
