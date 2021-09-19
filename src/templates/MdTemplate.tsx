@@ -1,47 +1,49 @@
 import React from 'react';
 import styled from 'styled-components';
 import media from 'styled-media-query';
+import { color, fontSize } from '../styles/variable';
 
 interface Props {
   html: string;
 }
 
 const MarkDownArticle = styled.div`
-  background-color: #ffffff;
-  font-size: 1.6rem;
-  border-radius: 1rem;
-  margin-bottom: 1rem;
-  padding: 0.2rem 0.4rem;
-  
-  & > p,
-  pre,
-  ul,
-  ol {
-    margin: 1.2rem 0;
-  }
+  background-color: ${color.bgWhite};
+  margin-top: 32px;
+  font-size: ${fontSize.px16};
+  border-radius: 4px;
+  padding: 8px 16px;
+
+  /* ボールド指定 */
   & p > strong {
     font-weight: bold;
   }
 
-  /* タイトルの上下は文章部分よりも開ける */
-  & > h1,
-  h2,
-  h3 {
-    margin: 1.6rem 0;
+  /* 本文はタイトルより下げる＋見出しにくっつくので余白調整 */
+  & > p {
+    margin: 4px 0 0 4px;
+    line-height: 1.2;
   }
 
   /* 見出しのStyle */
   & h1 {
-    font-size: 2.8rem;
+    font-size: ${fontSize.px24};
     font-weight: bolder;
+    line-height: 1.5;
   }
   & h2 {
-    font-size: 2.4rem;
+    font-size: ${fontSize.px20};
     font-weight: bolder;
+    line-height: 1.5;
   }
   & h3 {
-    font-size: 2rem;
+    font-size: ${fontSize.px16};
     font-weight: bolder;
+    line-height: 1.5;
+  }
+  & h4 {
+    font-size: ${fontSize.px16};
+    line-height: 1.5;
   }
 
   /* リンクにカーソル合わせたとき色を変える */
@@ -49,26 +51,53 @@ const MarkDownArticle = styled.div`
     color: #ed0077;
   }
 
-  /* リストの先頭に点出す */
-  & ul > li:before {
-    content: '\\025b7';
-    margin-right: 0.4rem;
+  /* 行頭記号分ずれるので調整 */
+  & ul {
+    padding-left: 16px;
   }
+
   & ul > li {
     margin-top: 0.4rem;
+    position: relative;
+
+    /* リストの先頭に点出す */
+    &::before {
+      content: '';
+      position: absolute;
+      width: 0;
+      height: 0;
+      border-top: solid 5px transparent;
+      border-left: solid 5px ${color.textBlack};
+      border-bottom: solid 5px transparent;
+      left: -8px;
+      top: calc(${fontSize.px16} / 2 - 4px);
+      margin-right: 4px;
+    }
   }
   & li > p {
     display: inline-block;
   }
 
-  /* 入れ子対応 */
-  & li > ul > li:before {
-    content: '\\025CB';
-    margin-right: 0.4rem;
+  & li > ul {
+    margin: 4px 0 0 16px;
   }
 
-  & li > ul {
-    margin: 0.4rem 0 0 2rem;
+  /* 入れ子対応 */
+  & li > ul > li {
+    position: relative;
+
+    &::before {
+      content: '';
+      display: inline-block;
+      position: absolute;
+      width: 4px;
+      height: 4px;
+      border: solid 1px ${color.textBlack};
+      border-radius: 50%;
+      margin-right: 4px;
+      top: calc(1.6rem / 2 - 2px);
+      left: -8px;
+    }
   }
 
   /* olの場合数字を出すようにする */
@@ -86,34 +115,33 @@ const MarkDownArticle = styled.div`
     display: block;
   }
 
+  /* 引用時のスタイル */
+  & blockquote {
+    margin: 4px 0 0 4px;
+    padding-left: 8px;
+    position: relative;
+    border-left: 2px solid ${color.borderGray};
+    color: ${color.textQuote};
+  }
+
+  /* インラインコードブロック */
+  & p > code {
+    background-color: ${color.bgCodeBlock};
+    color: ${color.textCodeBlock};
+    padding: 2px 4px;
+    border-radius: 4px;
+  }
+
   ${media.lessThan('small')`
-    & {
-        font-size: 1.4rem;
-    }
-    /* 要素ごとにスペースを開ける */
-    & > p, pre, ul, ol {
-        margin: 1.2rem 0;
-    }
-    /* タイトルの上下は文章部分よりも開ける */
-    & > h1, h2, h3 {
-        margin: 1.6rem 0;
-    }
-
-    /* 見出しのStyle */
-    & h1 {
-        font-size: 2.4rem;
-        font-weight: bolder;
-    }
-
-    & h2 {
-        font-size: 2rem;
-        font-weight: bolder;
-    }
-
-    & h3 {
-        font-size: 1.6rem;
-        font-weight: bolder;
-    }
+    margin-top: 20px;
+    font-size: ${fontSize.px16};
+    border-radius: 4px;
+    padding: 8px 12px;
+    
+      /* 行頭記号分ずれるので調整 */
+      & ul {
+        padding-left: 12px;
+      }
     
     /* 画像はみ出すのでリサイズ */
     & img {

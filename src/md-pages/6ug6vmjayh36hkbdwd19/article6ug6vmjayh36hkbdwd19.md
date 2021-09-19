@@ -6,7 +6,7 @@ tag: ["TypeScript"]
 thumbnailImage: "/images/ogp.png"
 ---
 
-# 概要
+# はじめに
 tsで書いたコードのテストにはjestを使っている今日この頃。  
 毎回雰囲気で使っていて事ある毎に調べているので改めてまとめておく。
 

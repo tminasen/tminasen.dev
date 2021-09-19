@@ -6,6 +6,7 @@ const Footer = styled.footer`
   align-items: center;
   flex-direction: column;
   background-color: #c8d1d6;
+  margin-top: 12px;
 `;
 const Small = styled.small`
   font-size: 1.2rem;

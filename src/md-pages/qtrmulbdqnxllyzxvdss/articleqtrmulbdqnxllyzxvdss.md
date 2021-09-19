@@ -6,7 +6,7 @@ tag: ["Angular", "NestJS", "Scully"]
 thumbnailImage: "/images/article/qtrmulbdqnxllyzxvdss/ssqtrmulbdqnxllyzxvdss.png"
 ---
 
-# 概要
+# はじめに
 Next.jsが流行っている今日この頃。  
 AngularでもScullyやnxを使えば簡単にSSG+APIの構成が作れるのでは？と思ったので試してみる。
 

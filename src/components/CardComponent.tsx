@@ -1,39 +1,31 @@
 import React from 'react';
 import styled from 'styled-components';
 import { DeepReadonly } from '../../types/utility';
-import {
-  bodyFontSize,
-  contentsBackgroundColor,
-  fontColor,
-  headerFontSize,
-} from '../styles/variable';
-import media from 'styled-media-query';
+import { color, fontSize, size } from '../styles/variable';
 import { Image } from './atoms/ImageComponent';
 import { ThumbnailImage } from '../../types/article';
 
 const Article = styled.article`
   display: flex;
   flex-direction: column;
-  width: 38.4rem;
+  width: ${size.cardImageWidth};
+  max-height: ${size.cardMaxHeight};
   border-radius: 10px;
-  background-color: ${contentsBackgroundColor.white};
+  background-color: ${color.bgWhite};
   box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
-  ${media.lessThan('small')`
-    width: 32rem;
-  `}
 `;
-const Title = styled.div`
-  font-size: ${headerFontSize.h1};
+const Title = styled.h1`
+  font-size: ${fontSize.h1};
   text-align: center;
   margin-top: 8px;
 `;
-const Description = styled.div`
-  font-size: ${bodyFontSize.medium};
+const Description = styled.p`
+  font-size: ${fontSize.px16};
   margin-top: 8px;
-  padding: 4px;
+  padding: 0 8px;
 `;
 const Link = styled.a`
-  color: ${fontColor.black};
+  color: ${color.textBlack};
   text-decoration: none;
 `;
 

@@ -5,44 +5,79 @@ import { PageTemplate } from '../../src/templates/PageTemplate';
 import { ArticleMetaData } from '../../types/article';
 import { Optional } from '../../types/utility';
 import styled from 'styled-components';
-import { contentsBackgroundColor } from '../../src/styles/variable';
+import { color, fontSize } from '../../src/styles/variable';
 import media from 'styled-media-query';
 import { TwitterShareButton } from '../../src/components/atoms/TwitterShareButton';
 import { GithubArticleButton } from '../../src/components/atoms/GithubArticleButton';
 import { MdTemplate } from '../../src/templates/MdTemplate';
+import { LinkComponent } from '../../src/components/atoms/LinkComponent';
 
 export const config = { amp: true };
-
-const Article = styled.article``;
-const TitleWrapper = styled.div`
-  background-color: ${contentsBackgroundColor.white};
-  border-radius: 1rem;
-  padding: 0.2rem 0.4rem;
-  margin: 0 0 1.6rem 0;
-`;
-const TitleSubWrapper = styled.div`
-  display: flex;
-  align-items: center;
-`;
-const ArticleTitle = styled.h1`
-  font-size: 2.8rem;
-  font-weight: bolder;
-  margin: 0 0 0.8rem 0;
-  ${media.lessThan('small')`
-    font-size: 2rem;
-  `}
-`;
-const ArticleDate = styled.time`
-  font-size: 1.6rem;
-  ${media.lessThan('small')`
-    font-size: 1.2rem;
-  `}
-`;
 
 interface Props {
   id: string;
   articleMetaData: ArticleMetaData[];
 }
+
+const Article = styled.article`
+  max-width: 980px;
+  display: flex;
+  flex-direction: column;
+  margin: 0 auto;
+  ${media.lessThan('small')`
+    max-width: 372px;
+  `}
+`;
+const TitleWrapper = styled.div`
+  background-color: ${color.bgWhite};
+  border-radius: 4px;
+  padding: 0 16px;
+  ${media.lessThan('small')`
+    padding: 0 12px;
+  `}
+`;
+const ArticleTitle = styled.h1`
+  font-size: ${fontSize.px28};
+  font-weight: bolder;
+  line-height: 1.5;
+  ${media.lessThan('small')`
+    font-size: ${fontSize.px24}
+  `}
+`;
+const ArticleDate = styled.time`
+  display: block;
+  margin-top: 4px;
+  font-size: ${fontSize.px14};
+  line-height: 1.5;
+`;
+const TagList = styled.ul`
+  display: flex;
+  align-items: center;
+  margin-top: 4px;
+`;
+const TagListItem = styled.li`
+  border: solid 1px ${color.borderBlack};
+  border-radius: 30px;
+  font-size: ${fontSize.px14};
+  line-height: 1.5;
+  padding: 0 4px;
+  & + & {
+    margin-left: 4px;
+  }
+`;
+const SnsLink = styled.div`
+  margin-top: 8px;
+`;
+
+const TagLink = ({ tag }: { tag: string }): JSX.Element => {
+  return (
+    <TagListItem>
+      <LinkComponent url={`/tags/${tag}`} color="black">
+        {tag}
+      </LinkComponent>
+    </TagListItem>
+  );
+};
 
 const articlePage = ({ id, articleMetaData }: Props) => {
   const targetMetaData: Optional<ArticleMetaData> = articleMetaData.filter(
@@ -52,20 +87,31 @@ const articlePage = ({ id, articleMetaData }: Props) => {
     return null;
   }
   return (
-    <PageTemplate title={targetMetaData.title} metaData={articleMetaData} isEnableViewPort={false} canonicalPath={articleMetaData[0]?.path}>
+    <PageTemplate
+      title={targetMetaData.title}
+      isEnableViewPort={false}
+      isHiddenMenu={true}
+      canonicalPath={targetMetaData.path}
+      ogType="article"
+    >
       <Article>
         <TitleWrapper>
           <ArticleTitle>{targetMetaData.title}</ArticleTitle>
-          <TitleSubWrapper>
-            <ArticleDate>{targetMetaData.date}</ArticleDate>
-          </TitleSubWrapper>
+          <TagList>
+            {targetMetaData.tag.map(t => (
+              <TagLink tag={t} />
+            ))}
+          </TagList>
+          <ArticleDate>{targetMetaData.date}</ArticleDate>
         </TitleWrapper>
         <MdTemplate html={targetMetaData.html} />
-        <TwitterShareButton
-          title={targetMetaData.title}
-          path={targetMetaData.path}
-        />
-        <GithubArticleButton path={targetMetaData.path} />
+        <SnsLink>
+          <TwitterShareButton
+            title={targetMetaData.title}
+            path={targetMetaData.path}
+          />
+          <GithubArticleButton path={targetMetaData.path} />
+        </SnsLink>
       </Article>
     </PageTemplate>
   );

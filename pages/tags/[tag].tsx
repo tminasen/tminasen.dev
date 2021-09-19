@@ -1,7 +1,7 @@
 import React from 'react';
 import { GetStaticPaths, GetStaticProps } from 'next';
 import styled from 'styled-components';
-import { fontColor } from '../../src/styles/variable';
+import { color } from '../../src/styles/variable';
 import media from 'styled-media-query';
 import { PageTemplate } from '../../src/templates/PageTemplate';
 import { getArticleMetaData } from '../../src/libraries/articles';
@@ -14,27 +14,8 @@ interface Props {
   articleMetaData: ArticleMetaData[];
 }
 
-export const getStaticPaths: GetStaticPaths = async () => {
-  const metaData = await getArticleMetaData();
-  const tagList: string[] = metaData
-    .map(data => data.tag)
-    .reduce((pre, cur) => [...pre, ...cur], []);
-  const paths: string[] = Array.from(new Set(tagList)).map(
-    tag => `/tags/${tag}`,
-  );
-  return { paths, fallback: false };
-};
-export const getStaticProps: GetStaticProps = async ({ params }) => {
-  const tagName = params?.tag;
-  if (tagName == null || Array.isArray(tagName)) {
-    return { props: { tagName: null, articleMetaData: [] } };
-  }
-  const articleMetaData: ArticleMetaData[] = await getArticleMetaData();
-  return { props: { tagName, articleMetaData } };
-};
-
 const PageTitle = styled.h1`
-  color: ${fontColor.black};
+  color: ${color.textBlack};
   font-size: 2.8rem;
   margin-bottom: 1.5rem;
   ${media.lessThan('small')`
@@ -50,7 +31,7 @@ const ArticleListItem = styled.li`
   margin-bottom: 2rem;
 `;
 const ArticleWrapper = styled.section`
-  color: ${fontColor.black};
+  color: ${color.textBlack};
 `;
 const ArticleTitle = styled.h1`
   font-size: 2.4rem;
@@ -151,7 +132,13 @@ const getArticles = (
 
 const tagPage: React.FC<Props> = ({ tagName, articleMetaData }) => {
   return (
-    <PageTemplate title={`${tagName}の記事一覧`} metaData={articleMetaData} isEnableViewPort={true} canonicalPath={`/tags/${tagName}`}>
+    <PageTemplate
+      title={`${tagName}の記事一覧`}
+      isEnableViewPort={true}
+      isHiddenMenu={false}
+      canonicalPath={`/tags/${tagName}`}
+      ogType="website"
+    >
       <article>
         <PageTitle>{tagName}の記事一覧</PageTitle>
         {getArticles(tagName, articleMetaData)}
@@ -160,3 +147,22 @@ const tagPage: React.FC<Props> = ({ tagName, articleMetaData }) => {
   );
 };
 export default tagPage;
+
+export const getStaticPaths: GetStaticPaths = async () => {
+  const metaData = await getArticleMetaData();
+  const tagList: string[] = metaData
+    .map(data => data.tag)
+    .reduce((pre, cur) => [...pre, ...cur], []);
+  const paths: string[] = Array.from(new Set(tagList)).map(
+    tag => `/tags/${tag}`,
+  );
+  return { paths, fallback: false };
+};
+export const getStaticProps: GetStaticProps = async ({ params }) => {
+  const tagName = params?.tag;
+  if (tagName == null || Array.isArray(tagName)) {
+    return { props: { tagName: null, articleMetaData: [] } };
+  }
+  const articleMetaData: ArticleMetaData[] = await getArticleMetaData();
+  return { props: { tagName, articleMetaData } };
+};

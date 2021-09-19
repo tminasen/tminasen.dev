@@ -1,8 +1,7 @@
 import React from 'react';
 import Link from 'next/link';
 import styled from 'styled-components';
-import { fontColor } from '../../styles/variable';
-
+import { color } from '../../styles/variable';
 export type LinkColor = 'white' | 'black';
 
 interface Props {
@@ -14,16 +13,16 @@ const StyledLink = styled.a<{ linkColor: LinkColor }>`
   color: ${({ linkColor }) => getLinkColor(linkColor)};
   text-decoration: none;
 `;
-const getLinkColor = (color: LinkColor): string => {
-  switch (color) {
+const getLinkColor = (linkColor: LinkColor): string => {
+  switch (linkColor) {
     case 'white':
-      return fontColor.white;
+      return color.textWhite;
     case 'black':
-      return fontColor.black;
+      return color.textBlack;
     default:
-      const _invalidColor: never = color;
+      const _invalidColor: never = linkColor;
       console.error(`${_invalidColor} is invalid.`);
-      return color;
+      return linkColor;
   }
 };
 

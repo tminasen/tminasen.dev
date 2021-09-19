@@ -42,6 +42,25 @@ export async function getArticleMetaData(): Promise<ArticleMetaData[]> {
 }
 
 /**
+ * metaDataからタグと件数を取得する
+ * @param articleMetaData
+ */
+export function getTagCount(articleMetaData: ArticleMetaData[]): TagCount {
+  return (
+    articleMetaData
+      .map(data => data.tag)
+      .flat()
+      // .reduce((pre, cur) => [...pre, ...cur], [])
+      .reduce((result: TagCount, tag, _, list) => {
+        if (result[tag] == undefined) {
+          result[tag] = list.filter(i => i === tag).length;
+        }
+        return result;
+      }, {})
+  );
+}
+
+/**
  * 記事毎のタグ数から表示に必要なデータに整形する
  * @param tagCount 記事毎のタグ数
  * @returns {
@@ -114,4 +133,8 @@ function sortArticleDescDate(a: ArticleMetaData, b: ArticleMetaData) {
  */
 function sortTagDescArticleCount(a: Tag, b: Tag) {
   return b.articleCount - a.articleCount;
+}
+
+function flatten<T>(deepList: T[][]): T[] {
+  return deepList.reduce((pre, cur) => [...pre, ...cur], []);
 }
