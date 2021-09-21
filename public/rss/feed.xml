@@ -1,0 +1,191 @@
+<?xml version="1.0" encoding="utf-8"?>
+<rss version="2.0">
+    <channel>
+        <title>水無瀬のプログラミング日記feed</title>
+        <link>https://tminasen.dev</link>
+        <description>水無瀬のプログラミング日記のfeed</description>
+        <lastBuildDate>Tue, 21 Sep 2021 13:50:17 GMT</lastBuildDate>
+        <docs>https://validator.w3.org/feed/docs/rss2.html</docs>
+        <generator>https://github.com/jpmonette/feed</generator>
+        <language>ja</language>
+        <image>
+            <title>水無瀬のプログラミング日記feed</title>
+            <url>https://tminasen.dev/images/ogp.png</url>
+            <link>https://tminasen.dev</link>
+        </image>
+        <copyright>All rights reserved 2021, tminasen</copyright>
+        <item>
+            <title><![CDATA[Next.js+linariaを試してみる]]></title>
+            <link>https://tminasen.dev/blog/b33f8b2ef5e73ea3f219daff5952b3</link>
+            <guid>https://tminasen.dev/blog/b33f8b2ef5e73ea3f219daff5952b3</guid>
+            <pubDate>Sat, 18 Sep 2021 00:00:00 GMT</pubDate>
+            <description><![CDATA[
+はじめに
+
+linariaを使ってみたかったのでNextjsと一緒に使ってみる。
+
+TL;DR
+
+今回のコード
+
+前提
+
+`create-next-app  --ts`でNext.jsのテンプレートが出来上がっている状態。
+
+インストール
+
+必要なライブラリ…]]></description>
+            <enclosure url="https://tminasen.dev/images/article/b33f8b2ef5e73ea3f219daff5952b3/b33f8b2ef5e73ea3f219daff5952b3-1.png" length="0" type="image/png"/>
+        </item>
+        <item>
+            <title><![CDATA[Reactでa11y検証ツールを試してみる]]></title>
+            <link>https://tminasen.dev/blog/f577388af27e01f70f2093db050e44</link>
+            <guid>https://tminasen.dev/blog/f577388af27e01f70f2093db050e44</guid>
+            <pubDate>Sun, 11 Jul 2021 00:00:00 GMT</pubDate>
+            <description><![CDATA[
+はじめに
+a11yを意識し始めた今日このごろ。  
+なんとなくこうした方が良いと言うのはわかるものの素人目線でしかないため、a11yを検証してくれるツールを導入し改善をできるようにしていきたい。  
+そこで今回はどのようなツールがあり、使い勝手はどんなもんか…]]></description>
+            <enclosure url="https://tminasen.dev/images/article/f577388af27e01f70f2093db050e44/ssf577388af27e01f70f2093db050e44-3.png" length="0" type="image/png"/>
+        </item>
+        <item>
+            <title><![CDATA[JSで画像を扱うときのメモ]]></title>
+            <link>https://tminasen.dev/blog/11c2a153a6dce58dd93fc2d0a364fe</link>
+            <guid>https://tminasen.dev/blog/11c2a153a6dce58dd93fc2d0a364fe</guid>
+            <pubDate>Sun, 06 Jun 2021 00:00:00 GMT</pubDate>
+            <description><![CDATA[
+はじめに
+jsで画像を扱おうと思い調べ直したのでまとめる。
+
+TL;DR.
+今回書いたコード
+
+準備
+Reactで試すのでプロジェクト作るところから。
+
+```bash
+$ npx create-react-app image-sample --templa…]]></description>
+            <enclosure url="https://tminasen.dev/images/ogp.png" length="0" type="image/png"/>
+        </item>
+        <item>
+            <title><![CDATA[Recoilことはじめ]]></title>
+            <link>https://tminasen.dev/blog/d6f6d3ab551ced8d819c9170ff05a7</link>
+            <guid>https://tminasen.dev/blog/d6f6d3ab551ced8d819c9170ff05a7</guid>
+            <pubDate>Sat, 13 Mar 2021 00:00:00 GMT</pubDate>
+            <description><![CDATA[はじめに
+Recoilが気になっていた今日このごろ。  
+気になった時が触りどきなので試してみる回。
+
+TL;DR.
+コード
+
+導入
+```bash
+$ npx create-react-app recoil-tutorial
+$ cd recoil-tuto…]]></description>
+            <enclosure url="https://tminasen.dev/images/article/d6f6d3ab551ced8d819c9170ff05a7/ssd6f6d3ab551ced8d819c9170ff05a7-2.png" length="0" type="image/png"/>
+        </item>
+        <item>
+            <title><![CDATA[Angular+TailwindCSSを試してみる]]></title>
+            <link>https://tminasen.dev/blog/wx1t6emdfmmj0ctrokgu</link>
+            <guid>https://tminasen.dev/blog/wx1t6emdfmmj0ctrokgu</guid>
+            <pubDate>Fri, 12 Feb 2021 00:00:00 GMT</pubDate>
+            <description><![CDATA[はじめに
+Angularがv11.2くらいでTailwindCSSに対応したそうなので試してみる回。  
+前にちょろっと試したときは特にTailwindCSSの良さに気づけなかったので改めてちゃんと触る。
+
+TL;DR.
+コード
+
+セットアップ
+Angular…]]></description>
+            <enclosure url="https://tminasen.dev/images/article/wx1t6emdfmmj0ctrokgu/sswx1t6emdfmmj0ctrokgu-2.png" length="0" type="image/png"/>
+        </item>
+        <item>
+            <title><![CDATA[Jest再入門]]></title>
+            <link>https://tminasen.dev/blog/6ug6vmjayh36hkbdwd19</link>
+            <guid>https://tminasen.dev/blog/6ug6vmjayh36hkbdwd19</guid>
+            <pubDate>Thu, 11 Feb 2021 00:00:00 GMT</pubDate>
+            <description><![CDATA[
+はじめに
+tsで書いたコードのテストにはjestを使っている今日この頃。  
+毎回雰囲気で使っていて事ある毎に調べているので改めてまとめておく。
+
+TL;DR.
+コード;
+
+導入
+yarn + typescriptの前提。  
+それぞれの導入方法については割…]]></description>
+            <enclosure url="https://tminasen.dev/images/ogp.png" length="0" type="image/png"/>
+        </item>
+        <item>
+            <title><![CDATA[markdown内の画像をamp-img対応メモ]]></title>
+            <link>https://tminasen.dev/blog/jzle6s7y8qa1gscz9ecv</link>
+            <guid>https://tminasen.dev/blog/jzle6s7y8qa1gscz9ecv</guid>
+            <pubDate>Thu, 04 Feb 2021 00:00:00 GMT</pubDate>
+            <description><![CDATA[
+はじめに
+Next.jsでブログを作ってた今日このごろ。  
+markdownからhtmlを生成するブログでamp対応したかったのだが、  
+markdown内画像がimgタグに変換されてしまうのでamp-imgに変換する対応をした話。
+
+TL:DR.
+コー…]]></description>
+            <enclosure url="https://tminasen.dev/images/ogp.png" length="0" type="image/png"/>
+        </item>
+        <item>
+            <title><![CDATA[NestJS+Angular+Scullyを試してみる]]></title>
+            <link>https://tminasen.dev/blog/qtrmulbdqnxllyzxvdss</link>
+            <guid>https://tminasen.dev/blog/qtrmulbdqnxllyzxvdss</guid>
+            <pubDate>Wed, 20 Jan 2021 00:00:00 GMT</pubDate>
+            <description><![CDATA[
+はじめに
+Next.jsが流行っている今日この頃。  
+AngularでもScullyやnxを使えば簡単にSSG+APIの構成が作れるのでは？と思ったので試してみる。
+
+セットアップ
+NestJS+Angularの準備
+nxを使ってNestJS+Angula…]]></description>
+            <enclosure url="https://tminasen.dev/images/article/qtrmulbdqnxllyzxvdss/ssqtrmulbdqnxllyzxvdss.png" length="0" type="image/png"/>
+        </item>
+        <item>
+            <title><![CDATA[Next.jsでmdxを使ってみる]]></title>
+            <link>https://tminasen.dev/blog/jqf7kbw04vsagabl5mhq</link>
+            <guid>https://tminasen.dev/blog/jqf7kbw04vsagabl5mhq</guid>
+            <pubDate>Mon, 28 Dec 2020 00:00:00 GMT</pubDate>
+            <description><![CDATA[
+はじめに
+mdxが気になっていた今日このごろ。  
+`Next.js`と一緒に使ってブログとか作れたら面白そうと思ったので、  
+Next.jsでmdxを使えるところまで試してみる。
+
+TL;DR.
+- ソースコード
+
+mdxとは
+> MDX is an a…]]></description>
+            <enclosure url="https://tminasen.dev/images/article/jqf7kbw04vsagabl5mhq/ssjqf7kbw04vsagabl5mhq-3.png" length="0" type="image/png"/>
+        </item>
+        <item>
+            <title><![CDATA[Next.js事始め]]></title>
+            <link>https://tminasen.dev/blog/c8nsbkvrndwzjdapcetj</link>
+            <guid>https://tminasen.dev/blog/c8nsbkvrndwzjdapcetj</guid>
+            <pubDate>Fri, 13 Nov 2020 00:00:00 GMT</pubDate>
+            <description><![CDATA[はじめに
+ずっと触ろうと思って触っていなかったNextを触ってみる。 
+今回は基本チュートリアルに沿って進めいく。
+
+TL;DR.
+ソースコード
+
+テンプレ作成
+CLIで作成。
+
+```bash
+$ npx create-next-app next-sampl…]]></description>
+            <enclosure url="https://tminasen.dev/images/article/c8nsbkvrndwzjdapcetj/ssc8nsbkvrndwzjdapcetj.png" length="0" type="image/png"/>
+        </item>
+    </channel>
+</rss>

@@ -2,7 +2,7 @@
 /node_modules
 /.pnp
 .pnp.js
-/scripts/target
+/scripts/article-scripts/target
 
 # testing
 /coverage
@@ -37,5 +37,3 @@ yarn-error.log*
 
 # cache
 /.cache
-
-/out

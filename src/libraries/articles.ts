@@ -8,12 +8,12 @@ import {
   TagCount,
 } from '../../types/article';
 import { markdown2Html, removeTags } from './markdown';
-import { parseStringDate } from './data';
+import { parseStringDate } from './date';
 import { getImageSize } from './image';
 
 /**
- * 記事の概要表示に必要なデータを取得する
- * @return {@see MarkdownMetaData}
+ * 記事の概要表示に必要なデータを更新日降順で取得する
+ * @return @see {@link MarkdownMetaData}
  */
 export async function getArticleMetaData(): Promise<ArticleMetaData[]> {
   const mdPagePath: string = path.join(process.cwd(), 'src/md-pages');
@@ -25,6 +25,9 @@ export async function getArticleMetaData(): Promise<ArticleMetaData[]> {
     const file: string | undefined = files.filter(file =>
       file.endsWith('.md'),
     )[0];
+    if (file === undefined) {
+      throw new Error(`file is required. articleDirPath: ${articleDirPath}`);
+    }
     const fileDetail = fs.readFileSync(
       path.join(mdPagePath, articleDir, file),
       'utf8',
@@ -46,18 +49,15 @@ export async function getArticleMetaData(): Promise<ArticleMetaData[]> {
  * @param articleMetaData
  */
 export function getTagCount(articleMetaData: ArticleMetaData[]): TagCount {
-  return (
-    articleMetaData
-      .map(data => data.tag)
-      .flat()
-      // .reduce((pre, cur) => [...pre, ...cur], [])
-      .reduce((result: TagCount, tag, _, list) => {
-        if (result[tag] == undefined) {
-          result[tag] = list.filter(i => i === tag).length;
-        }
-        return result;
-      }, {})
-  );
+  return articleMetaData
+    .map(data => data.tag)
+    .flat()
+    .reduce((result: TagCount, tag, _, list) => {
+      if (result[tag] == undefined) {
+        result[tag] = list.filter(i => i === tag).length;
+      }
+      return result;
+    }, {});
 }
 
 /**
@@ -82,9 +82,7 @@ export function convertTagList(tagCount: TagCount): Tag[] {
 }
 
 async function convertArticleMetaData(
-  data: {
-    [key: string]: any;
-  },
+  data: Record<string, any>,
   context: string,
 ): Promise<ArticleMetaData | undefined> {
   if (!isArticleMetaData(data)) {
@@ -133,8 +131,4 @@ function sortArticleDescDate(a: ArticleMetaData, b: ArticleMetaData) {
  */
 function sortTagDescArticleCount(a: Tag, b: Tag) {
   return b.articleCount - a.articleCount;
-}
-
-function flatten<T>(deepList: T[][]): T[] {
-  return deepList.reduce((pre, cur) => [...pre, ...cur], []);
 }
