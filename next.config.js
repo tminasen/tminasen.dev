@@ -1,10 +1,6 @@
 module.exports = {
-  webpack: (config, { isServer }) => {
-    if (!isServer) {
-      config.node = {
-        fs: 'empty',
-      };
-    }
+  swcMinify: true,
+  webpack: (config) => {
     return config;
   },
 };

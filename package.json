@@ -4,40 +4,6 @@
   "description": "blog built with Next.js",
   "version": "2.0.0",
   "author": "tminasen",
-  "dependencies": {
-    "@mapbox/rehype-prism": "^0.5.0",
-    "gray-matter": "^4.0.2",
-    "image-size": "^0.9.3",
-    "next": "latest",
-    "prism-react-renderer": "^1.1.1",
-    "prismjs": "^1.21.0",
-    "prop-types": "^15.7.2",
-    "react": "^16.12.0",
-    "react-dom": "^16.12.0",
-    "react-helmet": "^6.1.0",
-    "rehype": "^11.0.0",
-    "rehype-stringify": "^8.0.0",
-    "remark": "^13.0.0",
-    "remark-html": "^13.0.1",
-    "remark-parse": "^9.0.0",
-    "remark-rehype": "^8.0.0",
-    "styled-components": "^5.1.1",
-    "styled-media-query": "^2.1.2",
-    "typescript": "4.0",
-    "unified": "^9.2.0"
-  },
-  "devDependencies": {
-    "@types/node": "^14.0.27",
-    "@types/react": "^16.9.44",
-    "@types/react-dom": "^16.9.8",
-    "@types/react-helmet": "^6.1.0",
-    "@types/styled-components": "^5.1.2",
-    "feed": "^4.2.2",
-    "prettier": "2.0.5",
-    "raw-loader": "^4.0.2",
-    "ts-node": "^10.2.1"
-  },
-  "license": "MIT",
   "scripts": {
     "build": "next build && next export",
     "dev": "next",
@@ -48,7 +14,38 @@
     "generate:rss": "ts-node --project ./scripts/tsconfig.scripts.json ./scripts/generate-rss/GenerateRss.ts",
     "type-check": "tsc"
   },
-  "resolutions": {
-    "sharp": "0.27.0"
-  }
+  "dependencies": {
+    "@mapbox/rehype-prism": "^0.8.0",
+    "gray-matter": "^4.0.3",
+    "image-size": "^1.0.1",
+    "next": "12",
+    "prism-react-renderer": "^1.3.3",
+    "prismjs": "^1.28.0",
+    "prop-types": "^15.8.1",
+    "react": "^18.1.0",
+    "react-dom": "^18.1.0",
+    "react-helmet": "^6.1.0",
+    "rehype": "^12.0.1",
+    "rehype-stringify": "^9.0.3",
+    "remark": "^14.0.2",
+    "remark-html": "^15.0.1",
+    "remark-parse": "^10.0.1",
+    "remark-rehype": "^10.1.0",
+    "styled-components": "^5.3.5",
+    "styled-media-query": "^2.1.2",
+    "typescript": "4.6",
+    "unified": "^10.1.2"
+  },
+  "devDependencies": {
+    "@types/node": "^17.0.35",
+    "@types/react": "^18.0.9",
+    "@types/react-dom": "^18.0.4",
+    "@types/react-helmet": "^6.1.5",
+    "@types/styled-components": "^5.1.25",
+    "feed": "^4.2.2",
+    "prettier": "2.6.2",
+    "raw-loader": "^4.0.2",
+    "ts-node": "^10.7.0"
+  },
+  "license": "MIT"
 }
