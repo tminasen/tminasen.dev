@@ -7,7 +7,7 @@ export type LinkColor = 'white' | 'black';
 interface Props {
   url: string;
   color: LinkColor;
-  children: React.ReactNode
+  children: React.ReactNode;
 }
 
 const StyledLink = styled.a<{ linkColor: LinkColor }>`

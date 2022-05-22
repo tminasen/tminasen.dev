@@ -1,13 +1,13 @@
 import React from 'react';
 import { GetStaticPaths, GetStaticProps } from 'next';
 import styled from 'styled-components';
-import { color } from '../../src/styles/variable';
+import { color } from '../../styles/variable';
 import media from 'styled-media-query';
-import { PageTemplate } from '../../src/templates/PageTemplate';
-import { getArticleMetaData } from '../../src/libraries/articles';
-import { ArticleMetaData } from '../../types/article';
-import { LinkComponent } from '../../src/components/atoms/LinkComponent';
-import { Image } from '../../src/components/atoms/ImageComponent';
+import { PageTemplate } from '../../templates/PageTemplate';
+import { getArticleMetaData } from '../../libraries/articles';
+import { ArticleMetaData } from '../../../types/article';
+import { LinkComponent } from '../../components/atoms/LinkComponent';
+import { Image } from '../../components/atoms/ImageComponent';
 
 interface Props {
   tagName: string;

@@ -43,7 +43,7 @@ export const GithubArticleButton: React.FC<Props> = ({ path }) => {
   }
   return (
     <GithubButtonWrapper>
-      <GithubButton href={buttonLink} title="Githubリンク">
+      <GithubButton href={buttonLink} title="Githubリンク" target="_blank">
         {/* amp-imgが怒られるので一旦回避 */}
         {/* @ts-expect-error */}
         <amp-img

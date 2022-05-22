@@ -1,6 +1,6 @@
 import React from 'react';
-import '../src/index.css';
-import '../src/styles/highlight/prism.css';
+import '../index.css';
+import '../styles/highlight/prism.css';
 import { AppProps } from 'next/app';
 
 export default function MyApp({ Component, pageProps }: AppProps) {

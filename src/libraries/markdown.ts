@@ -42,11 +42,13 @@ export async function markdown2Html(markdownText: string): Promise<any> {
  * imgタグにwidthとheightを指定する
  */
 function setImageSize() {
-  return function(node: any, vfile: any, done: any) {
+  return function (node: any, vfile: any, done: any) {
     const children = node.children.map((child: any) => {
       // 画像のサイズ指定
       if (child.type === 'element' && child.tagName === 'p') {
-        const image = child.children.find((c: any) => c.type === 'element' && c.tagName === 'img');
+        const image = child.children.find(
+          (c: any) => c.type === 'element' && c.tagName === 'img',
+        );
         if (!image) {
           return child;
         }
@@ -62,8 +64,8 @@ function setImageSize() {
             width: imageSize.pc.width,
             height: imageSize.pc.height,
             media: '(min-width: 451px)',
-            fallback: true
-          }
+            fallback: true,
+          },
         };
         const fallbackImageSp = {
           ...image,
@@ -73,8 +75,8 @@ function setImageSize() {
             width: imageSize.sp.width,
             height: imageSize.sp.height,
             media: '(max-width: 450px)',
-            fallback: true
-          }
+            fallback: true,
+          },
         };
         // webp用のamp-img作成
         const webpImage = {
@@ -86,9 +88,9 @@ function setImageSize() {
             alt: imageAlt,
             width: imageSize.pc.width,
             height: imageSize.pc.height,
-            media: '(min-width: 451px)'
-          }
-        };  
+            media: '(min-width: 451px)',
+          },
+        };
         const webpImageSp = {
           type: 'element',
           tagName: 'amp-img',
@@ -98,15 +100,21 @@ function setImageSize() {
             alt: imageAlt,
             width: imageSize.sp.width,
             height: imageSize.sp.height,
-            media: '(max-width: 450px)'
-          }
+            media: '(max-width: 450px)',
+          },
         };
         // webp込のデータ使うので今あるimgは削除
-        child.children = [...child.children.filter((c:any) => c.type !== 'element' && c.tagName !== 'img'), webpImage, webpImageSp];
+        child.children = [
+          ...child.children.filter(
+            (c: any) => c.type !== 'element' && c.tagName !== 'img',
+          ),
+          webpImage,
+          webpImageSp,
+        ];
       }
       return child;
     });
     node.children = children;
     done();
-  }
+  };
 }

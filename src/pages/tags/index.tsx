@@ -1,16 +1,16 @@
 import React from 'react';
-import { PageTemplate } from '../../src/templates/PageTemplate';
+import { PageTemplate } from '../../templates/PageTemplate';
 import styled from 'styled-components';
-import { color, fontSize } from '../../src/styles/variable';
+import { color, fontSize } from '../../styles/variable';
 import media from 'styled-media-query';
 import { GetStaticProps } from 'next';
-import { ArticleMetaData, Tag } from '../../types/article';
+import { ArticleMetaData, Tag } from '../../../types/article';
 import {
   convertTagList,
   getArticleMetaData,
   getTagCount,
-} from '../../src/libraries/articles';
-import { LinkComponent } from '../../src/components/atoms/LinkComponent';
+} from '../../libraries/articles';
+import { LinkComponent } from '../../components/atoms/LinkComponent';
 
 interface Props {
   tagList: Tag[];

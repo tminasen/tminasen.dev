@@ -1,6 +1,6 @@
 module.exports = {
   swcMinify: true,
-  webpack: (config) => {
-    return config;
+  compiler: {
+    styledComponents: true,
   },
 };

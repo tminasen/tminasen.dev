@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import media from 'styled-media-query';
-import { PageTemplate } from '../src/templates/PageTemplate';
+import { PageTemplate } from '../templates/PageTemplate';
 
 const Heading = styled.h1`
   font-size: 2.4rem;

@@ -21,8 +21,8 @@ const MarkDownArticle = styled.div`
 
   /* 本文はタイトルより下げる＋見出しにくっつくので余白調整 */
   & > p {
-    margin: 4px 0 0 4px;
-    line-height: 1.2;
+    margin-left: 8px;
+    line-height: 1.5;
   }
 
   /* 見出しのStyle */
@@ -30,6 +30,9 @@ const MarkDownArticle = styled.div`
     font-size: ${fontSize.px24};
     font-weight: bolder;
     line-height: 1.5;
+    &:not(:first-child) {
+      margin-top: 12px;
+    }
   }
   & h2 {
     font-size: ${fontSize.px20};
@@ -57,7 +60,7 @@ const MarkDownArticle = styled.div`
   }
 
   & ul > li {
-    margin-top: 0.4rem;
+    margin-top: 8px;
     position: relative;
 
     /* リストの先頭に点出す */
@@ -117,8 +120,9 @@ const MarkDownArticle = styled.div`
 
   /* 引用時のスタイル */
   & blockquote {
-    margin: 4px 0 0 4px;
+    margin-left: 8px;
     padding-left: 8px;
+    line-height: 1.5;
     position: relative;
     border-left: 2px solid ${color.borderGray};
     color: ${color.textQuote};
@@ -130,6 +134,10 @@ const MarkDownArticle = styled.div`
     color: ${color.textCodeBlock};
     padding: 2px 4px;
     border-radius: 4px;
+  }
+
+  & pre {
+    margin-left: 8px;
   }
 
   ${media.lessThan('small')`

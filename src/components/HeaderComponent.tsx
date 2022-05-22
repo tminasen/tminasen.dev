@@ -116,6 +116,7 @@ const LinkItem = styled.li`
 const LinkText = styled.span`
   font-size: ${fontSize.px32};
   font-weight: 700;
+  text-decoration: underline;
   ${media.lessThan('small')`
     font-size: ${fontSize.px24};
   `}

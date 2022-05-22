@@ -29,7 +29,7 @@ interface ImageProps {
 }
 
 const StyledImage = styled.img<ImageProps>`
-  ${({isRounded}) => isRounded ? `border-radius: 10px 10px 0 0;` : ''}
+  ${({ isRounded }) => (isRounded ? `border-radius: 10px 10px 0 0;` : '')}
   width: ${({ styledWidth: { pc } }) => pc}px;
   height: ${({ styledHeight: { pc } }) => pc}px;
   ${media.lessThan<ImageProps>('small')`
@@ -38,13 +38,16 @@ const StyledImage = styled.img<ImageProps>`
   `}
 `;
 
-export const Image: React.FC<Props> = ({ imageSrc, isRounded, alt, width, height }) => {
+export const Image: React.FC<Props> = ({
+  imageSrc,
+  isRounded,
+  alt,
+  width,
+  height,
+}) => {
   return (
     <picture>
-      <source
-        type="image/webp"
-        srcSet={imageSrc.replace(/\.png$/, '.webp')}
-      />
+      <source type="image/webp" srcSet={imageSrc.replace(/\.png$/, '.webp')} />
       <StyledImage
         src={imageSrc}
         alt={alt}

@@ -1,16 +1,16 @@
 import React from 'react';
 import { GetStaticPaths, GetStaticProps } from 'next';
-import { getArticleMetaData } from '../../src/libraries/articles';
-import { PageTemplate } from '../../src/templates/PageTemplate';
-import { ArticleMetaData } from '../../types/article';
-import { Optional } from '../../types/utility';
+import { getArticleMetaData } from '../../libraries/articles';
+import { PageTemplate } from '../../templates/PageTemplate';
+import { ArticleMetaData } from '../../../types/article';
+import { Optional } from '../../../types/utility';
 import styled from 'styled-components';
-import { color, fontSize } from '../../src/styles/variable';
+import { color, fontSize } from '../../styles/variable';
 import media from 'styled-media-query';
-import { TwitterShareButton } from '../../src/components/atoms/TwitterShareButton';
-import { GithubArticleButton } from '../../src/components/atoms/GithubArticleButton';
-import { MdTemplate } from '../../src/templates/MdTemplate';
-import { LinkComponent } from '../../src/components/atoms/LinkComponent';
+import { TwitterShareButton } from '../../components/atoms/TwitterShareButton';
+import { GithubArticleButton } from '../../components/atoms/GithubArticleButton';
+import { MdTemplate } from '../../templates/MdTemplate';
+import { LinkComponent } from '../../components/atoms/LinkComponent';
 
 export const config = { amp: true };
 
@@ -31,9 +31,9 @@ const Article = styled.article`
 const TitleWrapper = styled.div`
   background-color: ${color.bgWhite};
   border-radius: 4px;
-  padding: 0 16px;
+  padding: 4px 16px;
   ${media.lessThan('small')`
-    padding: 0 12px;
+    padding: 4px 12px;
   `}
 `;
 const ArticleTitle = styled.h1`
@@ -47,7 +47,7 @@ const ArticleTitle = styled.h1`
 const ArticleDate = styled.time`
   display: block;
   margin-top: 4px;
-  font-size: ${fontSize.px14};
+  font-size: ${fontSize.px16};
   line-height: 1.5;
 `;
 const TagList = styled.ul`
@@ -58,9 +58,9 @@ const TagList = styled.ul`
 const TagListItem = styled.li`
   border: solid 1px ${color.borderBlack};
   border-radius: 30px;
-  font-size: ${fontSize.px14};
+  font-size: ${fontSize.px16};
   line-height: 1.5;
-  padding: 0 4px;
+  padding: 0 8px;
   & + & {
     margin-left: 4px;
   }
