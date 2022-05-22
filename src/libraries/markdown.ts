@@ -3,6 +3,7 @@ import remarkParse from 'remark-parse';
 import remark2rehype from 'remark-rehype';
 import html from 'rehype-stringify';
 import { getImageSize } from './image';
+
 const rehypePrism = require('@mapbox/rehype-prism');
 
 /**
@@ -33,6 +34,7 @@ export async function markdown2Html(markdownText: string): Promise<any> {
     .use(remark2rehype)
     .use(rehypePrism)
     .use(html)
+    .use(setTargetBlankToLink)
     .use(setImageSize)
     .process(markdownText);
   return processedContent.toString();
@@ -43,78 +45,143 @@ export async function markdown2Html(markdownText: string): Promise<any> {
  */
 function setImageSize() {
   return function (node: any, vfile: any, done: any) {
-    const children = node.children.map((child: any) => {
-      // 画像のサイズ指定
-      if (child.type === 'element' && child.tagName === 'p') {
-        const image = child.children.find(
-          (c: any) => c.type === 'element' && c.tagName === 'img',
-        );
-        if (!image) {
-          return child;
-        }
-        const imagePath = image.properties.src;
-        const imageAlt = image.properties.alt;
-        const imageSize = getImageSize(imagePath, 'article');
-        // 既存の画像をamp-imgに置き換え
-        const fallbackImage = {
-          ...image,
-          tagName: 'amp-img',
-          properties: {
-            ...image.properties,
-            width: imageSize.pc.width,
-            height: imageSize.pc.height,
-            media: '(min-width: 451px)',
-            fallback: true,
-          },
-        };
-        const fallbackImageSp = {
-          ...image,
-          tagName: 'amp-img',
-          properties: {
-            ...image.properties,
-            width: imageSize.sp.width,
-            height: imageSize.sp.height,
-            media: '(max-width: 450px)',
-            fallback: true,
-          },
-        };
-        // webp用のamp-img作成
-        const webpImage = {
-          type: 'element',
-          tagName: 'amp-img',
-          children: [fallbackImage],
-          properties: {
-            src: image.properties.src.replace(/\.png$/, '.webp'),
-            alt: imageAlt,
-            width: imageSize.pc.width,
-            height: imageSize.pc.height,
-            media: '(min-width: 451px)',
-          },
-        };
-        const webpImageSp = {
-          type: 'element',
-          tagName: 'amp-img',
-          children: [fallbackImageSp],
-          properties: {
-            src: image.properties.src.replace(/\.png$/, '.webp'),
-            alt: imageAlt,
-            width: imageSize.sp.width,
-            height: imageSize.sp.height,
-            media: '(max-width: 450px)',
-          },
-        };
-        // webp込のデータ使うので今あるimgは削除
-        child.children = [
-          ...child.children.filter(
-            (c: any) => c.type !== 'element' && c.tagName !== 'img',
-          ),
-          webpImage,
-          webpImageSp,
-        ];
+    node.children = node.children.map((child: any) => {
+      if (child.type !== 'element' || child.tagName !== 'p') {
+        return child;
       }
+      const image = child.children.find(
+        (c: any) => c.type === 'element' && c.tagName === 'img',
+      );
+      if (!image) {
+        return child;
+      }
+      const imagePath = image.properties.src;
+      const imageAlt = image.properties.alt;
+      const imageSize = getImageSize(imagePath, 'article');
+      // 既存の画像をamp-imgに置き換え
+      const fallbackImage = {
+        ...image,
+        tagName: 'amp-img',
+        properties: {
+          ...image.properties,
+          width: imageSize.pc.width,
+          height: imageSize.pc.height,
+          media: '(min-width: 451px)',
+          fallback: true,
+        },
+      };
+      const fallbackImageSp = {
+        ...image,
+        tagName: 'amp-img',
+        properties: {
+          ...image.properties,
+          width: imageSize.sp.width,
+          height: imageSize.sp.height,
+          media: '(max-width: 450px)',
+          fallback: true,
+        },
+      };
+      // webp用のamp-img作成
+      const webpImage = {
+        type: 'element',
+        tagName: 'amp-img',
+        children: [fallbackImage],
+        properties: {
+          src: image.properties.src.replace(/\.png$/, '.webp'),
+          alt: imageAlt,
+          width: imageSize.pc.width,
+          height: imageSize.pc.height,
+          media: '(min-width: 451px)',
+        },
+      };
+      const webpImageSp = {
+        type: 'element',
+        tagName: 'amp-img',
+        children: [fallbackImageSp],
+        properties: {
+          src: image.properties.src.replace(/\.png$/, '.webp'),
+          alt: imageAlt,
+          width: imageSize.sp.width,
+          height: imageSize.sp.height,
+          media: '(max-width: 450px)',
+        },
+      };
+      // webp込のデータ使うので今あるimgは削除
+      child.children = [
+        ...child.children.filter(
+          (c: any) => c.type !== 'element' && c.tagName !== 'img',
+        ),
+        webpImage,
+        webpImageSp,
+      ];
       return child;
     });
-    node.children = children;
     done();
   };
+}
+
+/**
+ * リンクにtarget="_blank"を追加する
+ */
+function setTargetBlankToLink() {
+  return function (node: Record<string, any>, vfile: object, done: Function) {
+    node.children = node.children.map((child: any) => {
+      if (
+        child.type !== 'element' ||
+        !(child.tagName === 'p' || child.tagName === 'ul')
+      ) {
+        return child;
+      }
+      // リストの場合は別処理
+      if (child.tagName === 'ul') {
+        child.children = setListLink(child.children);
+        return child;
+      }
+      child.children = child.children.map((c: any) => {
+        if (c.type !== 'element' || c.tagName !== 'a') {
+          return c;
+        }
+        return {
+          ...c,
+          properties: {
+            ...c.properties,
+            target: '_blank',
+          },
+        };
+      });
+
+      return child;
+    });
+    done();
+  };
+}
+
+/**
+ * リストの中のリンクを探してtarget="_blank"を追加する
+ * @param children
+ */
+function setListLink(children: Record<string, any>[]) {
+  return children.map((c: any) => {
+    if (c.type !== 'element' || c.tagName !== 'li') {
+      return c;
+    }
+
+    c.children = c.children.map((ch: any) => {
+      if (ch.tagName === 'ul') {
+        ch.children = setListLink(ch.children);
+        return ch;
+      }
+      if (ch.tagName === 'a') {
+        return {
+          ...ch,
+          properties: {
+            ...ch.properties,
+            target: '_blank',
+          },
+        };
+      }
+      return ch;
+    });
+    return c;
+  });
 }
