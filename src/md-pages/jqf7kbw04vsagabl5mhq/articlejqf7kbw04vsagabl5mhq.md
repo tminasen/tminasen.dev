@@ -3,25 +3,32 @@ path: "/blog/jqf7kbw04vsagabl5mhq"
 date: "2020/12/28"
 title: "Next.jsでmdxを使ってみる"
 tag: ["Next.js"]
+ogpImage: "/images/article/jqf7kbw04vsagabl5mhq/ogp.png"
 thumbnailImage: "/images/article/jqf7kbw04vsagabl5mhq/ssjqf7kbw04vsagabl5mhq-3.png"
 ---
 
 # はじめに
+
 mdxが気になっていた今日このごろ。  
 `Next.js`と一緒に使ってブログとか作れたら面白そうと思ったので、  
 Next.jsでmdxを使えるところまで試してみる。
 
 # TL;DR.
+
 - [ソースコード](https://github.com/Tetsuya-Minase/program-samples/tree/master/mdx-sample)
 
 # mdxとは
-> MDX is an authorable format that lets you seamlessly use JSX in your markdown documents. You can import components, like interactive charts or notifications, and export metadata. This makes writing long-form content with components a blast.   
-> (mdxのGithubから引用)  
+
+> MDX is an authorable format that lets you seamlessly use JSX in your markdown documents. You can import components,
+> like interactive charts or notifications, and export metadata. This makes writing long-form content with components a
+> blast.   
+> (mdxのGithubから引用)
 
 とのことなので、ざっくりいうとJSXが書けるmarkdown。  
 markdownだとやりにくい細かいレイアウトの調整とかやりやすそうである。
 
 # 準備
+
 必要なファイル、ライブラリの準備をする。  
 `Next.js`ベースで進めるので、`create-next-app`からスタート。
 
@@ -34,6 +41,7 @@ $ yarn add yarn add @next/mdx @mdx-js/loader
 ```
 
 ## next.config.js修正
+
 ページとして`mdx`を使えるように、`next.config.js`を修正する。
 ↑の通りに進めるとおそらく無いので作るところから。
 
@@ -51,6 +59,7 @@ module.exports = withMDX({
 ```
 
 # サンプルページ追加
+
 早速mdxでページを作ってみる。
 
 ```bash
@@ -76,7 +85,9 @@ $ touch pages/hello.mdx
 ![ssjqf7kbw04vsagabl5mhq-1.png](/images/article/jqf7kbw04vsagabl5mhq/ssjqf7kbw04vsagabl5mhq-1.png)
 
 # component読みこむ
+
 ## header component作成
+
 次にmdxで実際にcomponentを読み込んでみる。  
 まずはお試しのコンポーネントを作るところから。
 
@@ -115,6 +126,7 @@ export const HeaderComponent: React.FC<Props> = ({heading, color}) => {
 ```
 
 ## mdx修正
+
 ```markdown :hello.mdx
 import {HeaderComponent} from '../components/header/Header.tsx';
 
@@ -144,20 +156,23 @@ import {HeaderComponent} from '../components/header/Header.tsx';
 ![ssjqf7kbw04vsagabl5mhq-2.png](/images/article/jqf7kbw04vsagabl5mhq/ssjqf7kbw04vsagabl5mhq-2.png)
 
 # コードブロック作ってみる
+
 mdのコードブロックでシンタックスハイライトが効かないっぽかったので自作する。  
 これは絶対うまいやり方がある気がするので一旦試してみるところまで……
 
 ## ライブラリ追加
+
 ```bash
 $ yarn add prism-react-renderer
 ```
 
 ## コンポーネント作成
+
 ```tsx :Codeblock.tsx
 import React from 'react';
 import Highlight, {defaultProps, Language} from 'prism-react-renderer';
 
-export const CodeBlockComponent: React.FC<{code: string, language: Language}> = ({code, language}) => {
+export const CodeBlockComponent: React.FC<{ code: string, language: Language }> = ({code, language}) => {
   return (
     <Highlight {...defaultProps} code={code} language={language}>
       {({className, style, tokens, getLineProps, getTokenProps}) => (
@@ -177,6 +192,7 @@ export const CodeBlockComponent: React.FC<{code: string, language: Language}> = 
 ```
 
 # mdx修正
+
 ```markdown :hello.mdx
 import {HeaderComponent} from '../components/header/Header.tsx';
 import {CodeBlockComponent} from '../components/codeblock/CodeBlock.tsx';
@@ -220,11 +236,12 @@ console.log(hoge);
 ![ssjqf7kbw04vsagabl5mhq-3.png](/images/article/jqf7kbw04vsagabl5mhq/ssjqf7kbw04vsagabl5mhq-3.png)
 
 # まとめ
-今回はNext.jsでmdxを使うのを試してみた。  
-記事中にも書いたけど、絶対syntax highlightはより良いやり方があると思うので調べておきたい。  
 
+今回はNext.jsでmdxを使うのを試してみた。  
+記事中にも書いたけど、絶対syntax highlightはより良いやり方があると思うので調べておきたい。
 
 # 参考リンク
+
 * [mdx\-js/mdx: JSX in Markdown for ambitious projects](https://github.com/mdx-js/mdx)
 * [@next/mdx @mdx\-js/loader](https://mdxjs.com/getting-started/next)
 * [next\.js/examples/with\-typescript at master · vercel/next\.js](https://github.com/vercel/next.js/tree/master/examples/with-typescript)

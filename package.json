@@ -44,8 +44,9 @@
     "@types/styled-components": "^5.1.25",
     "feed": "^4.2.2",
     "prettier": "2.6.2",
+    "puppeteer": "^14.1.1",
     "raw-loader": "^4.0.2",
-    "ts-node": "^10.7.0"
+    "ts-node": "^10.8.0"
   },
   "license": "MIT"
 }

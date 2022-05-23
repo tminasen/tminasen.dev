@@ -3,17 +3,22 @@ path: "/blog/n4jehn2qav1xhtawosqy"
 date: "2020/10/25"
 title: "Vue3.0 + Vuex + tailwindcssを試してみる"
 tag: ["vue"]
+ogpImage: "/images/article/n4jehn2qav1xhtawosqy/ogp.png"
 thumbnailImage: "/images/article/n4jehn2qav1xhtawosqy/ssn4jehn2qav1xhtawosqy-2.png"
 ---
+
 # はじめに
+
 vue3.0が出てしばらくたった今日このごろ。  
 試してみようみようと思って今まで放置していたので試してみる。  
 ただvue3だけ試すのではなく、ついでにvuexとtailwindcssも試してみる。
 
 # TL;DR.
+
 [ソースコード](https://github.com/Tetsuya-Minase/program-samples/tree/master/vue3-sample)
 
 # セットアップ
+
 vueCLIが対応しているのでCLIからスタートする。  
 vue3 + npmを使う設定で生成。
 
@@ -54,10 +59,12 @@ $ npx @vue/cli add typescript
 ![ssn4jehn2qav1xhtawosqy-3.png](/images/article/n4jehn2qav1xhtawosqy/ssn4jehn2qav1xhtawosqy-3.png)
 
 # TODOリストを作ってみる
+
 お試しとしてTODOリストを作ってみる。  
 ついでにVuexも入れておく。
 
 ## Vuex導入
+
 正式リリースされてるバージョンはまだVue3に対応していないので、4系をバージョン指定してインストールする 。
 
 ```bash
@@ -65,6 +72,7 @@ $ npm install vuex@v4.0.0-beta.4 --save
 ```
 
 ## Todoリスト作成
+
 適当にファイルを分割して作成する。  
 分割する粒度は、リストの表示部分とリストに追加するフォーム部分、その2つをまとめて表示するコンポーネントの3つにする。  
 更にvuexを使うため、store.tsも作成しておく。  
@@ -83,6 +91,7 @@ $ npm install vuex@v4.0.0-beta.4 --save
 ```
 
 ### TodoForm.vue
+
 テキストボックスとリストに追加するためのボタンを用意しておく。
 
 ``` javascript
@@ -118,6 +127,7 @@ export default defineComponent({
 ```
 
 ### TodoList.vue
+
 リストにあるデータを表示する。
 
 ``` javascript
@@ -144,7 +154,8 @@ export default defineComponent({
 ```
 
 ### Todo.vue
-上記コンポーネントをまとめておく用。  
+
+上記コンポーネントをまとめておく用。
 
 ``` javascript
 <template>
@@ -169,11 +180,13 @@ export default defineComponent({
 ```
 
 ### Vuex導入
+
 storeの作成とstoreをmain.tsに追加する。  
 導入方法については[公式のexample](https://github.com/vuejs/vuex/tree/v4.0.0-beta.4/examples/composition)を参考にしてすすめる。
 
 ```tsx
-import { createStore, Commit } from 'vuex';
+import {createStore, Commit} from 'vuex';
+
 const state = {
   todoList: ['hoge', 'huga', 'piyo']
 };
@@ -187,7 +200,7 @@ const mutations = {
 
 const actions = {
   // ActionContextで型定義しても良さそうだが、ほとんど使わないので独自型定義
-  addItem: ({commit}: {commit: Commit}, item: string) => commit('addItem', item)
+  addItem: ({commit}: { commit: Commit }, item: string) => commit('addItem', item)
 };
 
 export default createStore({
@@ -198,7 +211,7 @@ export default createStore({
 ```
 
 ```tsx
-import { createApp } from 'vue'
+import {createApp} from 'vue'
 import App from './App.vue'
 import Store from './store';
 
@@ -212,6 +225,7 @@ createApp(App)
 エラーなく表示されればOK。
 
 # Tailwind導入
+
 公式サイトを参考に導入していく。
 
 ```bash
@@ -250,9 +264,11 @@ cssを使えるようにApp.vueを修正する。
 ![ssn4jehn2qav1xhtawosqy-1.png](/images/article/n4jehn2qav1xhtawosqy/ssn4jehn2qav1xhtawosqy-1.png)
 
 # 見た目修正
+
 このままでも良いがせっかくtailwindcssを導入したのでちょろっと見た目を修正する。
 
 ### TodoForm.vue
+
 テキストボックスとボタンが全然わからないので、ボーダーを付けて目立たせる。  
 ついでにボタンの色の変更と上のコンポーネントにくっつきすぎているので間を開ける。
 
@@ -269,6 +285,7 @@ cssを使えるようにApp.vueを修正する。
 ```
 
 ### TodoList.vue
+
 リストの先頭の点がなくなってしまったので、独自で実装する。  
 ついでにリスト毎がくっつきすぎているので離す。
 
@@ -289,6 +306,7 @@ cssを使えるようにApp.vueを修正する。
 ```
 
 ### Todo.vue
+
 `h1`の文字サイズが小さいので適度に大きくしておく。
 
 ``` javascript
@@ -303,6 +321,7 @@ cssを使えるようにApp.vueを修正する。
 ```
 
 ### App.vue
+
 縦並びにしておく。
 
 ``` javascript
@@ -320,16 +339,18 @@ cssを使えるようにApp.vueを修正する。
 ![ssn4jehn2qav1xhtawosqy-2.png](/images/article/n4jehn2qav1xhtawosqy/ssn4jehn2qav1xhtawosqy-2.png)
 
 # まとめ
+
 今回はvue3 + vuex + tailwindcssを試してみた。  
 vue3でTypeScriptのサポートが良くなったみたいだけど、  
-vuexがまだvue3に対応していなかったりしたので、もしかしたらまだ早いのかもしれない？  
+vuexがまだvue3に対応していなかったりしたので、もしかしたらまだ早いのかもしれない？
 
 tailwindcssは細かう設定できるのでbootstrapよりは使いやすいのかなと思った。  
-ただ、細かく設定できすぎるので素のcss書くのと大して変わらない気もする。  
+ただ、細かく設定できすぎるので素のcss書くのと大して変わらない気もする。
 
 vuex4.0がリリースされたらもう少し触ってみようと思う。
 
 # 参考リンク
+
 - [Introduction | Vue.js](https://v3.vuejs.org/guide/introduction.html)
 - [vuejs/vuex at v4.0.0-beta.4](https://github.com/vuejs/vuex/tree/v4.0.0-beta.4)
 - [Installation - Tailwind CSS](https://tailwindcss.com/docs/installation)

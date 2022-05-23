@@ -89,6 +89,7 @@ const articlePage = ({ id, articleMetaData }: Props) => {
   return (
     <PageTemplate
       title={targetMetaData.title}
+      ogpImage={targetMetaData.ogpImage}
       isEnableViewPort={false}
       isHiddenMenu={true}
       canonicalPath={targetMetaData.path}

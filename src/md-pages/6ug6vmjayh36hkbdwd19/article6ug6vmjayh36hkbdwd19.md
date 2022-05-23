@@ -3,17 +3,21 @@ path: "/blog/6ug6vmjayh36hkbdwd19"
 date: "2021/02/11"
 title: "Jest再入門"
 tag: ["TypeScript"]
+ogpImage: "/images/article/6ug6vmjayh36hkbdwd19/ogp.png"
 thumbnailImage: "/images/ogp.png"
 ---
 
 # はじめに
+
 tsで書いたコードのテストにはjestを使っている今日この頃。  
 毎回雰囲気で使っていて事ある毎に調べているので改めてまとめておく。
 
 # TL;DR.
+
 [コード](https://github.com/Tetsuya-Minase/program-samples/tree/master/re-jest);
 
 # 導入
+
 yarn + typescriptの前提。  
 それぞれの導入方法については割愛。
 
@@ -27,7 +31,9 @@ $ yarn ts-jest config:init
 ```
 
 # シンプルなテスト
+
 ## 実装
+
 引数で数値を2つ受け取って足し算する関数を実装する。
 
 ```ts
@@ -37,6 +43,7 @@ export function sum(a: number, b: number) {
 ```
 
 ## テストコード
+
 ```ts
 describe('sum', () => {
   it('2 + 3 = 5', () => {
@@ -48,7 +55,9 @@ describe('sum', () => {
 ```
 
 # エラーになることのテスト
+
 ## 実装
+
 ```ts
 export function division(dividend: number, divisor: number) {
   if (divisor === 0) {
@@ -59,6 +68,7 @@ export function division(dividend: number, divisor: number) {
 ```
 
 ## テストコード
+
 ```ts
 describe('division', () => {
   it('6 / 0 = error!', () => {
@@ -71,7 +81,9 @@ describe('division', () => {
 ```
 
 # オブジェクトの比較
+
 ## 実装
+
 ```ts
 export function getUserById(userId: string) {
   return {id: userId, name: 'Taro', age: 20};
@@ -79,6 +91,7 @@ export function getUserById(userId: string) {
 ```
 
 ## テストコード
+
 ```ts
 describe('getUserById', () => {
   it('取得できる場合', () => {
@@ -92,6 +105,7 @@ describe('getUserById', () => {
 ```
 
 # その他のmatcher
+
 ```ts
 describe('matcher sample.', () => {
   it('真偽値', () => {
@@ -99,7 +113,7 @@ describe('matcher sample.', () => {
     expect(null).toBeNull();
     // null以外だと失敗する
     // expect(undefined).toBeNull();
-    
+
     // undefinedでの確認
     expect(undefined).toBeUndefined();
     // 同じくundefined以外だと失敗する
@@ -171,17 +185,20 @@ describe('matcher sample.', () => {
   });
 });
 ```
+
 他のMatcherは↓参照。
 [Expect · Jest](https://jestjs.io/docs/ja/expect)
 
 # 非同期処理のテスト
+
 ## 実装
+
 ```ts
 function asyncResolveClient(): Promise<string> {
   return Promise.resolve('OK');
 }
 
-function asyncRejectClient(): Promise<string>{
+function asyncRejectClient(): Promise<string> {
   return Promise.reject('Error');
 }
 
@@ -195,6 +212,7 @@ export async function rejectSample(): Promise<string> {
 ```
 
 ## テストコード
+
 ```ts
 describe('async function', () => {
 
@@ -203,7 +221,7 @@ describe('async function', () => {
     expect(resolveSample()).resolves.toBe('OK');
     // 何もつけないとPromiseが返ってきてすぐ比較されるので一致しない
     // expect(resolveSample()).toBe('OK');
-  
+
     // rejectsをつけることでPromiseがrejectされるまで待つ
     expect(rejectSample()).rejects.toBe('Error');
   });
@@ -226,6 +244,7 @@ describe('async function', () => {
 ```
 
 # SetupとTeardown
+
 テストの最初と最後に何らかの処理をはさみたい場合について。  
 モック化、そのリセットなどでやりたいことがあると思う。
 
@@ -250,28 +269,31 @@ describe('setup and teardown sample.', () => {
   });
 
   it('テスト1', () => {
-    console.log('テスト1');  
+    console.log('テスト1');
   });
   it('テスト2', () => {
-    console.log('テスト2');  
+    console.log('テスト2');
   });
 
   it('テスト3', () => {
-    console.log('テスト3');  
+    console.log('テスト3');
   });
 
 });
 ```
 
 # exportした関数のmock化
-実装と別ファイルに定義した関数をimportして使う場合について。  
+
+実装と別ファイルに定義した関数をimportして使う場合について。
 
 ## 実装
+
 ```ts
 export function multiplication(a: number, b: number) {
   return a * b;
 }
 ```
+
 ``` ts
 // ↑のファイルをimport
 import { multiplication } from './sample';
@@ -281,6 +303,7 @@ export function twice(a: number) {
 ```
 
 ## テストコード
+
 ```ts
 jest.mock('multiplicationがあるファイルまでのパス', () => {
   // 一部のみモック化したいので元の実装を持っておく
@@ -301,7 +324,9 @@ describe('twice', () => {
 ```
 
 # Classのmock化
+
 ## 実装
+
 ```ts
 export class Calcurator {
   public sum(a: number, b: number) {
@@ -309,6 +334,7 @@ export class Calcurator {
   }
 }
 ```
+
 ``` ts
 // テスト対象
 export function add2(a: number) {
@@ -317,10 +343,11 @@ export function add2(a: number) {
 ```
 
 ## テストコード
+
 ```ts
-import { Calcurator } from './パス';
+import {Calcurator} from './パス';
 // mockImplementationがエラー吐くので必要
-import { mocked } from 'ts-jest/utils';
+import {mocked} from 'ts-jest/utils';
 
 jest.mock('../../../src/functions/CalcuratorClass');
 describe('sum', () => {
@@ -339,12 +366,14 @@ describe('sum', () => {
 ```
 
 # snapshotsテスト
+
 `create-react-app`の初期状態からスタート。  
 ただし、デフォだとjest落ちるので色々修正する。
 
 ## svgのimportをやめる
+
 ライブラリを使えば解決できるがそこまでsvgのimportに拘らないので普通にcomponent化する。  
-基本はsvgファイルの中身コピペ。CSSを当てる都合classNameだけ追加。  
+基本はsvgファイルの中身コピペ。CSSを当てる都合classNameだけ追加。
 
 ``` ts
 import React from 'react';
@@ -352,34 +381,39 @@ export const Logo: React.FC = () => (<svg className="App-logo" xmlns="http://www
 ```
 
 App.tsxから↑のファイルを読み込むようにすればOK。
+
 ```ts
 import React from 'react';
-import { Logo } from './Logo';
+import {Logo} from './Logo';
 import './App.css';
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <Logo/>
-        {/* 以下初期値と同じ */}
-      </header>
-    </div>
+    <div className = "App" >
+    <header className = "App-header" >
+      <Logo / >
+      {/* 以下初期値と同じ */}
+      < /header>
+      < /div>
   );
 }
+
 export default App;
 ```
 
 ## cssをimportできるようにする
+
 こちらもデフォだと落ちるのでなんとかする。  
 公式サイトにあったので同じ様に対応する。
 
 ### ライブラリ追加
+
 ``` shell
 $ yarn add -D identity-obj-proxy 
 ```
 
 ### jest.config.js修正
+
 ```js
 module.exports = {
   // ここを追加
@@ -390,20 +424,22 @@ module.exports = {
 ```
 
 ## テストコード
+
 snapshotsテスト用にライブラリを追加。
 
 ```shell
 $ yarn add -D react-test-renderer @types/react-test-renderer
 ```
 
-テストコードは下記の通り。  
+テストコードは下記の通り。
+
 ```ts
 import React from 'react';
 import renderer from 'react-test-renderer';
 import App from '../../src/App';
 
 test('renders learn react link', () => {
-  const result = renderer.create(<App />).toJSON();
+  const result = renderer.create(<App / >).toJSON();
   expect(result).toMatchSnapshot();
 });
 ```
@@ -411,11 +447,12 @@ test('renders learn react link', () => {
 テストを実行して`__snapshots__`フォルダに`テストコードファイル.snap`が作成されていればOK。
 
 # まとめ
-一通りよく使いそうな項目についてまとめた。  
-オブジェクトの比較とか特に気にせず`toEqual`使っていたので`toBe`との違いについて知れて良かった。  
 
+一通りよく使いそうな項目についてまとめた。  
+オブジェクトの比較とか特に気にせず`toEqual`使っていたので`toBe`との違いについて知れて良かった。
 
 # 参考リンク
+
 * [Jest · 🃏快適なJavaScriptのテスト](https://jestjs.io/ja/)
 * [Getting Started · Jest](https://jestjs.io/docs/ja/getting-started)
 * [kulshekhar/ts\-jest: TypeScript preprocessor with sourcemap support for Jest](https://github.com/kulshekhar/ts-jest)

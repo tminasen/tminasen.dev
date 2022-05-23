@@ -21,6 +21,7 @@ const NotFoundPage = () => (
     isEnableViewPort={true}
     isHiddenMenu={false}
     canonicalPath={undefined}
+    ogpImage={undefined}
     ogType="website"
   >
     <React.Fragment>

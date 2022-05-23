@@ -98,6 +98,7 @@ async function convertArticleMetaData(
       url: data.thumbnailImage,
       size: getImageSize(data.thumbnailImage, 'thumbnail'),
     },
+    ogpImage: data.ogpImage,
     html: highlightHtml,
     description: `${removeTags(context).substring(0, 130)}…`,
   };
@@ -111,7 +112,8 @@ function isArticleMetaData(data: {
     !!data?.date &&
     !!data?.title &&
     !!data?.tag &&
-    !!data?.thumbnailImage
+    !!data?.thumbnailImage &&
+    !!data?.ogpImage
   );
 }
 

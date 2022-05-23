@@ -3,21 +3,27 @@ path: "/blog/wx1t6emdfmmj0ctrokgu"
 date: "2021/02/12"
 title: "Angular+TailwindCSSを試してみる"
 tag: ["Angular"]
+ogpImage: "/images/article/wx1t6emdfmmj0ctrokgu/ogp.png"
 thumbnailImage: "/images/article/wx1t6emdfmmj0ctrokgu/sswx1t6emdfmmj0ctrokgu-2.png"
 ---
+
 # はじめに
+
 Angularがv11.2くらいでTailwindCSSに対応したそうなので試してみる回。  
 [前にちょろっと試したとき](https://tminasen.dev/blog/n4jehn2qav1xhtawosqy)は特にTailwindCSSの良さに気づけなかったので改めてちゃんと触る。
 
 # TL;DR.
+
 [コード](https://github.com/Tetsuya-Minase/front-end-practice/tree/main/ng-tailwind)
 
 # セットアップ
+
 ## Angularプロジェクトの準備
+
 セットアップは↓を参考に進めていく。  
 [Setup TailwindCSS in Angular the easy way - DEV Community](https://dev.to/angular/setup-tailwindcss-in-angular-the-easy-way-1i5l)
 
-いつも通り`ng new`でプロジェクト作るところから。  
+いつも通り`ng new`でプロジェクト作るところから。
 
 ```bash
 $ npx @angular/cli new ng-tailwind --strict
@@ -25,6 +31,7 @@ $ npx @angular/cli new ng-tailwind --strict
 ```
 
 ## TailwindCSSの導入
+
 TailwindCSS入れるところから。
 
 ```bash
@@ -49,7 +56,7 @@ module.exports = {
   variants: {
     extend: {},
   },
-  plugins: [require('@tailwindcss/forms'),require('@tailwindcss/typography')],
+  plugins: [require('@tailwindcss/forms'), require('@tailwindcss/typography')],
 };
 ```
 
@@ -64,11 +71,14 @@ module.exports = {
 これで準備はOK。
 
 # 使ってみる
+
 とりあえず記事を参考に`app.component.html`の内容を下記の通り書き換える。
 
 ```html
+
 <button
-  class="py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-red-400">Hello</button>
+    class="py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-red-400">Hello
+</button>
 ```
 
 で、起動してみると落ちる。
@@ -112,12 +122,14 @@ $ npm install -D @tailwindcss/forms @tailwindcss/typography
 ![tailwindcssを使ったボタンのサンプル](/images/article/wx1t6emdfmmj0ctrokgu/sswx1t6emdfmmj0ctrokgu-1.png)
 
 ## 少し実装してみる
+
 ここまででTailwindCSSが動くことまでは確認できたのでもう少し試してみる。  
 `app.component.html`を下記の通り修正した。  
 基本はこれだけだが、`styled.scss`にhtml`{ font-size: 62.5 %}`だけ追記した。  
-Tailwindのサイズが基本remで指定されてるので、デフォの16pxだと色々計算がしんどいので10pxにしたいため。  
+Tailwindのサイズが基本remで指定されてるので、デフォの16pxだと色々計算がしんどいので10pxにしたいため。
 
 ```html
+
 <div class="h-screen">
   <header class="flex justify-center items-center bg-blue-400 py-4">
     <h1 class="text-5xl font-bold text-gray-100">Hello World!</h1>
@@ -186,8 +198,8 @@ Tailwindのサイズが基本remで指定されてるので、デフォの16px�
 ざっくり考えられるのはこのくらいなのでここまでにしておく。
 ![tailwindcssを使った画面のサンプル](/images/article/wx1t6emdfmmj0ctrokgu/sswx1t6emdfmmj0ctrokgu-2.png)
 
-
 # まとめ
+
 今回は前に試した時よりもちゃんとTailwindCSSと向き合ってみた。  
 個人的な感想は以下の通り。
 
@@ -205,8 +217,9 @@ Tailwindのサイズが基本remで指定されてるので、デフォの16px�
     - 一応cssファイルにapplyで指定できるので頑張ればできる様な気もするが、1個目の話に戻るって感じ
 
 やっぱりcss書いた方が早いんじゃ……って思うことも多々あるけど、  
-おそらくTailwindCSSが解決してくれるのはそういうところじゃない気がするのでもう少し触ってみようかと思う。  
+おそらくTailwindCSSが解決してくれるのはそういうところじゃない気がするのでもう少し触ってみようかと思う。
 
 # 参考リンク
+
 - [Setup TailwindCSS in Angular the easy way \- DEV Community](https://dev.to/angular/setup-tailwindcss-in-angular-the-easy-way-1i5l)
 - [Documentation \- Tailwind CSS](https://tailwindcss.com/docs)

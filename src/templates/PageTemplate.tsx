@@ -11,6 +11,7 @@ import { OgType } from '../../types/mets';
 
 interface Props {
   title: Maybe<string>;
+  ogpImage: Optional<string>;
   isEnableViewPort: boolean;
   // TODO: ampで対応する方法思いついたらやめる
   isHiddenMenu: boolean;
@@ -66,12 +67,14 @@ export const PageTemplate: React.FC<Props> = ({
   isHiddenMenu,
   canonicalPath,
   ogType,
+  ogpImage,
 }) => {
   const [showModal, closeModal, openModal] = useModalCondition();
   return (
     <BodyWrapper>
       <HeadComponent
         title={title}
+        ogpImage={ogpImage}
         additionalMetaData={undefined}
         description={undefined}
         isEnableViewPort={isEnableViewPort}

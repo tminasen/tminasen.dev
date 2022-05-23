@@ -38,7 +38,8 @@ const TagListItem = styled.li`
 const TagListPage: React.FC<Props> = ({ tagList }) => {
   return (
     <PageTemplate
-      title={`タグ一覧`}
+      title="タグ一覧"
+      ogpImage={undefined}
       isEnableViewPort={true}
       isHiddenMenu={false}
       canonicalPath={`/tags`}

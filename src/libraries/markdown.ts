@@ -3,8 +3,7 @@ import remarkParse from 'remark-parse';
 import remark2rehype from 'remark-rehype';
 import html from 'rehype-stringify';
 import { getImageSize } from './image';
-
-const rehypePrism = require('@mapbox/rehype-prism');
+import rehypePrism from '@mapbox/rehype-prism';
 
 /**
  * markdown文字列から以下のタグを取り除く

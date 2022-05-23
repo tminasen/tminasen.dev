@@ -6,6 +6,7 @@ import { OgType } from '../../types/mets';
 
 type Props = {
   isEnableViewPort: boolean;
+  ogpImage: Optional<string>;
   title: Maybe<string>;
   additionalMetaData: Optional<Array<{ name: string; content: string }>>;
   description: Optional<string>;
@@ -41,6 +42,7 @@ export const HeadComponent: React.FC<Props> = ({
   isEnableViewPort,
   canonicalPath,
   ogType,
+  ogpImage,
 }) => {
   const metaDescription = description || metaData.description;
   const metaTitle = title ? `${title} - ${metaData.title}` : metaData.title;
@@ -65,7 +67,7 @@ export const HeadComponent: React.FC<Props> = ({
         <meta name="og:type" content={ogType} />
         <meta
           name="og:image"
-          content={`${metaData.domain}${metaData.ogpImage}`}
+          content={ogpImage ?? `${metaData.domain}${metaData.ogpImage}`}
         />
         <meta name="twitter:card" content="summary_large_image" />
         <meta name="twitter:creator" content={metaData.author} />
@@ -73,7 +75,7 @@ export const HeadComponent: React.FC<Props> = ({
         <meta name="twitter:description" content={metaDescription} />
         <meta
           name="twitter:image"
-          content={`${metaData.domain}${metaData.ogpImage}`}
+          content={ogpImage ?? `${metaData.domain}${metaData.ogpImage}`}
         />
         <link
           rel="canonical"
