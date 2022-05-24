@@ -46,6 +46,9 @@ export const HeadComponent: React.FC<Props> = ({
 }) => {
   const metaDescription = description || metaData.description;
   const metaTitle = title ? `${title} - ${metaData.title}` : metaData.title;
+  const metaImage = ogpImage
+    ? `${metaData.domain}${ogpImage}`
+    : `${metaData.domain}${metaData.ogpImage}`;
   return (
     <>
       <Head>
@@ -67,7 +70,7 @@ export const HeadComponent: React.FC<Props> = ({
         <meta name="og:type" content={ogType} />
         <meta
           name="og:image"
-          content={ogpImage ?? `${metaData.domain}${metaData.ogpImage}`}
+          content={metaImage ?? `${metaData.domain}${metaData.ogpImage}`}
         />
         <meta name="twitter:card" content="summary_large_image" />
         <meta name="twitter:creator" content={metaData.author} />
@@ -75,7 +78,7 @@ export const HeadComponent: React.FC<Props> = ({
         <meta name="twitter:description" content={metaDescription} />
         <meta
           name="twitter:image"
-          content={ogpImage ?? `${metaData.domain}${metaData.ogpImage}`}
+          content={metaImage ?? `${metaData.domain}${metaData.ogpImage}`}
         />
         <link
           rel="canonical"
