@@ -10,7 +10,7 @@
     "format": "prettier --write \"**/*.{js,jsx,ts,tsx,json,md}\"",
     "start": "next start",
     "create:md": "./scripts/article-scripts/target/release/article-scripts",
-    "rename:files": "./scripts/target/release/article-scripts --rename ",
+    "rename:files": "./scripts/article-scripts/target/release/article-scripts --rename ",
     "generate:rss": "ts-node --project ./scripts/tsconfig.scripts.json ./scripts/generate-rss/GenerateRss.ts",
     "generate:ogp": "ts-node --project ./scripts/tsconfig.scripts.json ./scripts/generate-ogp/GenerateOgp.ts",
     "type-check": "tsc"

@@ -4,7 +4,7 @@
         <title>水無瀬のプログラミング日記feed</title>
         <link>https://tminasen.dev</link>
         <description>水無瀬のプログラミング日記のfeed</description>
-        <lastBuildDate>Tue, 24 May 2022 14:35:14 GMT</lastBuildDate>
+        <lastBuildDate>Sun, 19 Jun 2022 09:48:05 GMT</lastBuildDate>
         <docs>https://validator.w3.org/feed/docs/rss2.html</docs>
         <generator>https://github.com/jpmonette/feed</generator>
         <language>ja</language>
@@ -14,6 +14,26 @@
             <link>https://tminasen.dev</link>
         </image>
         <copyright>All rights reserved 2021, tminasen</copyright>
+        <item>
+            <title><![CDATA[Tauriを試してみる]]></title>
+            <link>https://tminasen.dev/blog/49e96efeafa81d005101a61d382bf8</link>
+            <guid>https://tminasen.dev/blog/49e96efeafa81d005101a61d382bf8</guid>
+            <pubDate>Sun, 19 Jun 2022 00:00:00 GMT</pubDate>
+            <description><![CDATA[
+はじめに
+
+Electron代替を目指すRust製FWのTauriがバージョン1.0になり、正式リリースされたので試してみる。
+
+TL;DR.
+
+今回作ったコード
+
+前提条件
+
+Rustがinstall済みであること。  
+install方法は下記参照。  …]]></description>
+            <enclosure url="https://tminasen.dev/images/article/49e96efeafa81d005101a61d382bf8/ogp.png" length="0" type="image/png"/>
+        </item>
         <item>
             <title><![CDATA[Next.js+linariaを試してみる]]></title>
             <link>https://tminasen.dev/blog/b33f8b2ef5e73ea3f219daff5952b3</link>
@@ -190,29 +210,6 @@ mdxとは
 
 > MDX is a…]]></description>
             <enclosure url="https://tminasen.dev/images/article/jqf7kbw04vsagabl5mhq/ogp.png" length="0" type="image/png"/>
-        </item>
-        <item>
-            <title><![CDATA[Next.js事始め]]></title>
-            <link>https://tminasen.dev/blog/c8nsbkvrndwzjdapcetj</link>
-            <guid>https://tminasen.dev/blog/c8nsbkvrndwzjdapcetj</guid>
-            <pubDate>Fri, 13 Nov 2020 00:00:00 GMT</pubDate>
-            <description><![CDATA[
-はじめに
-
-ずっと触ろうと思って触っていなかったNextを触ってみる。
-今回は基本チュートリアルに沿って進めいく。
-
-TL;DR.
-
-ソースコード
-
-テンプレ作成
-
-CLIで作成。
-
-```bash
-$ npx create-next-app next-sa…]]></description>
-            <enclosure url="https://tminasen.dev/images/article/c8nsbkvrndwzjdapcetj/ogp.png" length="0" type="image/png"/>
         </item>
     </channel>
 </rss>
