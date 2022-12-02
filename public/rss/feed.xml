@@ -4,7 +4,7 @@
         <title>水無瀬のプログラミング日記feed</title>
         <link>https://tminasen.dev</link>
         <description>水無瀬のプログラミング日記のfeed</description>
-        <lastBuildDate>Sun, 19 Jun 2022 09:48:05 GMT</lastBuildDate>
+        <lastBuildDate>Fri, 02 Dec 2022 13:04:47 GMT</lastBuildDate>
         <docs>https://validator.w3.org/feed/docs/rss2.html</docs>
         <generator>https://github.com/jpmonette/feed</generator>
         <language>ja</language>
@@ -14,6 +14,26 @@
             <link>https://tminasen.dev</link>
         </image>
         <copyright>All rights reserved 2021, tminasen</copyright>
+        <item>
+            <title><![CDATA[Next.jsでbetterなディレクトリ構成を考える]]></title>
+            <link>https://tminasen.dev/blog/1ba0f384ec9f09200bac8ef1a98542</link>
+            <guid>https://tminasen.dev/blog/1ba0f384ec9f09200bac8ef1a98542</guid>
+            <pubDate>Fri, 02 Dec 2022 00:00:00 GMT</pubDate>
+            <description><![CDATA[
+はじめに
+
+最近`Next.js`を用いてアプリを作ることが多いのでより良いディレクトリ構成を考える。
+
+TL;DR.
+
+```
+.
+├── README.md
+├── next-env.d.ts
+├── next.config.js
+├── package…]]></description>
+            <enclosure url="https://tminasen.dev/images/article/1ba0f384ec9f09200bac8ef1a98542/ogp.png" length="0" type="image/png"/>
+        </item>
         <item>
             <title><![CDATA[Tauriを試してみる]]></title>
             <link>https://tminasen.dev/blog/49e96efeafa81d005101a61d382bf8</link>
@@ -189,27 +209,6 @@ NestJS+Angularの準備
 
 nxを使ってNestJS+Ang…]]></description>
             <enclosure url="https://tminasen.dev/images/article/qtrmulbdqnxllyzxvdss/ogp.png" length="0" type="image/png"/>
-        </item>
-        <item>
-            <title><![CDATA[Next.jsでmdxを使ってみる]]></title>
-            <link>https://tminasen.dev/blog/jqf7kbw04vsagabl5mhq</link>
-            <guid>https://tminasen.dev/blog/jqf7kbw04vsagabl5mhq</guid>
-            <pubDate>Mon, 28 Dec 2020 00:00:00 GMT</pubDate>
-            <description><![CDATA[
-はじめに
-
-mdxが気になっていた今日このごろ。  
-`Next.js`と一緒に使ってブログとか作れたら面白そうと思ったので、  
-Next.jsでmdxを使えるところまで試してみる。
-
-TL;DR.
-
-- ソースコード
-
-mdxとは
-
-> MDX is a…]]></description>
-            <enclosure url="https://tminasen.dev/images/article/jqf7kbw04vsagabl5mhq/ogp.png" length="0" type="image/png"/>
         </item>
     </channel>
 </rss>
