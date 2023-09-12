@@ -1,4 +1,5 @@
 import React from 'react';
+import Script from 'next/script';
 import Head from 'next/head';
 import { Maybe, Optional } from '../../types/utility';
 import { metaData } from '../constants/metaData';
@@ -52,11 +53,11 @@ export const HeadComponent: React.FC<Props> = ({
   return (
     <>
       <Head>
-        <script
+        <Script
           async
           custom-element="amp-analytics"
           src="https://cdn.ampproject.org/v0/amp-analytics-0.1.js"
-        ></script>
+        ></Script>
         <title>{metaTitle}</title>
         {isEnableViewPort ? (
           <meta

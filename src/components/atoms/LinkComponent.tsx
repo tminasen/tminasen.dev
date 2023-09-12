@@ -2,6 +2,7 @@ import React from 'react';
 import Link from 'next/link';
 import styled from 'styled-components';
 import { color } from '../../styles/variable';
+
 export type LinkColor = 'white' | 'black';
 
 interface Props {
@@ -10,10 +11,11 @@ interface Props {
   children: React.ReactNode;
 }
 
-const StyledLink = styled.a<{ linkColor: LinkColor }>`
-  color: ${({ linkColor }) => getLinkColor(linkColor)};
+const StyledLink = styled(Link)<Readonly<{ $linkColor: LinkColor }>>`
+  color: ${({ $linkColor }) => getLinkColor($linkColor)};
   text-decoration: none;
 `;
+
 const getLinkColor = (linkColor: LinkColor): string => {
   switch (linkColor) {
     case 'white':
@@ -29,8 +31,8 @@ const getLinkColor = (linkColor: LinkColor): string => {
 
 export const LinkComponent: React.FC<Props> = ({ url, color, children }) => {
   return (
-    <Link href={url} passHref>
-      <StyledLink linkColor={color}>{children}</StyledLink>
-    </Link>
+    <StyledLink href={url} $linkColor={color}>
+      {children}
+    </StyledLink>
   );
 };

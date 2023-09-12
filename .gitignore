@@ -37,6 +37,3 @@ yarn-error.log*
 
 # cache
 /.cache
-
-# node
-.node-version
