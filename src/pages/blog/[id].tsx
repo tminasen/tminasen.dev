@@ -7,7 +7,7 @@ import { Optional } from '../../../types/utility';
 import styled from 'styled-components';
 import { color, fontSize } from '../../styles/variable';
 import media from 'styled-media-query';
-import { TwitterShareButton } from '../../components/atoms/TwitterShareButton';
+import { XShareButton } from '../../components/atoms/XShareButton';
 import { GithubArticleButton } from '../../components/atoms/GithubArticleButton';
 import { MdTemplate } from '../../templates/MdTemplate';
 import { LinkComponent } from '../../components/atoms/LinkComponent';
@@ -107,7 +107,7 @@ const articlePage = ({ id, articleMetaData }: Props) => {
         </TitleWrapper>
         <MdTemplate html={targetMetaData.html} />
         <SnsLink>
-          <TwitterShareButton
+          <XShareButton
             title={targetMetaData.title}
             path={targetMetaData.path}
           />

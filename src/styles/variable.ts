@@ -3,6 +3,7 @@ export const color: { [key: string]: string } = {
   textWhite: '#ffffff',
   textQuote: '#8b949e',
   textCodeBlock: '#24292f',
+  bgBlack: '#000000',
   bgWhite: '#ffffff',
   bgGray: '#f5f5f5',
   bgOverlay: 'rgba(0, 0, 0, 0.2)',

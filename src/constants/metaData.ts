@@ -5,6 +5,6 @@ export const metaData = {
   domain: 'https://tminasen.dev',
   githubUrl: 'https://github.com/Tetsuya-Minase/',
   ogpImage: '/images/ogp.png',
-  twitterIcon: '/images/TwitterSocialIcon.png',
+  XIcon: '/images/XSocialIcon.png',
   githubIcon: '/images/GithubIcon.png',
 } as const;

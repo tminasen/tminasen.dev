@@ -3,25 +3,28 @@ import { Maybe } from '../../../types/utility';
 import styled from 'styled-components';
 import media from 'styled-media-query';
 import { metaData } from '../../constants/metaData';
+import { color } from '../../styles/variable';
 
 type Props = {
   title: Maybe<string>;
   path: Maybe<string>;
 };
 
-const TweetButtonWrapper = styled.div`
+const XButtonWrapper = styled.div`
   display: inline-block;
   margin: 0 0 1rem 0.5rem;
+  padding: 6px; /** アイコンサイズが40pxになるように調整 */
+  background-color: ${color.bgBlack};
+  border-radius: 50%;
 `;
-const TweetButton = styled.a`
+const PostButton = styled.a`
   display: block;
-  height: 4rem;
-  width: 4rem;
+  height: 28px;
+  width: 28px;
   position: relative;
-
   ${media.lessThan('small')`
-    height: 3rem;
-    width: 3rem;
+    height: 18px;
+    width: 18px;
   `}
 `;
 
@@ -36,34 +39,34 @@ const useFormatShareData = (
   return [shareText, shareUrl];
 };
 
-export const TwitterShareButton: React.FC<Props> = ({ title, path }) => {
+export const XShareButton: React.FC<Props> = ({ title, path }) => {
   const [shareText, shareUrl] = useFormatShareData(title, path);
   return (
-    <TweetButtonWrapper>
-      <TweetButton
+    <XButtonWrapper>
+      <PostButton
         href={`https://twitter.com/intent/tweet?text=${shareText}&url=${shareUrl}`}
-        title="Twitterに投稿する"
+        title="Xに投稿する"
         target="_blank"
       >
         {/* @ts-expect-error */}
         <amp-img
-          src={metaData.twitterIcon.replace(/\.png$/, '.webp')}
-          alt="twitterに投稿する"
-          width={40}
-          height={40}
+          src={metaData.XIcon.replace(/\.png$/, '.webp')}
+          alt="Xに投稿する"
+          // width={40}
+          // height={40}
           layout="fill"
         >
           {/* @ts-expect-error */}
           <amp-img
-            src={metaData.twitterIcon}
-            alt="twitterに投稿する"
-            width={40}
-            height={40}
+            src={metaData.XIcon}
+            alt="Xに投稿する"
+            // width={40}
+            // height={40}
             layout="fill"
           />
           {/* @ts-expect-error */}
         </amp-img>
-      </TweetButton>
-    </TweetButtonWrapper>
+      </PostButton>
+    </XButtonWrapper>
   );
 };
