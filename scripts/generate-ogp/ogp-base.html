@@ -56,6 +56,19 @@
         height: 48px;
     }
 
+    .sns__icon__x-wrapper {
+        display: inline-block;
+        padding: 8px;
+        background-color: #000;
+        border-radius: 50%;
+    }
+
+    .sns__icon__x {
+        display: block;
+        width: 32px;
+        height: 32px;
+    }
+
     .sns__account {
         margin-left: 8px;
         font-size: 32px;
@@ -75,7 +88,9 @@
   <div class="footer">
     <div class="sns-wrapper">
       <div class="sns">
-        <img class="sns__icon" src="../../public/images/XSocialIcon.png" alt="x">
+        <span class="sns__icon__x-wrapper">
+        <img class="sns__icon__x" src="../../public/images/XSocialIcon.png" alt="x">
+        </span>
         <p class="sns__account">@tminasen</p>
       </div>
       <div class="sns">

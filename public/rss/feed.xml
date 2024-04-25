@@ -4,7 +4,7 @@
         <title>水無瀬のプログラミング日記feed</title>
         <link>https://tminasen.dev</link>
         <description>水無瀬のプログラミング日記のfeed</description>
-        <lastBuildDate>Fri, 02 Dec 2022 13:04:47 GMT</lastBuildDate>
+        <lastBuildDate>Thu, 25 Apr 2024 13:56:08 GMT</lastBuildDate>
         <docs>https://validator.w3.org/feed/docs/rss2.html</docs>
         <generator>https://github.com/jpmonette/feed</generator>
         <language>ja</language>
@@ -14,6 +14,26 @@
             <link>https://tminasen.dev</link>
         </image>
         <copyright>All rights reserved 2021, tminasen</copyright>
+        <item>
+            <title><![CDATA[生成AIについて調べてみる]]></title>
+            <link>https://tminasen.dev/blog/4055d368bf410655f0363f255495d9</link>
+            <guid>https://tminasen.dev/blog/4055d368bf410655f0363f255495d9</guid>
+            <pubDate>Wed, 24 Apr 2024 00:00:00 GMT</pubDate>
+            <description><![CDATA[
+はじめに
+
+生成AIが話題だが、どの様なものがあって使われているのかあんまり知らないので調べる。
+
+有名な生成AIのサービス
+
+- ChatGPT
+- Claude
+- Gemini
+- DALL-E
+- Midjourney
+- Stable Diffus…]]></description>
+            <enclosure url="https://tminasen.dev/images/article/4055d368bf410655f0363f255495d9/ogp.png" length="0" type="image/png"/>
+        </item>
         <item>
             <title><![CDATA[Next.jsでbetterなディレクトリ構成を考える]]></title>
             <link>https://tminasen.dev/blog/1ba0f384ec9f09200bac8ef1a98542</link>
@@ -26,12 +46,13 @@
 
 TL;DR.
 
-```
-.
-├── README.md
-├── next-env.d.ts
-├── next.config.js
-├── package…]]></description>
+キレイに書けなかったのでgist行き。
+
+ディレクトリ詳細
+
+全体構成
+
+`create-next-app`で吐き出した状態から`pag…]]></description>
             <enclosure url="https://tminasen.dev/images/article/1ba0f384ec9f09200bac8ef1a98542/ogp.png" length="0" type="image/png"/>
         </item>
         <item>
@@ -191,24 +212,6 @@ TL:DR.
 
 …]]></description>
             <enclosure url="https://tminasen.dev/images/article/jzle6s7y8qa1gscz9ecv/ogp.png" length="0" type="image/png"/>
-        </item>
-        <item>
-            <title><![CDATA[NestJS+Angular+Scullyを試してみる]]></title>
-            <link>https://tminasen.dev/blog/qtrmulbdqnxllyzxvdss</link>
-            <guid>https://tminasen.dev/blog/qtrmulbdqnxllyzxvdss</guid>
-            <pubDate>Wed, 20 Jan 2021 00:00:00 GMT</pubDate>
-            <description><![CDATA[
-はじめに
-
-Next.jsが流行っている今日この頃。  
-AngularでもScullyやnxを使えば簡単にSSG+APIの構成が作れるのでは？と思ったので試してみる。
-
-セットアップ
-
-NestJS+Angularの準備
-
-nxを使ってNestJS+Ang…]]></description>
-            <enclosure url="https://tminasen.dev/images/article/qtrmulbdqnxllyzxvdss/ogp.png" length="0" type="image/png"/>
         </item>
     </channel>
 </rss>
