@@ -11,8 +11,8 @@
     "start": "next start",
     "create:md": "./scripts/article-scripts/target/release/article-scripts",
     "rename:files": "./scripts/article-scripts/target/release/article-scripts --rename ",
-    "generate:rss": "ts-node --project ./scripts/tsconfig.scripts.json ./scripts/generate-rss/GenerateRss.ts",
-    "generate:ogp": "ts-node --project ./scripts/tsconfig.scripts.json ./scripts/generate-ogp/GenerateOgp.ts",
+    "generate:rss": "./scripts/generate-rss/generate-rss.mjs",
+    "generate:ogp": "./scripts/generate-ogp/generate-ogp.mjs",
     "type-check": "tsc"
   },
   "dependencies": {
@@ -48,7 +48,7 @@
     "prettier": "2.6.2",
     "puppeteer": "^14.1.1",
     "raw-loader": "^4.0.2",
-    "ts-node": "^10.8.0"
+    "zx": "^8.0.2"
   },
   "license": "MIT",
   "engines": {

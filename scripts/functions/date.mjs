@@ -1,4 +1,9 @@
-export function parseStringDate(stringDate: string): number {
+/**
+ * 日付文字列をパースしてunixtimeに変換する
+ * @param stringDate {string} 日付文字列
+ * @return {number} unixtime(ミリ秒)
+ */
+export function parseStringDate(stringDate) {
   try {
     return Date.parse(stringDate);
   } catch {
@@ -8,9 +13,10 @@ export function parseStringDate(stringDate: string): number {
 
 /**
  * 日付文字列からDateオブジェクトを取得する
- * @param dateString YYYY/MM/DD
+ * @param dateString {string} 日付文字列(YYYY/MM/DD)
+ * @return {Date | Error} Dateオブジェクトまたはエラー
  */
-export function dateFromDateString(dateString: string): Date | Error {
+export function dateFromDateString(dateString) {
   const [year, month, day, ...others] = dateString.split('/');
   // 必要な日付なければエラー
   if (!year && !month && !day) {
@@ -30,7 +36,12 @@ export function dateFromDateString(dateString: string): Date | Error {
   return new Date(yearNum, monthNum - 1, dayNum, 9, 0, 0);
 }
 
-function convertToDecimal(value: string): number | Error {
+/**
+ * 10進数文字列を数値に変換する
+ * @param value {string} 数値文字列
+ * @return {number|Error} 数値またはエラー
+ */
+function convertToDecimal(value) {
   const decimalValue = Number.parseInt(value, 10);
   if (Number.isNaN(decimalValue)) {
     return new Error(`${value} is not a number`);
