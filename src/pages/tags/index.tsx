@@ -41,7 +41,6 @@ const TagListPage: React.FC<Props> = ({ tagList }) => {
       title="タグ一覧"
       ogpImage={undefined}
       isEnableViewPort={true}
-      isHiddenMenu={false}
       canonicalPath={`/tags`}
       ogType="website"
     >

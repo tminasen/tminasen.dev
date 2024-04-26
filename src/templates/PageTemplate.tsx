@@ -13,8 +13,6 @@ interface Props {
   title: Maybe<string>;
   ogpImage: Optional<string>;
   isEnableViewPort: boolean;
-  // TODO: ampで対応する方法思いついたらやめる
-  isHiddenMenu: boolean;
   canonicalPath: Optional<string>;
   children: JSX.Element | JSX.Element[];
   ogType: OgType;
@@ -64,7 +62,6 @@ export const PageTemplate: React.FC<Props> = ({
   title,
   children,
   isEnableViewPort,
-  isHiddenMenu,
   canonicalPath,
   ogType,
   ogpImage,
@@ -84,7 +81,6 @@ export const PageTemplate: React.FC<Props> = ({
       <HeaderComponent
         siteTitle="水無瀬のプログラミング日記"
         showModal={showModal}
-        isHiddenMenu={isHiddenMenu}
         openModal={openModal}
         closeModal={closeModal}
       />

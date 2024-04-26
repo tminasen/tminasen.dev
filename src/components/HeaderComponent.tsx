@@ -6,8 +6,6 @@ import { color, fontSize, layer } from '../styles/variable';
 
 type Props = {
   siteTitle: string;
-  // TODO: ampで対応する方法思いついたらやめる
-  isHiddenMenu: boolean;
   showModal: boolean;
   openModal: () => void;
   closeModal: () => void;
@@ -38,22 +36,27 @@ const MenuButton = styled.button`
   left: 28px;
   border: none;
   background-color: transparent;
+
   &::before,
   &::after {
     content: '';
     display: block;
     height: 8px;
   }
+
   &::before {
     border-top: solid 4px ${color.borderWhite};
   }
+
   &::after {
     border-top: solid 4px ${color.borderWhite};
     border-bottom: solid 4px ${color.borderWhite};
   }
+
   &:hover {
     cursor: pointer;
   }
+
   ${media.lessThan('small')`
     width: 28px;
     left: 0;
@@ -91,6 +94,7 @@ const CloseButton = styled.button`
   left: 4px;
   width: 40px;
   height: 40px;
+
   &::before,
   &::after {
     content: '';
@@ -99,12 +103,15 @@ const CloseButton = styled.button`
     width: 28px;
     border-top: solid 2px ${color.textBlack};
   }
+
   &::before {
     transform: rotateZ(45deg);
   }
+
   &::after {
     transform: rotateZ(135deg);
   }
+
   &:hover {
     cursor: pointer;
   }
@@ -124,16 +131,13 @@ const LinkText = styled.span`
 
 export const HeaderComponent: React.FC<Props> = ({
   siteTitle,
-  isHiddenMenu,
   showModal,
   openModal,
   closeModal,
 }) => {
   return (
     <Header>
-      {isHiddenMenu ? null : (
-        <MenuButton onClick={openModal}>メニュー</MenuButton>
-      )}
+      <MenuButton onClick={openModal}>メニュー</MenuButton>
       <Heading>
         <LinkComponent url="/" color="white">
           {siteTitle}

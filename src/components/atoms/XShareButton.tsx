@@ -27,6 +27,11 @@ const PostButton = styled.a`
     width: 18px;
   `}
 `;
+const Icon = styled.img`
+  object-fit: contain;
+  width: 100%;
+  height: 100%;
+`;
 
 const useFormatShareData = (
   title: Maybe<string>,
@@ -48,24 +53,14 @@ export const XShareButton: React.FC<Props> = ({ title, path }) => {
         title="Xに投稿する"
         target="_blank"
       >
-        {/* @ts-expect-error */}
-        <amp-img
-          src={metaData.XIcon.replace(/\.png$/, '.webp')}
-          alt="Xに投稿する"
-          // width={40}
-          // height={40}
-          layout="fill"
-        >
-          {/* @ts-expect-error */}
-          <amp-img
-            src={metaData.XIcon}
-            alt="Xに投稿する"
-            // width={40}
-            // height={40}
-            layout="fill"
+        <picture>
+          <source
+            type="image/webp"
+            srcSet={metaData.XIcon.replace(/\.png$/, '.webp')}
           />
-          {/* @ts-expect-error */}
-        </amp-img>
+          <source type="image/png" srcSet={metaData.XIcon} />
+          <Icon src={metaData.XIcon} alt="Xに投稿する" />
+        </picture>
       </PostButton>
     </XButtonWrapper>
   );

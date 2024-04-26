@@ -19,7 +19,6 @@ const NotFoundPage = () => (
   <PageTemplate
     title="Not found"
     isEnableViewPort={true}
-    isHiddenMenu={false}
     canonicalPath={undefined}
     ogpImage={undefined}
     ogType="website"

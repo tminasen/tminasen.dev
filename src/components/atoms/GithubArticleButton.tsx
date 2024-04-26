@@ -14,14 +14,19 @@ const GithubButtonWrapper = styled.div`
 `;
 const GithubButton = styled.a`
   display: block;
-  height: 4rem;
-  width: 4rem;
+  height: 40px;
+  width: 40px;
   position: relative;
 
   ${media.lessThan('small')`
-    height: 3rem;
-    width: 3rem;
+    height: 30px;
+    width: 30px;
   `}
+`;
+const Icon = styled.img`
+  object-fit: contain;
+  width: 100%;
+  height: 100%;
 `;
 
 const useCreateGithubArticleLink = (path: Maybe<string>) => {
@@ -44,25 +49,14 @@ export const GithubArticleButton: React.FC<Props> = ({ path }) => {
   return (
     <GithubButtonWrapper>
       <GithubButton href={buttonLink} title="Githubリンク" target="_blank">
-        {/* amp-imgが怒られるので一旦回避 */}
-        {/* @ts-expect-error */}
-        <amp-img
-          src={metaData.githubIcon.replace(/\.png$/, '.webp')}
-          alt="Githubリンク"
-          width={40}
-          height={40}
-          layout="fill"
-        >
-          {/* @ts-expect-error */}
-          <amp-img
-            src={metaData.githubIcon}
-            alt="Githubリンク"
-            width={40}
-            height={40}
-            layout="fill"
+        <picture>
+          <source
+            type="image/webp"
+            srcSet={metaData.githubIcon.replace(/\.png$/, '.webp')}
           />
-          {/* @ts-expect-error */}
-        </amp-img>
+          <source type="image/png" srcSet={metaData.githubIcon} />
+          <Icon src={metaData.githubIcon} alt="Githubリンク" />
+        </picture>
       </GithubButton>
     </GithubButtonWrapper>
   );
