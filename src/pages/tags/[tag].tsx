@@ -11,7 +11,7 @@ import { Image } from '../../components/atoms/ImageComponent';
 
 interface Props {
   tagName: string;
-  articleMetaData: ArticleMetaData[];
+  articleMetaDataList: ArticleMetaData[];
 }
 
 const PageTitle = styled.h1`
@@ -80,9 +80,9 @@ const DescriptionWrapper = styled.div`
 
 const getArticles = (
   tagName: string,
-  articleMetaData: ArticleMetaData[],
+  articleMetaDataList: ArticleMetaData[],
 ): JSX.Element | null => {
-  const articleList = articleMetaData
+  const articleList = articleMetaDataList
     .filter(data => data.tag.includes(tagName))
     .map((data): JSX.Element | null => {
       const tagList = data.tag.map(tag => (
@@ -130,18 +130,12 @@ const getArticles = (
   return <ArticleList>{articleList}</ArticleList>;
 };
 
-const tagPage: React.FC<Props> = ({ tagName, articleMetaData }) => {
+const tagPage: React.FC<Props> = ({ tagName, articleMetaDataList }) => {
   return (
-    <PageTemplate
-      title={`${tagName}の記事一覧`}
-      ogpImage={undefined}
-      isEnableViewPort={true}
-      canonicalPath={`/tags/${tagName}`}
-      ogType="website"
-    >
+    <PageTemplate>
       <article>
         <PageTitle>{tagName}の記事一覧</PageTitle>
-        {getArticles(tagName, articleMetaData)}
+        {getArticles(tagName, articleMetaDataList)}
       </article>
     </PageTemplate>
   );
@@ -163,6 +157,14 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
   if (tagName == null || Array.isArray(tagName)) {
     return { props: { tagName: null, articleMetaData: [] } };
   }
-  const articleMetaData: ArticleMetaData[] = await getArticleMetaData();
-  return { props: { tagName, articleMetaData } };
+  const articleMetaDataList: ArticleMetaData[] = await getArticleMetaData();
+  return {
+    props: {
+      tagName,
+      articleMetaDataList,
+      title: `${tagName}の記事一覧`,
+      ogType: 'website',
+      path: `/tags/${tagName}`,
+    },
+  };
 };

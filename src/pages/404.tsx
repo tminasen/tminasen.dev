@@ -16,13 +16,7 @@ const Message = styled.p`
 `;
 
 const NotFoundPage = () => (
-  <PageTemplate
-    title="Not found"
-    isEnableViewPort={true}
-    canonicalPath={undefined}
-    ogpImage={undefined}
-    ogType="website"
-  >
+  <PageTemplate>
     <React.Fragment>
       <Heading>NOT FOUND</Heading>
       <Message>そんなページないです🙈</Message>
@@ -31,3 +25,12 @@ const NotFoundPage = () => (
 );
 
 export default NotFoundPage;
+
+export const getStaticProps = async () => {
+  return {
+    props: {
+      title: 'Not fount',
+      ogType: 'website',
+    },
+  };
+};

@@ -37,13 +37,7 @@ const TagListItem = styled.li`
 
 const TagListPage: React.FC<Props> = ({ tagList }) => {
   return (
-    <PageTemplate
-      title="タグ一覧"
-      ogpImage={undefined}
-      isEnableViewPort={true}
-      canonicalPath={`/tags`}
-      ogType="website"
-    >
+    <PageTemplate>
       <section>
         <PageTitle>タグ一覧</PageTitle>
         <TagList>
@@ -65,5 +59,7 @@ export const getStaticProps: GetStaticProps = async () => {
   const articleMetaData: ArticleMetaData[] = await getArticleMetaData();
   const tagCount = getTagCount(articleMetaData);
   const tagList: Tag[] = convertTagList(tagCount);
-  return { props: { tagList } };
+  return {
+    props: { tagList, title: 'タグ一覧', ogType: 'website', path: '/tags' },
+  };
 };

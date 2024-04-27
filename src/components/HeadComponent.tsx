@@ -6,7 +6,6 @@ import { metaData } from '../constants/metaData';
 import { OgType } from '../../types/mets';
 
 type Props = {
-  isEnableViewPort: boolean;
   ogpImage: Optional<string>;
   title: Maybe<string>;
   additionalMetaData: Optional<Array<{ name: string; content: string }>>;
@@ -19,7 +18,6 @@ export const HeadComponent: React.FC<Props> = ({
   description,
   additionalMetaData,
   title,
-  isEnableViewPort,
   canonicalPath,
   ogType,
   ogpImage,
@@ -33,12 +31,10 @@ export const HeadComponent: React.FC<Props> = ({
     <>
       <Head>
         <title>{metaTitle}</title>
-        {isEnableViewPort ? (
-          <meta
-            name="viewport"
-            content="width=device-width, initial-scale=1.0, maximum-scale=5.0, minimum-scale=1.0"
-          />
-        ) : null}
+        <meta
+          name="viewport"
+          content="width=device-width, initial-scale=1.0, maximum-scale=5.0, minimum-scale=1.0"
+        />
         <meta name="description" content={metaDescription} />
         <meta name="og:title" content={metaTitle} />
         <meta name="og:description" content={metaDescription} />
@@ -76,7 +72,10 @@ export const HeadComponent: React.FC<Props> = ({
           }}
         />
       </Head>
-      <Script src="https://www.googletagmanager.com/gtag/js?id=G-L82JQBNL8M" />
+      <Script
+        src="https://www.googletagmanager.com/gtag/js?id=G-L82JQBNL8M"
+        strategy="afterInteractive"
+      />
     </>
   );
 };

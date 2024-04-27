@@ -14,7 +14,8 @@ import { LinkComponent } from '../../components/atoms/LinkComponent';
 
 interface Props {
   id: string;
-  articleMetaData: ArticleMetaData[];
+  ogType: string;
+  articleMetaData: ArticleMetaData;
 }
 
 const Article = styled.article`
@@ -81,37 +82,25 @@ const TagLink = ({ tag }: { tag: string }): JSX.Element => {
 };
 
 const articlePage = ({ id, articleMetaData }: Props) => {
-  const targetMetaData: Optional<ArticleMetaData> = articleMetaData.filter(
-    data => data.path === `/blog/${id}`,
-  )[0];
-  if (targetMetaData == null) {
-    return null;
-  }
   return (
-    <PageTemplate
-      title={targetMetaData.title}
-      ogpImage={targetMetaData.ogpImage}
-      isEnableViewPort={false}
-      canonicalPath={targetMetaData.path}
-      ogType="article"
-    >
+    <PageTemplate>
       <Article>
         <TitleWrapper>
-          <ArticleTitle>{targetMetaData.title}</ArticleTitle>
+          <ArticleTitle>{articleMetaData.title}</ArticleTitle>
           <TagList>
-            {targetMetaData.tag.map(t => (
+            {articleMetaData.tag.map(t => (
               <TagLink tag={t} />
             ))}
           </TagList>
-          <ArticleDate>{targetMetaData.date}</ArticleDate>
+          <ArticleDate>{articleMetaData.date}</ArticleDate>
         </TitleWrapper>
-        <MdTemplate html={targetMetaData.html} />
+        <MdTemplate html={articleMetaData.html} />
         <SnsLink>
           <XShareButton
-            title={targetMetaData.title}
-            path={targetMetaData.path}
+            title={articleMetaData.title}
+            path={articleMetaData.path}
           />
-          <GithubArticleButton path={targetMetaData.path} />
+          <GithubArticleButton path={articleMetaData.path} />
         </SnsLink>
       </Article>
     </PageTemplate>
@@ -131,6 +120,18 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
   if (id == null || Array.isArray(id)) {
     return { props: { id: null } };
   }
-  const articleMetaData: ArticleMetaData[] = await getArticleMetaData();
-  return { props: { id, articleMetaData } };
+  const articleMetaDataList: ArticleMetaData[] = await getArticleMetaData();
+  const targetMetaData: Optional<ArticleMetaData> = articleMetaDataList.filter(
+    data => data.path === `/blog/${id}`,
+  )[0];
+  if (targetMetaData == null) {
+    return { props: { id: null } };
+  }
+  return {
+    props: {
+      id,
+      ogType: 'article',
+      articleMetaData: targetMetaData,
+    },
+  };
 };

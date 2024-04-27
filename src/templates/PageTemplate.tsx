@@ -4,18 +4,10 @@ import { HeaderComponent } from '../components/HeaderComponent';
 import { FooterComponent } from '../components/FooterComponent';
 import styled from 'styled-components';
 import media from 'styled-media-query';
-import { HeadComponent } from '../components/HeadComponent';
-import { Maybe, Optional } from '../../types/utility';
 import { color, layer } from '../styles/variable';
-import { OgType } from '../../types/mets';
 
 interface Props {
-  title: Maybe<string>;
-  ogpImage: Optional<string>;
-  isEnableViewPort: boolean;
-  canonicalPath: Optional<string>;
   children: JSX.Element | JSX.Element[];
-  ogType: OgType;
 }
 
 const BodyWrapper = styled.div`
@@ -58,26 +50,10 @@ const useModalCondition = () => {
   return [showModal, closeModal, openModal] as const;
 };
 
-export const PageTemplate: React.FC<Props> = ({
-  title,
-  children,
-  isEnableViewPort,
-  canonicalPath,
-  ogType,
-  ogpImage,
-}) => {
+export const PageTemplate: React.FC<Props> = ({ children }) => {
   const [showModal, closeModal, openModal] = useModalCondition();
   return (
     <BodyWrapper>
-      <HeadComponent
-        title={title}
-        ogpImage={ogpImage}
-        additionalMetaData={undefined}
-        description={undefined}
-        isEnableViewPort={isEnableViewPort}
-        canonicalPath={canonicalPath}
-        ogType={ogType}
-      />
       <HeaderComponent
         siteTitle="水無瀬のプログラミング日記"
         showModal={showModal}

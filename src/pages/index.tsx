@@ -30,19 +30,13 @@ const ArticleCardItem: (param: {
   );
 };
 
-const IndexPage: React.FC<{ articleMetaData: ArticleMetaData[] }> = ({
-  articleMetaData,
+const IndexPage: React.FC<{ articleMetaDataList: ArticleMetaData[] }> = ({
+  articleMetaDataList,
 }) => {
   return (
-    <PageTemplate
-      title={null}
-      ogpImage={undefined}
-      isEnableViewPort={true}
-      canonicalPath="/"
-      ogType="website"
-    >
+    <PageTemplate>
       <ArticleCardList>
-        {articleMetaData.map(article => (
+        {articleMetaDataList.map(article => (
           <ArticleCardItem articleData={article} key={article.path} />
         ))}
       </ArticleCardList>
@@ -53,12 +47,20 @@ const IndexPage: React.FC<{ articleMetaData: ArticleMetaData[] }> = ({
 export default IndexPage;
 
 export const getStaticProps = async (): Promise<{
-  props: { articleMetaData: ArticleMetaData[] };
+  props: {
+    title: string;
+    path: string;
+    ogType: string;
+    articleMetaDataList: ArticleMetaData[];
+  };
 }> => {
   const data = await getArticleMetaData();
   return {
     props: {
-      articleMetaData: data,
+      title: '記事一覧',
+      path: '/',
+      ogType: 'website',
+      articleMetaDataList: data,
     },
   };
 };
