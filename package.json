@@ -9,8 +9,8 @@
     "dev": "next",
     "format": "prettier --write \"**/*.{js,jsx,ts,tsx,json,md}\"",
     "start": "next start",
-    "create:md": "./scripts/article-scripts/target/release/article-scripts",
-    "rename:files": "./scripts/article-scripts/target/release/article-scripts --rename ",
+    "create:md": "./target/release/article-scripts",
+    "rename:files": "./target/release/article-scripts --rename ",
     "generate:rss": "./scripts/generate-rss/generate-rss.mjs",
     "generate:ogp": "./scripts/generate-ogp/generate-ogp.mjs",
     "type-check": "tsc"
