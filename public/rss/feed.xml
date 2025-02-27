@@ -4,7 +4,7 @@
         <title>水無瀬のプログラミング日記feed</title>
         <link>https://tminasen.dev</link>
         <description>水無瀬のプログラミング日記のfeed</description>
-        <lastBuildDate>Thu, 25 Apr 2024 13:56:08 GMT</lastBuildDate>
+        <lastBuildDate>Thu, 27 Feb 2025 15:12:11 GMT</lastBuildDate>
         <docs>https://validator.w3.org/feed/docs/rss2.html</docs>
         <generator>https://github.com/jpmonette/feed</generator>
         <language>ja</language>
@@ -13,7 +13,19 @@
             <url>https://tminasen.dev/images/ogp.png</url>
             <link>https://tminasen.dev</link>
         </image>
-        <copyright>All rights reserved 2021, tminasen</copyright>
+        <copyright>All rights reserved 2024, tminasen</copyright>
+        <item>
+            <title><![CDATA[VSCode拡張機能「Cline」を試してみる]]></title>
+            <link>https://tminasen.dev/blog/64b0cd78-e933-463c-b3c3-5474a112ad05</link>
+            <guid>https://tminasen.dev/blog/64b0cd78-e933-463c-b3c3-5474a112ad05</guid>
+            <pubDate>Thu, 27 Feb 2025 00:00:00 GMT</pubDate>
+            <description><![CDATA[
+はじめに
+
+最近、開発効率を上げるためのAIツールが次々と登場していますが、その中でも「Cline」というVSCode拡張機能が注目を集めています。  
+Clineは、Anthropic社のAIアシスタント「Claude」をVSCode内で直接利用できるよう…]]></description>
+            <enclosure url="https://tminasen.dev/images/article/64b0cd78-e933-463c-b3c3-5474a112ad05/ogp.png" length="0" type="image/png"/>
+        </item>
         <item>
             <title><![CDATA[生成AIについて調べてみる]]></title>
             <link>https://tminasen.dev/blog/4055d368bf410655f0363f255495d9</link>
@@ -195,23 +207,6 @@ TL;DR.
 yarn + typescriptの前提。  
 それぞれの導入方法につい…]]></description>
             <enclosure url="https://tminasen.dev/images/article/6ug6vmjayh36hkbdwd19/ogp.png" length="0" type="image/png"/>
-        </item>
-        <item>
-            <title><![CDATA[markdown内の画像をamp-img対応メモ]]></title>
-            <link>https://tminasen.dev/blog/jzle6s7y8qa1gscz9ecv</link>
-            <guid>https://tminasen.dev/blog/jzle6s7y8qa1gscz9ecv</guid>
-            <pubDate>Thu, 04 Feb 2021 00:00:00 GMT</pubDate>
-            <description><![CDATA[
-はじめに
-
-Next.jsでブログを作ってた今日このごろ。  
-markdownからhtmlを生成するブログでamp対応したかったのだが、  
-markdown内画像がimgタグに変換されてしまうのでamp-imgに変換する対応をした話。
-
-TL:DR.
-
-…]]></description>
-            <enclosure url="https://tminasen.dev/images/article/jzle6s7y8qa1gscz9ecv/ogp.png" length="0" type="image/png"/>
         </item>
     </channel>
 </rss>
