@@ -32,9 +32,9 @@ const StyledImage = styled.img<ImageProps>`
   ${({ isRounded }) => (isRounded ? `border-radius: 10px 10px 0 0;` : '')}
   width: ${({ styledWidth: { pc } }) => pc}px;
   height: ${({ styledHeight: { pc } }) => pc}px;
-  ${media.lessThan<ImageProps>('small')`
-    width: ${({ styledWidth: { sp } }) => sp}px;
-    height: ${({ styledHeight: { sp } }) => sp}px;
+  ${media.lessThan('small')`
+    width: ${({ styledWidth: { sp } }: ImageProps) => sp}px;
+    height: ${({ styledHeight: { sp } }: ImageProps) => sp}px;
   `}
 `;
 

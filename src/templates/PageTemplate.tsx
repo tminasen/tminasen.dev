@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { JSX, useState } from 'react';
 
 import { HeaderComponent } from '../components/HeaderComponent';
 import { FooterComponent } from '../components/FooterComponent';

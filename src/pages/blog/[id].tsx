@@ -1,4 +1,4 @@
-import React from 'react';
+import { JSX } from 'react';
 import { GetStaticPaths, GetStaticProps } from 'next';
 import { getArticleMetaData } from '../../libraries/articles';
 import { PageTemplate } from '../../templates/PageTemplate';

@@ -1,4 +1,4 @@
-import React from 'react';
+import { JSX } from 'react';
 import styled from 'styled-components';
 import { PageTemplate } from '../templates/PageTemplate';
 import { getArticleMetaData } from '../libraries/articles';

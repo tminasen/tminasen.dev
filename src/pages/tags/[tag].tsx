@@ -1,4 +1,4 @@
-import React from 'react';
+import { JSX } from 'react';
 import { GetStaticPaths, GetStaticProps } from 'next';
 import styled from 'styled-components';
 import { color } from '../../styles/variable';
