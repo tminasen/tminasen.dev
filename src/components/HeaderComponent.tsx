@@ -1,8 +1,5 @@
-import React from 'react';
-import styled from 'styled-components';
-import media from 'styled-media-query';
+import { FC } from 'react';
 import { LinkComponent } from './atoms/LinkComponent';
-import { color, fontSize, layer } from '../styles/variable';
 
 type Props = {
   siteTitle: string;
@@ -11,148 +8,46 @@ type Props = {
   closeModal: () => void;
 };
 
-const Header = styled.header`
-  display: flex;
-  position: relative;
-  background: ${color.headerBgBlue};
-  max-height: 64px;
-  align-items: center;
-  justify-content: center;
-`;
-const Heading = styled.h1`
-  font-size: ${fontSize.px32};
-  font-weight: bold;
-  line-height: 1.5;
-  ${media.lessThan('small')`
-    font-size: ${fontSize.px24};
-    margin-left: 12px;
-  `}
-`;
-
-const MenuButton = styled.button`
-  font-size: 0;
-  position: absolute;
-  width: 48px;
-  left: 28px;
-  border: none;
-  background-color: transparent;
-
-  &::before,
-  &::after {
-    content: '';
-    display: block;
-    height: 8px;
-  }
-
-  &::before {
-    border-top: solid 4px ${color.borderWhite};
-  }
-
-  &::after {
-    border-top: solid 4px ${color.borderWhite};
-    border-bottom: solid 4px ${color.borderWhite};
-  }
-
-  &:hover {
-    cursor: pointer;
-  }
-
-  ${media.lessThan('small')`
-    width: 28px;
-    left: 0;
-    &::before,
-    &::after {
-      content: '';
-      display: block;
-      height: 4px;
-      width: 24px;
-    }
-  `}
-`;
-
-const MenuDialog = styled.div<{ showModal: boolean }>`
-  display: ${({ showModal }) => (showModal ? 'block' : 'none')};
-  position: absolute;
-  left: 28px;
-  top: 8px;
-  z-index: ${layer.overlay};
-  background-color: ${color.bgWhite};
-  min-width: 500px;
-  min-height: 80vh;
-  border-radius: 4px;
-  ${media.lessThan('small')`
-    min-width: 360px;
-    left: 4px;
-  `}
-`;
-const CloseButton = styled.button`
-  font-size: 0;
-  border: none;
-  background-color: transparent;
-  position: relative;
-  top: 4px;
-  left: 4px;
-  width: 40px;
-  height: 40px;
-
-  &::before,
-  &::after {
-    content: '';
-    display: block;
-    position: absolute;
-    width: 28px;
-    border-top: solid 2px ${color.textBlack};
-  }
-
-  &::before {
-    transform: rotateZ(45deg);
-  }
-
-  &::after {
-    transform: rotateZ(135deg);
-  }
-
-  &:hover {
-    cursor: pointer;
-  }
-`;
-const LinkItem = styled.li`
-  display: flex;
-  justify-content: center;
-`;
-const LinkText = styled.span`
-  font-size: ${fontSize.px32};
-  font-weight: 700;
-  text-decoration: underline;
-  ${media.lessThan('small')`
-    font-size: ${fontSize.px24};
-  `}
-`;
-
-export const HeaderComponent: React.FC<Props> = ({
+export const HeaderComponent: FC<Props> = ({
   siteTitle,
   showModal,
   openModal,
   closeModal,
 }) => {
   return (
-    <Header>
-      <MenuButton onClick={openModal}>メニュー</MenuButton>
-      <Heading>
+    <header className="flex relative bg-(--color-header-bg-blue) max-h-[64px] justify-center items-center">
+      <button
+        className="menu-button absolute w-7 sm:w-9 left-1 sm:left-7 no-underline bg-transparent"
+        onClick={openModal}
+      >
+        メニュー
+      </button>
+      <h1 className="text-2xl sm:text-4xl font-bold leading-[1.5] ml-2 sm:ml-0">
         <LinkComponent url="/" color="white">
           {siteTitle}
         </LinkComponent>
-      </Heading>
-      <MenuDialog showModal={showModal}>
-        <CloseButton onClick={closeModal}>閉じる</CloseButton>
+      </h1>
+      <div
+        className={`${
+          showModal ? 'block' : 'hidden'
+        } absolute left-1 sm:left-7 top-2 z-10 bg-white min-w-[360px] sm:min-w-[500px] min-h-[75vh] rounded-sm`}
+      >
+        <button
+          className="close-button relative border-none bg-transparent w-10 h-10"
+          onClick={closeModal}
+        >
+          閉じる
+        </button>
         <ul>
-          <LinkItem>
+          <li className="flex justify-center">
             <LinkComponent url="/tags" color="black">
-              <LinkText>タグ一覧</LinkText>
+              <span className="text-2xl sm:text-3xl font-bold underline">
+                タグ一覧
+              </span>
             </LinkComponent>
-          </LinkItem>
+          </li>
         </ul>
-      </MenuDialog>
-    </Header>
+      </div>
+    </header>
   );
 };

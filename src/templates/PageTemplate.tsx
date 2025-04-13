@@ -1,47 +1,10 @@
 import { JSX, useState } from 'react';
-
 import { HeaderComponent } from '../components/HeaderComponent';
 import { FooterComponent } from '../components/FooterComponent';
-import styled from 'styled-components';
-import media from 'styled-media-query';
-import { color, layer } from '../styles/variable';
 
 interface Props {
   children: JSX.Element | JSX.Element[];
 }
-
-const BodyWrapper = styled.div`
-  background-color: ${color.bgGray};
-  display: flex;
-  flex-direction: column;
-  min-height: 100vh;
-  min-width: 1064px;
-  ${media.lessThan('small')`
-    min-width: 345px;
-  `}
-  position: relative;
-`;
-const ContentsWrapper = styled.div`
-  flex: 1 0 auto;
-  display: flex;
-  justify-content: space-between;
-  margin: 20px 8px 0;
-  ${media.lessThan('small')`
-    margin: 20px 4px 0;
-    justify-content: center;
-  `}
-`;
-const Main = styled.main`
-  width: 100%;
-`;
-const Overlay = styled.div<{ showModal: boolean }>`
-  background-color: ${color.bgOverlay};
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  display: ${({ showModal }) => (showModal ? 'block' : 'none')};
-  z-index: ${layer.backgroundOverlay};
-`;
 
 const useModalCondition = () => {
   const [showModal, setShowModal] = useState(false);
@@ -53,18 +16,18 @@ const useModalCondition = () => {
 export const PageTemplate: React.FC<Props> = ({ children }) => {
   const [showModal, closeModal, openModal] = useModalCondition();
   return (
-    <BodyWrapper>
+    <div className='flex flex-col relative min-h-lvh min-w-86 sm:min-w-7xl bg-neutral-100'>
       <HeaderComponent
         siteTitle="水無瀬のプログラミング日記"
         showModal={showModal}
         openModal={openModal}
         closeModal={closeModal}
       />
-      <ContentsWrapper>
-        <Main>{children}</Main>
-      </ContentsWrapper>
+      <div className='flex flex-[1_0_auto] justify-between mt-5 mb-0 mx-1 sm:mx-2'>
+        <main className='w-full'>{children}</main>
+      </div>
       <FooterComponent />
-      <Overlay showModal={showModal} />
-    </BodyWrapper>
+      <div className={`${showModal ? 'block': 'hidden'} absolute bg-black/20 w-full h-full z-5`} />
+    </div>
   );
 };

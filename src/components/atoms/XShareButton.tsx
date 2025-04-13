@@ -1,37 +1,11 @@
-import React from 'react';
+import { FC } from 'react';
 import { Maybe } from '../../../types/utility';
-import styled from 'styled-components';
-import media from 'styled-media-query';
 import { metaData } from '../../constants/metaData';
-import { color } from '../../styles/variable';
 
 type Props = {
   title: Maybe<string>;
   path: Maybe<string>;
 };
-
-const XButtonWrapper = styled.div`
-  display: inline-block;
-  margin: 0 0 1rem 0.5rem;
-  padding: 6px; /** アイコンサイズが40pxになるように調整 */
-  background-color: ${color.bgBlack};
-  border-radius: 50%;
-`;
-const PostButton = styled.a`
-  display: block;
-  height: 28px;
-  width: 28px;
-  position: relative;
-  ${media.lessThan('small')`
-    height: 18px;
-    width: 18px;
-  `}
-`;
-const Icon = styled.img`
-  object-fit: contain;
-  width: 100%;
-  height: 100%;
-`;
 
 const useFormatShareData = (
   title: Maybe<string>,
@@ -44,11 +18,12 @@ const useFormatShareData = (
   return [shareText, shareUrl];
 };
 
-export const XShareButton: React.FC<Props> = ({ title, path }) => {
+export const XShareButton: FC<Props> = ({ title, path }) => {
   const [shareText, shareUrl] = useFormatShareData(title, path);
   return (
-    <XButtonWrapper>
-      <PostButton
+    <div className='inline-block p-[6px] bg-black rounded-full'>
+      <a
+        className='block h-[18px] w-[18px] sm:w-[28px] sm:h-[28px] relative'
         href={`https://twitter.com/intent/tweet?text=${shareText}&url=${shareUrl}`}
         title="Xに投稿する"
         target="_blank"
@@ -59,9 +34,9 @@ export const XShareButton: React.FC<Props> = ({ title, path }) => {
             srcSet={metaData.XIcon.replace(/\.png$/, '.webp')}
           />
           <source type="image/png" srcSet={metaData.XIcon} />
-          <Icon src={metaData.XIcon} alt="Xに投稿する" />
+          <img className='object-contain w-full h-full' src={metaData.XIcon} alt="Xに投稿する" />
         </picture>
-      </PostButton>
-    </XButtonWrapper>
+      </a>
+    </div>
   );
 };

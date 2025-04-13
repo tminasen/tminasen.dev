@@ -2,7 +2,7 @@
 const nextConfig = {
   output: 'export',
   compiler: {
-    styledComponents: true,
+    styledComponents: false,
   },
 };
 

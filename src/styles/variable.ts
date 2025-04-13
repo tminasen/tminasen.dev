@@ -1,4 +1,4 @@
-export const color: { [key: string]: string } = {
+export const color = {
   textBlack: '#333333',
   textWhite: '#ffffff',
   textQuote: '#8b949e',

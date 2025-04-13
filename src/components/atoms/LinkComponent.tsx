@@ -1,38 +1,29 @@
-import React from 'react';
+import { FC, ReactNode } from 'react';
 import Link from 'next/link';
-import styled from 'styled-components';
-import { color } from '../../styles/variable';
-
-export type LinkColor = 'white' | 'black';
 
 interface Props {
   url: string;
-  color: LinkColor;
-  children: React.ReactNode;
+  color: 'white' | 'black';
+  children: ReactNode;
 }
 
-const StyledLink = styled(Link)<Readonly<{ $linkColor: LinkColor }>>`
-  color: ${({ $linkColor }) => getLinkColor($linkColor)};
-  text-decoration: none;
-`;
-
-const getLinkColor = (linkColor: LinkColor): string => {
+const getLinkColor = (linkColor: 'white' | 'black'): string => {
   switch (linkColor) {
     case 'white':
-      return color.textWhite;
+      return 'text-white';
     case 'black':
-      return color.textBlack;
+      return 'text-(--color-text-base)';
     default:
       const _invalidColor: never = linkColor;
       console.error(`${_invalidColor} is invalid.`);
-      return linkColor;
+      return 'text-(--color-text-base)';
   }
 };
 
-export const LinkComponent: React.FC<Props> = ({ url, color, children }) => {
+export const LinkComponent: FC<Props> = ({ url, color, children }) => {
   return (
-    <StyledLink href={url} $linkColor={color}>
+    <Link className={`no-underline ${getLinkColor(color)}`} href={url}>
       {children}
-    </StyledLink>
+    </Link>
   );
 };

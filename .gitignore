@@ -37,3 +37,6 @@ yarn-error.log*
 
 # cache
 /.cache
+
+# AI
+.clinerules

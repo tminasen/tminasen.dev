@@ -1,8 +1,5 @@
 import React from 'react';
 import { PageTemplate } from '../../templates/PageTemplate';
-import styled from 'styled-components';
-import { color, fontSize } from '../../styles/variable';
-import media from 'styled-media-query';
 import { GetStaticProps } from 'next';
 import { ArticleMetaData, Tag } from '../../../types/article';
 import {
@@ -16,39 +13,20 @@ interface Props {
   tagList: Tag[];
 }
 
-const PageTitle = styled.h1`
-  color: ${color.textBlack};
-  font-size: ${fontSize.px28};
-  margin-bottom: 16px;
-  ${media.lessThan('small')`
-    font-size: ${fontSize.px20};
-  `}
-`;
-
-const TagList = styled.ul`
-  font-size: ${fontSize.px16};
-  margin-left: 16px;
-`;
-const TagListItem = styled.li`
-  &:not(:first-child) {
-    margin-top: 8px;
-  }
-`;
-
 const TagListPage: React.FC<Props> = ({ tagList }) => {
   return (
     <PageTemplate>
       <section>
-        <PageTitle>タグ一覧</PageTitle>
-        <TagList>
+        <h1 className='text-(--color-text-base) text-2xl sm:text-3xl mb-4'>タグ一覧</h1>
+        <ul className='text-base ml-4 space-y-1'>
           {tagList.map(tag => (
-            <TagListItem key={tag.name}>
+            <li key={tag.name}>
               <LinkComponent url={tag.url} color="black">
                 {`${tag.name}(${tag.articleCount})`}
               </LinkComponent>
-            </TagListItem>
+            </li>
           ))}
-        </TagList>
+        </ul>
       </section>
     </PageTemplate>
   );

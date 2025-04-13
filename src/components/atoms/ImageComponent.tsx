@@ -1,6 +1,4 @@
-import React from 'react';
-import styled from 'styled-components';
-import media from 'styled-media-query';
+import { FC } from 'react';
 
 interface Props {
   imageSrc: string;
@@ -16,46 +14,18 @@ interface Props {
   };
 }
 
-interface ImageProps {
-  isRounded: boolean;
-  styledWidth: {
-    pc: number;
-    sp: number;
-  };
-  styledHeight: {
-    pc: number;
-    sp: number;
-  };
-}
-
-const StyledImage = styled.img<ImageProps>`
-  ${({ isRounded }) => (isRounded ? `border-radius: 10px 10px 0 0;` : '')}
-  width: ${({ styledWidth: { pc } }) => pc}px;
-  height: ${({ styledHeight: { pc } }) => pc}px;
-  ${media.lessThan('small')`
-    width: ${({ styledWidth: { sp } }: ImageProps) => sp}px;
-    height: ${({ styledHeight: { sp } }: ImageProps) => sp}px;
-  `}
-`;
-
-export const Image: React.FC<Props> = ({
+export const Image: FC<Props> = ({
   imageSrc,
   isRounded,
-  alt,
-  width,
-  height,
+  alt
 }) => {
   return (
     <picture>
       <source type="image/webp" srcSet={imageSrc.replace(/\.png$/, '.webp')} />
-      <StyledImage
+      <img
+        className={`${isRounded ? '' : 'rounded-t-lg'} w-(--image-sp-width) sm:w-(--image-pc-width)`}
         src={imageSrc}
         alt={alt}
-        isRounded={isRounded}
-        width={width.pc}
-        height={height.pc}
-        styledWidth={width}
-        styledHeight={height}
       />
     </picture>
   );

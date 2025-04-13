@@ -1,4 +1,4 @@
-import React from 'react';
+import { FC } from 'react';
 import Head from 'next/head';
 import Script from 'next/script';
 import { Maybe, Optional } from '../../types/utility';
@@ -14,7 +14,7 @@ type Props = {
   ogType: OgType;
 };
 
-export const HeadComponent: React.FC<Props> = ({
+export const HeadComponent: FC<Props> = ({
   description,
   additionalMetaData,
   title,

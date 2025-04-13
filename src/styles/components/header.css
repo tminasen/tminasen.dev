@@ -1,0 +1,54 @@
+.menu-button {
+    font-size: 0;
+}
+.menu-button::before,
+.menu-button::after {
+    content: '';
+    display: block;
+    height: 4px;
+    width: 24px;
+    box-sizing: content-box;
+    border-top: solid 4px var(--color-neutral-100);
+}
+.menu-button::after {
+    border-bottom: solid 4px var(--color-neutral-100);
+}
+.menu-button:hover {
+    cursor: pointer
+}
+@media (min-width: theme('screens.sm')) {
+    .menu-button::before,
+    .menu-button::after {
+        content: '';
+        display: block;
+        height: 8px;
+        width: auto;
+        box-sizing: content-box;
+        border-top: solid 4px var(--color-neutral-100);
+    }
+}
+
+.close-button {
+    font-size: 0;
+}
+.close-button::before,
+.close-button::after {
+    content: '';
+    display: block;
+    position: absolute;
+    width: 28px;
+    border-top: solid 2px var(--color-text-base);
+    top: 50%;
+    left: 50%;
+    margin-left: -14px; /* 中央配置にするためwidthの半分だけずらす */
+    transform-origin: center;
+}
+.close-button::before {
+    transform: translateY(-50%) rotateZ(45deg);
+}
+.close-button::after {
+    transform: translateY(-50%) rotateZ(-45deg);
+}
+.close-button:hover {
+    cursor: pointer
+}

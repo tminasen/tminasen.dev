@@ -4,9 +4,6 @@ import { getArticleMetaData } from '../../libraries/articles';
 import { PageTemplate } from '../../templates/PageTemplate';
 import { ArticleMetaData } from '../../../types/article';
 import { Optional } from '../../../types/utility';
-import styled from 'styled-components';
-import { color, fontSize } from '../../styles/variable';
-import media from 'styled-media-query';
 import { XShareButton } from '../../components/atoms/XShareButton';
 import { GithubArticleButton } from '../../components/atoms/GithubArticleButton';
 import { MdTemplate } from '../../templates/MdTemplate';
@@ -18,91 +15,38 @@ interface Props {
   articleMetaData: ArticleMetaData;
 }
 
-const Article = styled.article`
-  max-width: 980px;
-  display: flex;
-  flex-direction: column;
-  margin: 0 auto;
-  ${media.lessThan('small')`
-    max-width: 372px;
-  `}
-`;
-const TitleWrapper = styled.div`
-  background-color: ${color.bgWhite};
-  border-radius: 4px;
-  padding: 4px 16px;
-  ${media.lessThan('small')`
-    padding: 4px 12px;
-  `}
-`;
-const ArticleTitle = styled.h1`
-  font-size: ${fontSize.px28};
-  font-weight: bolder;
-  line-height: 1.5;
-  ${media.lessThan('small')`
-    font-size: ${fontSize.px24}
-  `}
-`;
-const ArticleDate = styled.time`
-  display: block;
-  margin-top: 4px;
-  font-size: ${fontSize.px16};
-  line-height: 1.5;
-`;
-const TagList = styled.ul`
-  display: flex;
-  align-items: center;
-  margin-top: 4px;
-`;
-const TagListItem = styled.li`
-  border: solid 1px ${color.borderBlack};
-  border-radius: 30px;
-  font-size: ${fontSize.px16};
-  line-height: 1.5;
-  padding: 0 8px;
-
-  & + & {
-    margin-left: 4px;
-  }
-`;
-const SnsLink = styled.div`
-  display: flex;
-  margin-top: 8px;
-  align-content: center;
-`;
-
 const TagLink = ({ tag }: { tag: string }): JSX.Element => {
   return (
-    <TagListItem>
+    <li key={tag} className='border border-solid border-black rounded-4xl text-base leading-[1.5] px-2'>
       <LinkComponent url={`/tags/${tag}`} color="black">
         {tag}
       </LinkComponent>
-    </TagListItem>
+    </li>
   );
 };
 
 const articlePage = ({ id, articleMetaData }: Props) => {
   return (
     <PageTemplate>
-      <Article>
-        <TitleWrapper>
-          <ArticleTitle>{articleMetaData.title}</ArticleTitle>
-          <TagList>
+      <article className='max-w-93 sm:max-w-5xl flex flex-col mx-auto'>
+        <div className='bg-white rounded-sm px-3 sm:px-4 py-1'>
+          <h1 className='text-2xl sm:text-3xl font-bold leading-[1.5] text-(--color-text-base)'>{articleMetaData.title}</h1>
+          <ul className='flex items-center mt-2 space-x-1'>
             {articleMetaData.tag.map(t => (
               <TagLink tag={t} />
             ))}
-          </TagList>
-          <ArticleDate>{articleMetaData.date}</ArticleDate>
-        </TitleWrapper>
+          </ul>
+          <time className='block mt-1 text-base leading-[1.5]'>{articleMetaData.date}</time>
+        </div>
         <MdTemplate html={articleMetaData.html} />
-        <SnsLink>
+        <div className='flex mt-2 content-center items-center gap-x-2'>
           <XShareButton
             title={articleMetaData.title}
             path={articleMetaData.path}
           />
           <GithubArticleButton path={articleMetaData.path} />
-        </SnsLink>
-      </Article>
+        </div>
+      </article>
     </PageTemplate>
   );
 };

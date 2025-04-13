@@ -1,8 +1,5 @@
 import { JSX } from 'react';
 import { GetStaticPaths, GetStaticProps } from 'next';
-import styled from 'styled-components';
-import { color } from '../../styles/variable';
-import media from 'styled-media-query';
 import { PageTemplate } from '../../templates/PageTemplate';
 import { getArticleMetaData } from '../../libraries/articles';
 import { ArticleMetaData } from '../../../types/article';
@@ -14,70 +11,6 @@ interface Props {
   articleMetaDataList: ArticleMetaData[];
 }
 
-const PageTitle = styled.h1`
-  color: ${color.textBlack};
-  font-size: 2.8rem;
-  margin-bottom: 1.5rem;
-  ${media.lessThan('small')`
-    font-size:2rem;
-  `}
-`;
-const ArticleList = styled.ul`
-  display: flex;
-  flex-wrap: wrap;
-`;
-const ArticleListItem = styled.li`
-  flex-basis: 100%;
-  margin-bottom: 2rem;
-`;
-const ArticleWrapper = styled.section`
-  color: ${color.textBlack};
-`;
-const ArticleTitle = styled.h1`
-  font-size: 2.4rem;
-  ${media.lessThan('small')`
-    font-size: 2rem;
-  `}
-`;
-const ArticleTitleWrapper = styled.div`
-  background-color: #b0bec5;
-  height: 8rem;
-  padding: 0.4rem 2rem;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-around;
-`;
-const ArticleDate = styled.time`
-  font-size: 1.6rem;
-  ${media.lessThan('small')`
-    font-size: 1.2rem;
-  `}
-`;
-const TitleTagList = styled.ul`
-  display: flex;
-  font-size: 1.6rem;
-  /** 上下の間が広いので減らしておく */
-  margin: -0.2rem 0;
-  ${media.lessThan('small')`
-    font-size: 1.2rem;
-  `}
-`;
-const TitleTagListItem = styled.li`
-  margin-right: 0.5rem;
-`;
-const ArticleDescription = styled.p`
-  font-size: 2rem;
-  padding: 8px;
-  ${media.lessThan('small')`
-    font-size: 1.6rem;
-  `}
-`;
-const DescriptionWrapper = styled.div`
-  background-color: #eceff1;
-  height: 10rem;
-  display: flex;
-`;
-
 const getArticles = (
   tagName: string,
   articleMetaDataList: ArticleMetaData[],
@@ -86,26 +19,26 @@ const getArticles = (
     .filter(data => data.tag.includes(tagName))
     .map((data): JSX.Element | null => {
       const tagList = data.tag.map(tag => (
-        <TitleTagListItem key={`/tags/${tag}`}>
+        <li className='mr-1.5' key={`/tags/${tag}`}>
           <LinkComponent url={`/tags/${tag}`} color="black">
             {tag}
           </LinkComponent>
-        </TitleTagListItem>
+        </li>
       ));
 
       return (
-        <ArticleListItem key={`${data.path}`}>
-          <ArticleWrapper>
-            <ArticleTitleWrapper>
+        <li className='basis-full' key={`${data.path}`}>
+          <section>
+            <div className='flex flex-col justify-around h-20 py-1 px-5 bg-slate-400'>
               <LinkComponent url={data.path} color="black">
-                <ArticleTitle>{data.title}</ArticleTitle>
+                <h1 className='text-xl sm:text-2xl'>{data.title}</h1>
               </LinkComponent>
-              <ArticleDate>{data.date}</ArticleDate>
+              <time className='text-xs sm:text-base'>{data.date}</time>
               {tagList.length !== 0 ? (
-                <TitleTagList>{tagList}</TitleTagList>
+                <ul className='flex text-xs sm:text-base -my-0.5'>{tagList}</ul>
               ) : null}
-            </ArticleTitleWrapper>
-            <DescriptionWrapper>
+            </div>
+            <div className='flex h-25 bg-slate-100'>
               <Image
                 imageSrc={data.thumbnailImage.url}
                 isRounded={false}
@@ -113,28 +46,28 @@ const getArticles = (
                 width={{ pc: 150, sp: 150 }}
                 height={{ pc: 100, sp: 100 }}
               />
-              <ArticleDescription>
+              <p className='text-base sm:text-xl p-2'>
                 <LinkComponent url={data.path} color="black">
                   {data.description}
                 </LinkComponent>
-              </ArticleDescription>
-            </DescriptionWrapper>
-          </ArticleWrapper>
-        </ArticleListItem>
+              </p>
+            </div>
+          </section>
+        </li>
       );
     })
     .filter((element): element is JSX.Element => element !== null);
   if (articleList.length === 0) {
     return null;
   }
-  return <ArticleList>{articleList}</ArticleList>;
+  return <ul className='flex flex-wrap gap-y-2'>{articleList}</ul>;
 };
 
 const tagPage: React.FC<Props> = ({ tagName, articleMetaDataList }) => {
   return (
     <PageTemplate>
-      <article>
-        <PageTitle>{tagName}の記事一覧</PageTitle>
+      <article className='text-(--color-text-base)'>
+        <h1 className='text-2xl sm:text-3xl mb-4'>{tagName}の記事一覧</h1>
         {getArticles(tagName, articleMetaDataList)}
       </article>
     </PageTemplate>
