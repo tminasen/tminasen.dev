@@ -38,7 +38,7 @@ impl FileOperations {
         title: \"\"\n\
         tag: [\"\"]\n\
         thumbnailImage: \"/images/\"\n\
-        odpImage: \"/images/\"\n\
+        ogpImage: \"/images/\"\n\
         ---",
             file_name,
             Local::now().format("%Y/%m/%d").to_string()
