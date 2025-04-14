@@ -9,10 +9,10 @@
     "dev": "next",
     "format": "prettier --write \"**/*.{js,jsx,ts,tsx,json,md}\"",
     "start": "next start",
-    "create:md": "./target/release/article-scripts",
-    "rename:files": "./target/release/article-scripts --rename ",
-    "generate:rss": "./scripts/generate-rss/generate-rss.mjs",
-    "generate:ogp": "./scripts/generate-ogp/generate-ogp.mjs",
+    "create:md": "tsx ./scripts/article-scripts/article-creator.mts",
+    "rename:files": "tsx ./scripts/article-scripts/article-creator.mts --rename",
+    "generate:rss": "tsx ./scripts/generate-rss/generate-rss.mts",
+    "generate:ogp": "tsx ./scripts/generate-ogp/generate-ogp.mts",
     "type-check": "tsc"
   },
   "dependencies": {
@@ -47,6 +47,7 @@
     "prettier": "2.6.2",
     "puppeteer": "^14.1.1",
     "raw-loader": "^4.0.2",
+    "tsx": "^4.19.3",
     "typescript": "^5.8.2",
     "zx": "^8.0.2"
   },

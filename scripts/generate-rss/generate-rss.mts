@@ -1,13 +1,14 @@
-#! /usr/bin/env node
+#!/usr/bin/env tsx
 
-import fs from 'fs';
-import path from 'path';
+import { $, path, fs } from 'zx';
 import { Feed } from 'feed';
-import { getArticleMetaData } from '../functions/article.mjs';
-import { dateFromDateString } from '../functions/date.mjs';
+import { getArticleMetaData } from '../functions/article.mts';
+import { dateFromDateString } from '../functions/date.mts';
 
 const BASE_URL = 'https://tminasen.dev';
-const RSS_DIRECTORY = path.join(process.cwd(), 'public/rss');
+const getCurrentDirectory = await $`pwd`;
+const currentDirectory = getCurrentDirectory.stdout.trim();
+const RSS_DIRECTORY = path.join(currentDirectory, 'public/rss');
 const feed = new Feed({
   title: '水無瀬のプログラミング日記feed',
   description: '水無瀬のプログラミング日記のfeed',
@@ -27,6 +28,8 @@ const feed = new Feed({
 (async () => {
   const metaData = await getArticleMetaData();
   metaData.slice(0, 10).forEach(d => {
+    if (!d) return;
+    
     const date = dateFromDateString(d.date);
     if (date instanceof Error) {
       throw date;

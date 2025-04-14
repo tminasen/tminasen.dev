@@ -1,31 +1,31 @@
 import path from 'path';
 import fs from 'fs';
 import matter from 'gray-matter';
-import {parseStringDate} from './date.mjs';
+import {parseStringDate} from './date.mts';
 
 /**
- * @typedef {Object} OgpArticleMetaData
- * @property {string} title
- * @property {string} date
- * @property {string} path
- * @property {string} description
- * @property {string} ogpImage
+ * 記事のメタデータを表すインターフェース
  */
+export interface OgpArticleMetaData {
+  title: string;
+  date: string;
+  path: string;
+  description: string;
+  ogpImage: string;
+}
 
 /**
  * 記事のメタデータを取得する
- * @return {Promise<(OgpArticleMetaData|undefined)[]>}
+ * @return {Promise<OgpArticleMetaData[]>}
  */
-export async function getArticleMetaData() {
+export async function getArticleMetaData(): Promise<OgpArticleMetaData[]> {
   const mdPagePath = path.join(process.cwd(), 'content/md-pages');
   const articleDirectories = fs.readdirSync(mdPagePath);
 
-  /** @type {Array<OgpArticleMetaData | undefined>} */
-  const result = [];
+  const result: Array<OgpArticleMetaData | undefined> = [];
   for (const articleDir of articleDirectories) {
     const articleDirPath = path.join(mdPagePath, articleDir);
     const files = fs.readdirSync(articleDirPath);
-    /** @type {string | undefined} */
     const file = files.filter(file => file.endsWith('.md'))[0];
     if (file === undefined) {
       throw new Error(`file is required. articleDirPath: ${articleDirPath}`);
@@ -41,7 +41,7 @@ export async function getArticleMetaData() {
     );
     result.push(metaData);
   }
-  return result.filter(item => item !== undefined).sort(sortArticleDescDate);
+  return result.filter((item): item is OgpArticleMetaData => item !== undefined).sort(sortArticleDescDate);
 }
 
 /**
@@ -50,17 +50,17 @@ export async function getArticleMetaData() {
  * @param b {OgpArticleMetaData} メタデータ
  * @return {number}
  */
-function sortArticleDescDate(a, b) {
+function sortArticleDescDate(a: OgpArticleMetaData, b: OgpArticleMetaData): number {
   return parseStringDate(b.date) - parseStringDate(a.date);
 }
 
 /**
  * 記事データからOgpArticleMetaDataに変換する
- * @param data {Object} data
+ * @param data {Record<string, any>} data
  * @param context {string} context
  * @return {Promise<undefined|OgpArticleMetaData>}
  */
-async function convertArticleMetaData(data, context) {
+async function convertArticleMetaData(data: Record<string, any>, context: string): Promise<undefined|OgpArticleMetaData> {
   if (!data?.title || !data?.date || !data?.path || !data?.ogpImage) {
     return undefined;
   }
@@ -85,7 +85,7 @@ async function convertArticleMetaData(data, context) {
  * @param markdownText {string} markdown形式文字列
  * @returns {string} markdownのタグを取り除いた文字列
  */
-function removeTags(markdownText) {
+function removeTags(markdownText: string): string {
   return markdownText
     .replace(/^#{1,3} (.*)$/gm, '$1')
     .replace(/\[(.+)]\(.+\)/gm, '$1')
