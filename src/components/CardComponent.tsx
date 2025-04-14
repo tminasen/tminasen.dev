@@ -1,7 +1,7 @@
 import { FC } from 'react';
-import { DeepReadonly } from '../../types/utility';
+import { DeepReadonly } from '../types/utility';
 import { Image } from './atoms/ImageComponent';
-import { ThumbnailImage } from '../../types/article';
+import { ThumbnailImage } from '../types/article';
 
 type Props = {
   title: string;

@@ -23,11 +23,11 @@ const OGP_IMAGE_BASE_PATH = 'public/images/article/';
     throw new Error('required git diff result.');
   }
   const changedArticles = commandArguments.filter(a =>
-    a.includes('src/md-pages'),
+    a.includes('content/md-pages'),
   );
   const metaData = await getArticleMetaData();
   for (const data of metaData) {
-    const fullFilePath = `src/md-pages/${data.path}/article${data.path}.md`;
+    const fullFilePath = `content/md-pages/${data.path}/article${data.path}.md`;
     if (!changedArticles.includes(fullFilePath)) {
       continue;
     }

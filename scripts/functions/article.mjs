@@ -17,7 +17,7 @@ import {parseStringDate} from './date.mjs';
  * @return {Promise<(OgpArticleMetaData|undefined)[]>}
  */
 export async function getArticleMetaData() {
-  const mdPagePath = path.join(process.cwd(), 'src/md-pages');
+  const mdPagePath = path.join(process.cwd(), 'content/md-pages');
   const articleDirectories = fs.readdirSync(mdPagePath);
 
   /** @type {Array<OgpArticleMetaData | undefined>} */

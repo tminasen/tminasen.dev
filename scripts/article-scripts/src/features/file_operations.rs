@@ -25,7 +25,7 @@ impl FileOperations {
 
         // 画像用のディレクトリ作成
         let image_dir = Path::new("public/images/article").join(&file_name);
-        let md_dir = Path::new("src/md-pages").join(&file_name);
+        let md_dir = Path::new("content/md-pages").join(&file_name);
         fs::create_dir_all(&image_dir)
             .with_context(|| format!("Failed to create image directory: {:?}", image_dir))?;
         fs::create_dir_all(&md_dir)

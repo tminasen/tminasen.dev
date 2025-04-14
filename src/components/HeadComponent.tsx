@@ -1,9 +1,9 @@
 import { FC } from 'react';
 import Head from 'next/head';
 import Script from 'next/script';
-import { Maybe, Optional } from '../../types/utility';
+import { Maybe, Optional } from '../types/utility';
 import { metaData } from '../constants/metaData';
-import { OgType } from '../../types/mets';
+import { OgType } from '../types/mets';
 
 type Props = {
   ogpImage: Optional<string>;

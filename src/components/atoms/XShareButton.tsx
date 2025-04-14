@@ -1,5 +1,5 @@
 import { FC } from 'react';
-import { Maybe } from '../../../types/utility';
+import { Maybe } from '../../types/utility';
 import { metaData } from '../../constants/metaData';
 
 type Props = {

@@ -6,7 +6,7 @@ import {
   MarkdownMetaData,
   Tag,
   TagCount,
-} from '../../types/article';
+} from '../types/article';
 import { markdown2Html, removeTags } from './markdown';
 import { parseStringDate } from './date';
 import { getImageSize } from './image';
@@ -16,7 +16,7 @@ import { getImageSize } from './image';
  * @return @see {@link MarkdownMetaData}
  */
 export async function getArticleMetaData(): Promise<ArticleMetaData[]> {
-  const mdPagePath: string = path.join(process.cwd(), 'src/md-pages');
+  const mdPagePath: string = path.join(process.cwd(), 'content/md-pages');
   const articleDirectories: string[] = fs.readdirSync(mdPagePath);
   const result: Array<ArticleMetaData | undefined> = [];
   for (const articleDir of articleDirectories) {

@@ -1,7 +1,7 @@
 import { JSX } from 'react';
 import { PageTemplate } from '../templates/PageTemplate';
 import { getArticleMetaData } from '../libraries/articles';
-import { ArticleMetaData } from '../../types/article';
+import { ArticleMetaData } from '../types/article';
 import { CardComponent } from '../components/CardComponent';
 
 const ArticleCardItem: (param: {

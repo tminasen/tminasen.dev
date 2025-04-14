@@ -1,7 +1,7 @@
 import React from 'react';
 import { PageTemplate } from '../../templates/PageTemplate';
 import { GetStaticProps } from 'next';
-import { ArticleMetaData, Tag } from '../../../types/article';
+import { ArticleMetaData, Tag } from '../../types/article';
 import {
   convertTagList,
   getArticleMetaData,

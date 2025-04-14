@@ -21,7 +21,7 @@
     "incremental": true,
     "paths": {
       "@mapbox/rehype-prism": [
-        "./types/@mapbox__rehype-prism"
+        "./src/types/@mapbox__rehype-prism"
       ]
     }
   },

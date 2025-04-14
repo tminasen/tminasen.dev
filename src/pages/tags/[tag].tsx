@@ -2,7 +2,7 @@ import { JSX } from 'react';
 import { GetStaticPaths, GetStaticProps } from 'next';
 import { PageTemplate } from '../../templates/PageTemplate';
 import { getArticleMetaData } from '../../libraries/articles';
-import { ArticleMetaData } from '../../../types/article';
+import { ArticleMetaData } from '../../types/article';
 import { LinkComponent } from '../../components/atoms/LinkComponent';
 import { Image } from '../../components/atoms/ImageComponent';
 
