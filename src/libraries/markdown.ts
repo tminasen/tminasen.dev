@@ -57,61 +57,38 @@ function setImageSize() {
       const imagePath = image.properties.src;
       const imageAlt = image.properties.alt;
       const imageSize = getImageSize(imagePath, 'article');
-      // 既存の画像をamp-imgに置き換え
-      const fallbackImage = {
-        ...image,
-        tagName: 'amp-img',
-        properties: {
-          ...image.properties,
-          width: imageSize.pc.width,
-          height: imageSize.pc.height,
-          media: '(min-width: 451px)',
-          fallback: true,
-        },
-      };
-      const fallbackImageSp = {
-        ...image,
-        tagName: 'amp-img',
-        properties: {
-          ...image.properties,
-          width: imageSize.sp.width,
-          height: imageSize.sp.height,
-          media: '(max-width: 450px)',
-          fallback: true,
-        },
-      };
-      // webp用のamp-img作成
+      // webp込みの画像にする
       const webpImage = {
         type: 'element',
-        tagName: 'amp-img',
-        children: [fallbackImage],
+        tagName: 'source',
         properties: {
-          src: image.properties.src.replace(/\.png$/, '.webp'),
-          alt: imageAlt,
+          type: 'image/webp',
+          srcset: image.properties.src.replace(/\.png$/, '.webp')
+        },
+      };
+      const fallbackImage = {
+        ...image,
+        tagName: 'img',
+        properties: {
+          ...image.properties,
           width: imageSize.pc.width,
           height: imageSize.pc.height,
+          alt: imageAlt,
           media: '(min-width: 451px)',
         },
       };
-      const webpImageSp = {
+      const imageSource = {
         type: 'element',
-        tagName: 'amp-img',
-        children: [fallbackImageSp],
-        properties: {
-          src: image.properties.src.replace(/\.png$/, '.webp'),
-          alt: imageAlt,
-          width: imageSize.sp.width,
-          height: imageSize.sp.height,
-          media: '(max-width: 450px)',
-        },
-      };
+        tagName: 'picture',
+        children: [webpImage, fallbackImage]
+      }
+
       // webp込のデータ使うので今あるimgは削除
       child.children = [
         ...child.children.filter(
           (c: any) => c.type !== 'element' && c.tagName !== 'img',
         ),
-        webpImage,
-        webpImageSp,
+        imageSource,
       ];
       return child;
     });
