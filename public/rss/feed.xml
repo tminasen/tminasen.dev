@@ -4,7 +4,7 @@
         <title>水無瀬のプログラミング日記feed</title>
         <link>https://tminasen.dev</link>
         <description>水無瀬のプログラミング日記のfeed</description>
-        <lastBuildDate>Thu, 27 Feb 2025 15:12:11 GMT</lastBuildDate>
+        <lastBuildDate>Mon, 24 Nov 2025 12:09:39 GMT</lastBuildDate>
         <docs>https://validator.w3.org/feed/docs/rss2.html</docs>
         <generator>https://github.com/jpmonette/feed</generator>
         <language>ja</language>
@@ -14,6 +14,54 @@
             <link>https://tminasen.dev</link>
         </image>
         <copyright>All rights reserved 2024, tminasen</copyright>
+        <item>
+            <title><![CDATA[Figma MCP試してみる]]></title>
+            <link>https://tminasen.dev/blog/05c7d85f-018c-4b84-a2df-c2c61b887c14</link>
+            <guid>https://tminasen.dev/blog/05c7d85f-018c-4b84-a2df-c2c61b887c14</guid>
+            <pubDate>Mon, 24 Nov 2025 00:00:00 GMT</pubDate>
+            <description><![CDATA[概要
+
+Figma MCPを試してみたいので試してみる。
+
+リンク
+
+- https://developers.figma.com/docs/figma-mcp-server/
+
+試してみる
+
+自分はよくClaude Codeを利用しているので、インストールガ…]]></description>
+            <enclosure url="https://tminasen.dev/images/article/05c7d85f-018c-4b84-a2df-c2c61b887c14/ogp.png" length="0" type="image/png"/>
+        </item>
+        <item>
+            <title><![CDATA[styled-componentsからTailwindCSSに移行する際に困ったこと]]></title>
+            <link>https://tminasen.dev/blog/eab71937-2e30-4b94-86ef-2655be02c38e</link>
+            <guid>https://tminasen.dev/blog/eab71937-2e30-4b94-86ef-2655be02c38e</guid>
+            <pubDate>Mon, 14 Apr 2025 00:00:00 GMT</pubDate>
+            <description><![CDATA[styled-componentsからTailwind CSSに移行
+
+概要
+
+`styled-components`がメンテナンスモードとのことなので、他でも使っていた `Tailwind CSS`に乗り換える。  
+https://opencollecti…]]></description>
+            <enclosure url="https://tminasen.dev/images/article/eab71937-2e30-4b94-86ef-2655be02c38e/ogp.png" length="0" type="image/png"/>
+        </item>
+        <item>
+            <title><![CDATA[MCPについて調べてみる]]></title>
+            <link>https://tminasen.dev/blog/976f8b32-937c-4cb8-b6f5-6d5e62228750</link>
+            <guid>https://tminasen.dev/blog/976f8b32-937c-4cb8-b6f5-6d5e62228750</guid>
+            <pubDate>Fri, 11 Apr 2025 00:00:00 GMT</pubDate>
+            <description><![CDATA[
+概要
+
+最近Claudeとたくさんお話しして今更ながら感動している。  
+色々試したくなっているので、最近良く聞くMCPについて調べる。
+
+関連リンク
+
+- https://modelcontextprotocol.io/introduction
+- Tet…]]></description>
+            <enclosure url="https://tminasen.dev/images/article/976f8b32-937c-4cb8-b6f5-6d5e62228750/ogp.png" length="0" type="image/png"/>
+        </item>
         <item>
             <title><![CDATA[VSCode拡張機能「Cline」を試してみる]]></title>
             <link>https://tminasen.dev/blog/64b0cd78-e933-463c-b3c3-5474a112ad05</link>
@@ -144,69 +192,6 @@ Reactで試すのでプロジェクト作るところから。
 ```bash
 $ npx create-react-app image-sample --tem…]]></description>
             <enclosure url="https://tminasen.dev/images/article/11c2a153a6dce58dd93fc2d0a364fe/ogp.png" length="0" type="image/png"/>
-        </item>
-        <item>
-            <title><![CDATA[Recoilことはじめ]]></title>
-            <link>https://tminasen.dev/blog/d6f6d3ab551ced8d819c9170ff05a7</link>
-            <guid>https://tminasen.dev/blog/d6f6d3ab551ced8d819c9170ff05a7</guid>
-            <pubDate>Sat, 13 Mar 2021 00:00:00 GMT</pubDate>
-            <description><![CDATA[
-はじめに
-
-Recoilが気になっていた今日このごろ。  
-気になった時が触りどきなので試してみる回。
-
-TL;DR.
-
-コード
-
-導入
-
-```bash
-$ npx create-react-app recoil-tutorial
-$ cd recoil-…]]></description>
-            <enclosure url="https://tminasen.dev/images/article/d6f6d3ab551ced8d819c9170ff05a7/ogp.png" length="0" type="image/png"/>
-        </item>
-        <item>
-            <title><![CDATA[Angular+TailwindCSSを試してみる]]></title>
-            <link>https://tminasen.dev/blog/wx1t6emdfmmj0ctrokgu</link>
-            <guid>https://tminasen.dev/blog/wx1t6emdfmmj0ctrokgu</guid>
-            <pubDate>Fri, 12 Feb 2021 00:00:00 GMT</pubDate>
-            <description><![CDATA[
-はじめに
-
-Angularがv11.2くらいでTailwindCSSに対応したそうなので試してみる回。  
-前にちょろっと試したときは特にTailwindCSSの良さに気づけなかったので改めてちゃんと触る。
-
-TL;DR.
-
-コード
-
-セットアップ
-
-Ang…]]></description>
-            <enclosure url="https://tminasen.dev/images/article/wx1t6emdfmmj0ctrokgu/ogp.png" length="0" type="image/png"/>
-        </item>
-        <item>
-            <title><![CDATA[Jest再入門]]></title>
-            <link>https://tminasen.dev/blog/6ug6vmjayh36hkbdwd19</link>
-            <guid>https://tminasen.dev/blog/6ug6vmjayh36hkbdwd19</guid>
-            <pubDate>Thu, 11 Feb 2021 00:00:00 GMT</pubDate>
-            <description><![CDATA[
-はじめに
-
-tsで書いたコードのテストにはjestを使っている今日この頃。  
-毎回雰囲気で使っていて事ある毎に調べているので改めてまとめておく。
-
-TL;DR.
-
-コード;
-
-導入
-
-yarn + typescriptの前提。  
-それぞれの導入方法につい…]]></description>
-            <enclosure url="https://tminasen.dev/images/article/6ug6vmjayh36hkbdwd19/ogp.png" length="0" type="image/png"/>
         </item>
     </channel>
 </rss>
