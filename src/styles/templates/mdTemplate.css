@@ -117,7 +117,6 @@
 
 .md-article p > code {
     background-color: var(--color-gray-300);
-    opacity: 20%;
     color: var(--color-gray-800);
     padding: 0.125rem 0.25rem;
     border-radius: 0.25rem;
