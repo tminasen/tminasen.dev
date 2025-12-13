@@ -16,16 +16,16 @@ export class FileOperations {
 
     // 画像用のディレクトリ作成
     const imageDir = path.join('public/images/article', fileId);
-    const mdDir = path.join('content/md-pages', fileId);
+    const blogDir = path.join('src/pages/blog');
 
     try {
       // ディレクトリが存在しない場合は作成
       if (!fs.existsSync(imageDir)) {
         fs.mkdirSync(imageDir, { recursive: true });
       }
-      
-      if (!fs.existsSync(mdDir)) {
-        fs.mkdirSync(mdDir, { recursive: true });
+
+      if (!fs.existsSync(blogDir)) {
+        fs.mkdirSync(blogDir, { recursive: true });
       }
 
       // 現在の日付を取得
@@ -35,27 +35,46 @@ export class FileOperations {
         day: '2-digit',
       }).replace(/(\d+)\/(\d+)\/(\d+)/, '$3/$1/$2'); // MM/DD/YYYY -> YYYY/MM/DD
 
-      // テンプレートデータを作成
-      const templateData = `---\n\
-path: "/blog/${fileId}"\n\
-date: "${currentDate}"\n\
-title: ""\n\
-tag: [""]\n\
-thumbnailImage: "/images/"\n\
-ogpImage: "/images/"\n\
----`;
+      // MDXテンプレートデータを作成
+      const templateData = `---
+path: "/blog/${fileId}"
+date: "${currentDate}"
+title: ""
+tag: [""]
+ogpImage: "/images/article/${fileId}/ogp.png"
+thumbnailImage: "/images/article/${fileId}/thumbnail.png"
+---
 
-      // マークダウンファイルのパス
-      const markdownPath = path.join(mdDir, `article${fileId}.md`);
-      
+import { ArticleLayout } from '../../components/ArticleLayout';
+
+export const meta = {
+  path: "/blog/${fileId}",
+  date: "${currentDate}",
+  title: "",
+  tag: [""],
+  ogpImage: "/images/article/${fileId}/ogp.png",
+  thumbnailImage: "/images/article/${fileId}/thumbnail.png",
+};
+
+export default ({ children }) => <ArticleLayout meta={meta}>{children}</ArticleLayout>;
+
+# はじめに
+
+`;
+
+      // MDXファイルのパス
+      const mdxPath = path.join(blogDir, `${fileId}.mdx`);
+
       // テンプレートデータをファイルに書き込み
-      fs.writeFileSync(markdownPath, templateData, 'utf8');
-      
+      fs.writeFileSync(mdxPath, templateData, 'utf8');
+
       // 画像ディレクトリに.gitkeepファイルを作成
       const imagePath = path.join(imageDir, '.gitkeep');
       fs.writeFileSync(imagePath, '', 'utf8');
-      
+
       console.log(`Created template files for: ${fileId}`);
+      console.log(`  MDX file: ${mdxPath}`);
+      console.log(`  Image dir: ${imageDir}`);
     } catch (error) {
       console.error(`Failed to create template files: ${error instanceof Error ? error.message : String(error)}`);
       throw error;

@@ -13,7 +13,7 @@ const useCreateGithubArticleLink = (path: Maybe<string>) => {
     return undefined;
   }
   return new URL(
-    `tminasen.dev/tree/master/content/md-pages/${articlePath}/article${articlePath}.md`,
+    `tminasen.dev/tree/master/src/pages/blog/${articlePath}.mdx`,
     metaData.githubUrl,
   ).toString();
 };

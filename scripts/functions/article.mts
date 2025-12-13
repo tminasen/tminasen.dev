@@ -19,19 +19,14 @@ export interface OgpArticleMetaData {
  * @return {Promise<OgpArticleMetaData[]>}
  */
 export async function getArticleMetaData(): Promise<OgpArticleMetaData[]> {
-  const mdPagePath = path.join(process.cwd(), 'content/md-pages');
-  const articleDirectories = fs.readdirSync(mdPagePath);
+  const blogPagePath = path.join(process.cwd(), 'src/pages/blog');
+  const files = fs.readdirSync(blogPagePath);
+  const mdxFiles = files.filter(file => file.endsWith('.mdx'));
 
   const result: Array<OgpArticleMetaData | undefined> = [];
-  for (const articleDir of articleDirectories) {
-    const articleDirPath = path.join(mdPagePath, articleDir);
-    const files = fs.readdirSync(articleDirPath);
-    const file = files.filter(file => file.endsWith('.md'))[0];
-    if (file === undefined) {
-      throw new Error(`file is required. articleDirPath: ${articleDirPath}`);
-    }
+  for (const file of mdxFiles) {
     const fileDetail = fs.readFileSync(
-      path.join(mdPagePath, articleDir, file),
+      path.join(blogPagePath, file),
       'utf8',
     );
     const matterResult = matter(fileDetail, { excerpt: true });
@@ -65,7 +60,12 @@ async function convertArticleMetaData(data: Record<string, any>, context: string
     return undefined;
   }
   const id = data.path.split('/')[2];
-  const description = `${removeTags(context).substring(0, 130)}…`;
+  // MDXではimport/exportの行を除いてdescriptionを生成
+  const contentWithoutImports = context
+    .replace(/^import .+$/gm, '')
+    .replace(/^export .+$/gm, '')
+    .trim();
+  const description = `${removeTags(contentWithoutImports).substring(0, 130)}…`;
   return {
     title: data.title,
     date: data.date,

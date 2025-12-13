@@ -1,0 +1,217 @@
+---
+path: "/blog/f577388af27e01f70f2093db050e44"
+date: "2021/07/11"
+title: "Reactでa11y検証ツールを試してみる"
+tag: ["React"]
+ogpImage: "/images/article/f577388af27e01f70f2093db050e44/ogp.png"
+thumbnailImage: "/images/article/f577388af27e01f70f2093db050e44/ssf577388af27e01f70f2093db050e44-3.png"
+---
+
+import { ArticleLayout } from '../../components/ArticleLayout';
+
+export const meta = {
+  path: "/blog/f577388af27e01f70f2093db050e44",
+  date: "2021/07/11",
+  title: "Reactでa11y検証ツールを試してみる",
+  tag: ["React"],
+  ogpImage: "/images/article/f577388af27e01f70f2093db050e44/ogp.png",
+  thumbnailImage: "/images/article/f577388af27e01f70f2093db050e44/ssf577388af27e01f70f2093db050e44-3.png",
+};
+
+export default ({ children }) => <ArticleLayout meta={meta}>{children}</ArticleLayout>;
+
+# はじめに
+
+a11yを意識し始めた今日このごろ。  
+なんとなくこうした方が良いと言うのはわかるものの素人目線でしかないため、a11yを検証してくれるツールを導入し改善をできるようにしていきたい。  
+そこで今回はどのようなツールがあり、使い勝手はどんなもんか試してみる。
+
+# TL;DR.
+
+[今回作ったコード](https://github.com/Tetsuya-Minase/program-samples/tree/master/a11y-react)
+
+# 準備
+
+```bash
+# reactのプロジェクトを作成するところから
+$ npx create-react-app a11y-react --template typescript
+
+# eslint設定
+$ npx eslint --init
+> react、typescriptを使うように選択
+> その他ブラウザ用、import/exportを使うなど選択
+```
+
+# eslint-plugin-jsx-a11y
+
+a11yについて静的解析してくれるeslint-plugin。
+
+## 導入方法
+
+```bash
+$ yarn add eslint-plugin-jsx-a11y --dev
+```
+
+eslintの設定ファイルに以下の記述を追加  
+(これはeslintrc.jsの場合)
+
+```jsx
+module.export = {
+  // ...
+  "extends": [
+    // 推奨のルールを使う
+    "plugin:jsx-a11y/recommended"
+  ],
+  "plugins": [
+    "jsx-a11y"
+  ],
+}
+```
+
+## 所感
+
+導入はとても簡単。eslintが入っていればそれでほぼ終わる。  
+eslintなのでそもそも良くない場合ビルド通さないようにできる。  
+静的解析なので仕方ないが色味とかはわからない。  
+img要素にaltがないとかa要素に中身がないとかそういうたぐいが引っかかる。
+
+![静的解析でエラーになっている様子](/images/article/f577388af27e01f70f2093db050e44/ssf577388af27e01f70f2093db050e44-1.png)
+
+導入楽でちゃんと判別もしてくれるが、素のhtmlにしか対応していないのでstyled-componentsはじめcss-in-jsでは無力。
+
+# @axe-core/react
+
+旧react-axe。Chromeのコンソールに悪いところを出力してくれる。
+
+## 導入方法
+
+```bash
+$ yarn add --dev @axe-core/react
+```
+
+Reactのレンダリングしている箇所を↓のように修正する
+
+```tsx
+if (process.env.NODE_ENV !== 'production') {
+  import('@axe-core/react').then(axe => {
+    axe.default(React, ReactDOM, 1000);
+    ReactDOM.render(
+      <React.StrictMode>
+        <App/>
+      </React.StrictMode>,
+      document.getElementById('root')
+    );
+  });
+} else {
+  ReactDOM.render(
+    <React.StrictMode>
+      <App/>
+    </React.StrictMode>,
+    document.getElementById('root')
+  );
+}
+```
+
+## 所感
+
+導入は楽で特定環境のみで実際に動かしながらa11yを確認することができる。  
+が、そこまで定期的に動かしつつコンソールを見る機会もない気がしている。  
+開発段階で確認しながら調整するのには使い勝手が良さそうではある。  
+axe-coreがjestから使えるのでテストコードとして組み込むことも可能。
+
+# storybook-addon-a11y
+
+storybookでaxe-coreを用いたa11yの検証ができる。
+
+## 導入方法
+
+```bash
+$ yarn add @storybook/addon-a11y --dev
+```
+
+```jsx
+module.exports = {
+  addons: ['@storybook/addon-a11y'],
+};
+```
+
+## 所感
+
+storybook上で検証ができるので、検証したいパターンさえ用意してしまえばいつでも確認ができるのが良さそう。  
+ビルドした結果からも確認ができるので、定常的な確認ができるのも良い。
+
+![storybookでa11yの検証をしている画像](/images/article/f577388af27e01f70f2093db050e44/ssf577388af27e01f70f2093db050e44-2.png)
+
+ただ自動化ができる感じではなさそう。  
+特定の要素をターゲット外にしたり、特定のルールを無効化できるのでどうしようもないけど引っかかるみたいなこともない気がする。
+
+# Lighthouse
+
+Google ChromeについているWebページ、アプリケーションのパフォーマンスを検証してくれるツール。  
+今回はブラウザで使うのではなくCLIを試してみる。
+
+## 導入方法
+
+```bash
+$ yarn add --dev lighthouse
+```
+
+## 使い方
+
+```bash
+# headless chromeで実行。デフォルトではdev toolの結果と同じ内容のhtmlを出力する
+$ npx lighthouse --chrome-flags="--headless" http://localhost:3000
+
+# 結果をjson形式 & ファイルに出力したい場合
+$ npx lighthouse --output-path report.json --output json --chrome-flags="--headless" http://localhost:3000
+```
+
+## 所感
+
+コマンドに接続先を指定すればdev toolに表示されるのと同じ内容のhtmlを吐き出してくれる。  
+毎回Chromeが立ち上がってしまうが、嫌であればChromeにわたすflagを渡すことができるのでそれでheadlessにすれば良い。  
+devtoolで見るのと同じ項目で出力されるのでa11yに限らず他のパフォーマンスも表示される。  
+動いているアプリケーションにアクセスする必要があるため、開発中などで測定する場合は方法を検討したほうが良さそう。
+
+# acot
+
+cyber agentが公開したa11y検証ツール。
+
+## 導入方法
+
+```bash
+$ yarn add -D @acot/cli
+$ npx @acot/cli init
+✔ What is the origin for the audit target? · http://localhost:8000
+✔ What kind of server do you want to connect to? · command
+✔ What is the command to start the server? · yarn serve
+✔ Do you want to use the config recommended by acot? · no / yes
+✔ Which runner do you want to use? · default
+✔ Which format do you prefer for the config file? · javascript
+✔ Do you want to install Puppeteer as a dependency? · no / yes
+✔ Which is the npm client used to install the dependent packages? · yarn
+```
+
+## 所感
+
+puppeteer(headless chrome)を使って描画した結果を元に検証を行うため、ほぼ実際に動かしているのと変わらないチェックができる。  
+が、Lighthouseも同じくChromeが立ち上がり(ヘッドレスも可)検証される認識で、あえてacotを使う理由が思いつかなかった。  
+現状は`v0.0.12`なので今後次第ではLighthouseに勝てるかもしれない？
+
+# まとめ
+
+今回はa11yを検証してくれるツールをReactのプロジェクトで試してみた。  
+個人的にはeslintとstorybookのaddonが入れるのも手軽でかつ効果が得やすいのかと思った。  
+また定期的に検証をする目的ではLighthouseが良さそうである。  
+a11yに特化しているわけではない認識だけど、ついでに他の指標について出せるためトータルで使いやすいと感じている。
+
+調べていてどこでも言われていたが最終的にはツールに任せるのではなく、自分で判断する必要があるため、この手のツールを足がかりに定期的な計測及び改善をしていけたら良さそう。
+
+# 参考リンク
+
+- [jsx-eslint/eslint-plugin-jsx-a11y: Static AST checker for a11y rules on JSX elements.](https://github.com/jsx-eslint/eslint-plugin-jsx-a11y)
+- [axe-core-npm/README.md at develop · dequelabs/axe-core-npm](https://github.com/dequelabs/axe-core-npm/blob/develop/packages/react/README.md)
+- [axe-core/doc/examples/jest_react at develop · dequelabs/axe-core](https://github.com/dequelabs/axe-core/tree/develop/doc/examples/jest_react)
+- [storybook/addons/a11y at next · storybookjs/storybook](https://github.com/storybookjs/storybook/tree/next/addons/a11y)
+- [GoogleChrome/lighthouse: Automated auditing, performance metrics, and best practices for the web.](https://github.com/GoogleChrome/lighthouse)
+- [acot-a11y/acot: Accessibility Testing Framework. More accessible web, all over the world.](https://github.com/acot-a11y/acot)

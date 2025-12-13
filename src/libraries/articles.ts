@@ -7,33 +7,36 @@ import {
   Tag,
   TagCount,
 } from '../types/article';
-import { markdown2Html, removeTags } from './markdown';
 import { parseStringDate } from './date';
 import { getImageSize } from './image';
+
+/**
+ * markdown文字列から以下のタグを取り除く
+ */
+function removeTags(markdownText: string): string {
+  return markdownText
+    .replace(/^#{1,3} (.*)$/gm, '$1')
+    .replace(/\[(.+)]\(.+\)/gm, '$1')
+    .replace(/^\s+\[*-] (.+)$/gm, '$1');
+}
 
 /**
  * 記事の概要表示に必要なデータを更新日降順で取得する
  * @return @see {@link MarkdownMetaData}
  */
 export async function getArticleMetaData(): Promise<ArticleMetaData[]> {
-  const mdPagePath: string = path.join(process.cwd(), 'content/md-pages');
-  const articleDirectories: string[] = fs.readdirSync(mdPagePath);
+  const blogPagePath: string = path.join(process.cwd(), 'src/pages/blog');
+  const files: string[] = fs.readdirSync(blogPagePath);
+  const mdxFiles = files.filter(file => file.endsWith('.mdx'));
+
   const result: Array<ArticleMetaData | undefined> = [];
-  for (const articleDir of articleDirectories) {
-    const articleDirPath = path.join(mdPagePath, articleDir);
-    const files = fs.readdirSync(articleDirPath);
-    const file: string | undefined = files.filter(file =>
-      file.endsWith('.md'),
-    )[0];
-    if (file === undefined) {
-      throw new Error(`file is required. articleDirPath: ${articleDirPath}`);
-    }
+  for (const file of mdxFiles) {
     const fileDetail = fs.readFileSync(
-      path.join(mdPagePath, articleDir, file),
+      path.join(blogPagePath, file),
       'utf8',
     );
     const matterResult = matter(fileDetail, { excerpt: true });
-    const metaData = await convertArticleMetaData(
+    const metaData = convertArticleMetaData(
       matterResult.data,
       matterResult.content,
     );
@@ -81,14 +84,18 @@ export function convertTagList(tagCount: TagCount): Tag[] {
     .sort(sortTagDescArticleCount);
 }
 
-async function convertArticleMetaData(
+function convertArticleMetaData(
   data: Record<string, any>,
   context: string,
-): Promise<ArticleMetaData | undefined> {
+): ArticleMetaData | undefined {
   if (!isArticleMetaData(data)) {
     throw new Error('data is invalid.');
   }
-  const highlightHtml = await markdown2Html(context);
+  // MDXではimport/exportの行を除いてdescriptionを生成
+  const contentWithoutImports = context
+    .replace(/^import .+$/gm, '')
+    .replace(/^export .+$/gm, '')
+    .trim();
   return {
     path: data.path,
     date: data.date,
@@ -99,8 +106,7 @@ async function convertArticleMetaData(
       size: getImageSize(data.thumbnailImage, 'thumbnail'),
     },
     ogpImage: data.ogpImage,
-    html: highlightHtml,
-    description: `${removeTags(context).substring(0, 130)}…`,
+    description: `${removeTags(contentWithoutImports).substring(0, 130)}…`,
   };
 }
 

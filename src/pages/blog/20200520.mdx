@@ -1,0 +1,528 @@
+---
+path: "/blog/20200520"
+date: "2020/05/20"
+title: "ReactHooksざっくりまとめ"
+tag: ["React"]
+ogpImage: "/images/article/20200520/ogp.png"
+thumbnailImage: "/images/ogp.png"
+---
+
+import { ArticleLayout } from '../../components/ArticleLayout';
+
+export const meta = {
+  path: "/blog/20200520",
+  date: "2020/05/20",
+  title: "ReactHooksざっくりまとめ",
+  tag: ["React"],
+  ogpImage: "/images/article/20200520/ogp.png",
+  thumbnailImage: "/images/ogp.png",
+};
+
+export default ({ children }) => <ArticleLayout meta={meta}>{children}</ArticleLayout>;
+
+# はじめに
+
+Hooksを触り始めている今日この頃。  
+雰囲気で色々触っていたけど、だんだん辛くなってきたのでちゃんとまとめていこうと思う。  
+[APIリファレンス](https://ja.reactjs.org/docs/hooks-reference.html)を見ながら、簡単に使い方とサンプルをまとめておく。
+
+# TL;DR.
+
+[コード](https://github.com/Tetsuya-Minase/program-samples/tree/master/hooks-sample)
+
+# useState
+
+component内で使うステートフルな値と、それを更新するための関数を返す。  
+Class Componentのstateと同じ。
+
+## 使い方
+
+```tsx
+import {useState} from 'react';
+
+// useStateに渡した値がstateの初期値になる
+const [state, setState] = useState(initialState);
+// stateの値を更新したいときはsetStateを使う
+setState(updateState);
+// 型指定したい場合、useStateの際に指定できる
+const [stringState, setStringState] = useState<string>(initialState);
+// 初期化を遅延させることもできる
+const [lagyState, setLagyState] = useState(() => {
+  // 初期値をなにかしら受け取る
+  const initialState = getHoge();
+  return initialState;
+});
+```
+
+## サンプル
+
+```tsx
+import React, {useState} from 'react';
+
+export const StateComponent: React.FC<any> = () => {
+  // useStateを使う
+  const [greetingMessage, setGreetingMessage] = useState<string>('hello');
+  return (
+    <>
+      {/* stateの内容を表示 */}
+      <div>{greetingMessage}</div>
+      <form>
+        {/* stateの内容を更新 */}
+        <input type="text" onChange={text => setGreetingMessage(text.target.value)}/>
+      </form>
+    </>
+  )
+};
+```
+
+# useEffect
+
+副作用を有する可能性のある命令型コードを受け付ける。  
+ClassComponentで言うところの`componentDidMount`や`componentDidUpdate`の置き換え。  
+って言われているけど実際には近しい処理くらいが正しい気がする。  
+※`componentDidMount`や`componentDidUpdate`とは別物の認識。
+
+## 使い方
+
+```tsx
+// これだとレンダリングの度に毎回実行される
+useEffect(() => {
+  // 副作用がある処理を行う
+  const subscription = props.source.subscribe();
+  // クリーンアップ処理を行いたい場合は、useEffectに渡す関数の戻り値に関数を渡せば良い
+  return () => {
+    subscription.unsubscribe();
+  };
+});
+
+// 副作用が依存している値を第2配列に指定する
+// props.sourceに変更があったときのみ実行する
+useEffect(() => {
+  const subscription = props.source.subscribe();
+  return () => {
+    subscription.unsubscribe();
+  };
+}, [props.source]);
+
+// 一度だけ実行したい場合△
+useEffect(() => {
+  const subscription = props.source.subscribe();
+  return () => {
+    subscription.unsubscribe();
+  };
+// 第2引数に空配列を渡してあげれば良い
+// 空配列を渡すことで、何にも依存しない(2回目が実行されることない)ことを伝える
+// 処理としてはprops.sourceに依存するため、渡して上げるのが良い
+}, []);
+
+// 一度だけ実行したい場合◎
+useEffect(() => {
+  function doSomething() {
+    console.log(someProp);
+  }
+
+  doSomething();
+}, [someProp]);
+```
+
+## サンプル
+
+```tsx
+export const EffectComponent: React.FC<any> = () => {
+  const [count, setCount] = useState(0);
+  // useEffectを使う
+  useEffect(() => {
+    const interval = setInterval(() => setCount(count + 1), 1000);
+    // intervalをリセットする
+    return () => clearInterval(interval);
+    // このeffectはcountに依存しているので、countを第二引数に渡す
+    // →ここを渡さないとeffect無いではstateが初期値から変わらない
+  }, [count]);
+  return <div>{count}</div>
+};
+```
+
+# useContext
+
+コンテクストオブジェクトを受け取り、そのコンテクストの現在値を返す。  
+コンテクストの現在値は、ツリー内でこのフックを呼んだコンポーネントの直近にある `<MyContext.Provider>`の value の値によって決定される。
+
+ざっくり孫コンポーネントなど階層が離れているコンポーネントに値を渡せるようになる認識。  
+(バケツリレーをしなくても良くなる)
+
+いつ使うのが良いかは[公式ドキュメント](https://ja.reactjs.org/docs/context.html#when-to-use-context)を読むのが良さそう。
+
+## 使い方
+
+```tsx
+const themes = {
+  light: {
+    foreground: "#000000",
+    background: "#eeeeee"
+  },
+  dark: {
+    foreground: "#ffffff",
+    background: "#222222"
+  }
+};
+
+const ThemeContext = React.createContext(themes.light);
+// 型を指定したければ下記のようにする
+type ThemeColor = {
+  foreground: string;
+  background: string;
+}
+const ThemeContext = React.createContext<ThemeColor>(themes.light);
+
+export const App = () => (
+  // ここでcontextの現在値がdarkになる
+  <ThemeContext.Provider value={themes.dark}>
+    <Toolbar/>
+  </ThemeContext.Provider>
+);
+export const AppInitial = () => (
+  // 何も渡さなければ初期値(themes.light)になる
+  <Toolbar/>
+);
+
+const Toolbar = props => (
+  <div>
+    <ThemedButton/>
+  </div>
+);
+
+const ThemedButton = () => {
+  const theme = useContext(ThemeContext);
+  return (
+    <button style={{background: theme.background, color: theme.foreground}}>
+      I am styled by theme context!
+    </button>
+  );
+}
+```
+
+## サンプル
+
+```tsx
+import React, {useContext} from 'react';
+
+// Contextを作成
+const MemoContext = React.createContext<string>('initial text.');
+
+export const ContextComponent = () => (
+  // textの内容を変える
+  <MemoContext.Provider value="memo text.">
+    <MemoArea/>
+  </MemoContext.Provider>
+);
+
+const MemoArea = () => (
+  <div>
+    <Text/>
+  </div>
+);
+
+const Text = () => {
+  const theme = useContext(MemoContext);
+  return (
+    <span>{theme}</span>
+  );
+}
+```
+
+# useReducer
+
+`useState`の親戚。Reduxのreducerを記述できる。  
+`(state, action) => newState`という型のreducer を受け取り、現在の`state`を`dispatch`メソッドとペアにして返す。
+
+## 使い方
+
+```tsx
+// initialState
+const intialState = {count: 0}
+// Reducerを作成(stateとactionを受け取る関数)
+const reducer = (state, action) => {
+  switch (action.type) {
+    case 'increment':
+      return {count: state.count + 1};
+    case 'decrement':
+      return {count: state.count - 1};
+    default:
+      throw new Error();
+  }
+}
+// useRedcerは第一引数にreducer、第二引数にinitialStateを渡してあげる
+// stateとdispatchメソッドが返ってくる(どちらもReduxの使い方とほぼ同じ)
+const [state, dispatch] = useReducer(reducer, initialState);
+
+// 初期化を遅延させたい場合や特定の場合に初期値にさせたい場合、
+// 第三引数に初期化関数を渡してあげる
+const init
+(initialCount) => ({count: initialCount});
+const reducer = (state, action) => {
+  switch (action.type) {
+    case 'increment':
+      return {count: state.count + 1};
+    case 'decrement':
+      return {count: state.count - 1};
+    case 'reset':
+      return init(action.payload);
+    default:
+      throw new Error();
+  }
+}
+const Counter = ({initialCount}) => {
+  const [state, dispatch] = useReducer(reducer, initialCount, init);
+  return (
+    <>
+      Count: {state.count}
+      <button
+        onClick={() => dispatch({type: 'reset', payload: initialCount})}>
+        Reset
+      </button>
+    </>
+  );
+}
+```
+
+## サンプル
+
+```tsx
+import React, {useReducer} from 'react';
+
+type State = { count: number };
+const initialState: State = {count: 0};
+
+const add = (num: number) => ({type: 'ADD', payload: num});
+const subtract = (num: number) => ({type: 'SUBTRACT', payload: num});
+type Action = ReturnType<typeof add | typeof subtract>;
+
+const reducer = (state: State, action: Action) => {
+  switch (action.type) {
+    case 'ADD':
+      return {count: state.count + action.payload};
+    case 'SUBTRACT':
+      return {count: state.count - action.payload};
+    default:
+      throw new Error();
+  }
+}
+
+export const ReducerComponent = () => {
+  const [state, dispatch] = useReducer(reducer, initialState);
+  return (
+    <>
+      Count: {state.count}
+      <button onClick={() => dispatch(subtract(1))}>-</button>
+      <button onClick={() => dispatch(add(1))}>+</button>
+    </>
+  );
+}
+```
+
+# useCallback
+
+メモ化されたコールバックを返す。  
+第一引数にコールバック関数、第二引数にコールバックが依存している値を配列で渡す。
+
+## 使い方
+
+```tsx
+const memoizedCallback = useCallback(
+  // 第一引数に関数を指定
+  () => doSomething(a, b),
+  // 第一引数に渡した関数が依存している値(a, b)をリストで渡してあげる
+  [a, b],
+);
+```
+
+## サンプル
+
+```tsx
+import React, {useCallback, useState} from 'react';
+
+export const CallbackComponent = () => {
+  const [count, setCount] = useState(0);
+  // コールバックはcountに依存しているので、第二引数にcountを渡してあげる
+  // 渡さないと関数内のcountの値が更新されない 
+  const buttonClick = useCallback(() => setCount(count + 1), [count]);
+  return <ButtonComponent count={count} buttonClick={buttonClick}/>
+}
+const ButtonComponent = ({count, buttonClick}: { count: number, buttonClick: () => void }) => (
+  <div>
+    count: {count}
+    <button onClick={buttonClick}>click</button>
+  </div>
+)
+```
+
+# useMemo
+
+メモ化された値を返す。  
+関数の結果を保持することができるので、同じ引数で関数を呼び出した時には中身の処理は実行せず結果だけ返す。  
+これによりレンダリングの度に重い処理が走らなくて済むようになる。
+
+## 使い方
+
+```tsx
+const memoizedValue = useMemo(() => computeExpensiveValue(a, b), [a, b]);
+```
+
+## サンプル
+
+あまり良い例を思いつかなかった。
+
+```tsx
+import React, {useMemo} from 'react';
+
+export const MemoComponent = () => {
+  const count = 10000;
+  // 10000回足し算行う
+  const memoValue = useMemo(() => [...Array(count)].reduce((pure) => pure + 1, 0), [count]);
+  return <div>{memoValue}</div>
+}
+```
+
+# useRef
+
+`.current`プロパティが`useRef`を呼び出した渡す値で初期化されたミュータブルなオブジェクトを返す。  
+返されるオブジェクトはコンポーネントが存在する限り、存在し続ける。
+
+多分よく使われるのは、DOMにアクセスする場合に`ref={hogeRef}`みたいな使い方だと思う。  
+`useRef`はref属性を扱うだけではなく、あらゆる書き換え可能な値を保持して多くためにも使える。
+
+## 使い方
+
+```tsx
+const refContainer = useRef(initialValue);
+```
+
+# サンプル
+
+```tsx
+import React, {useRef, RefObject} from 'react';
+
+export const RefComponent: React.FC = () => {
+  // Dom触るためのrefを作成
+  const useRefWithDom: RefObject<HTMLInputElement> = useRef<HTMLInputElement>(null);
+  // 値を保持しておくrefを作成
+  const useRefWithValue = useRef('initial value');
+  return (
+    <div>
+      <input type="text" ref={useRefWithDom}/>
+      <button onClick={() => {
+        if (!useRefWithDom.current) {
+          return;
+        }
+        // 変更前('initial value')
+        console.log('useRefWithValue.current: ', useRefWithValue.current);
+        // currentを上書きすることで変更できる
+        useRefWithValue.current = useRefWithDom.current.value;
+        // 変更後('hoge')
+        console.log('useRefWithValue.current: ', useRefWithValue.current);
+
+      }}>ボタン
+      </button>
+    </div>
+  );
+};
+```
+
+# useImperativeHandle
+
+`ref`が使われた時に親コンポーネントに渡されるインスタンス値をカスタマイズするのに使う。  
+使う時には`[forwardRef](https://ja.reactjs.org/docs/react-api.html#reactforwardref)`と一緒に使う。
+
+## 使い方
+
+```tsx
+function FancyInput(props, ref) {
+  const inputRef = useRef();
+  useImperativeHandle(ref, () => ({
+    focus: () => {
+      inputRef.current.focus();
+    }
+  }));
+  return <input ref={inputRef} ...
+  />;
+}
+
+FancyInput = forwardRef(FancyInput);
+```
+
+## サンプル
+
+```tsx
+import React, {forwardRef, useRef, useImperativeHandle, RefObject} from 'react';
+
+const FancyInput = (props: any, ref: any) => {
+  // refを定義
+  const inputRef: RefObject<HTMLInputElement> = useRef<HTMLInputElement>(null);
+  // 受け取ったrefにfocus関数を追加する
+  useImperativeHandle(ref, () => ({
+    focus: () => inputRef?.current?.focus()
+
+  }));
+  return <input ref={inputRef}/>;
+}
+// forwardRefに作った関数を渡す(変数に置かなくても問題なし)
+const FancyInputRef = forwardRef(FancyInput);
+
+export const ImperativeHandleComponent: React.FC = () => {
+  // ここで使うrefを定義
+  const ref: RefObject<HTMLInputElement> = useRef<HTMLInputElement>(null);
+  return (<>
+    {/* refを渡す(このrefにfocus関数が追加される) */}
+    <FancyInputRef ref={ref}/>
+    {/* クリックした時にテキストボックスにフォーカスする */}
+    <button onClick={() => ref?.current?.focus()}>clickでフォーカス</button>
+  </>)
+
+};
+```
+
+# useLayoutEffect
+
+基本的には`useEffect`と同じ。  
+違う点はDOM の変更があった後で同期的に副作用が呼び出されるところ。  
+DOMを操作して再描画する場合に使う。  
+最初は`useEffect`を使って、問題があるときのみ`useLayoutEffect`を使う方が良い。
+
+と、[公式サイトに書いてある](https://ja.reactjs.org/docs/hooks-reference.html#uselayouteffect) 。
+
+# useDebugValue
+
+React DevTools でカスタムフックのラベルを表示することができる。
+
+## 使い方
+
+```tsx
+useDebugValue(value)
+```
+
+## サンプル
+
+```tsx
+const useFriendStatus = (friendID) => {
+  const [isOnline, setIsOnline] = useState(null);
+
+  // ...
+
+  // DevToolのラベルが下記のように表示される
+  // "FriendStatus: Online"
+  useDebugValue(isOnline ? 'Online' : 'Offline');
+
+  return isOnline;
+}
+```
+
+# まとめ
+
+Hooksについてざっくりまとめた。  
+`useState`とか`useEffect`とか基本的なHooksについてはだいぶわかりやすいと思った。  
+メモ化ができる`useMemo`と`useCallback`については常に使えば良いってわけじゃなさそうなので、使っていくうちに使い所を見極めたい。
+
+# 参考サイト
+
+- [フック API リファレンス – React](https://ja.reactjs.org/docs/hooks-reference.html)
+- [React の最上位 API – React](https://ja.reactjs.org/docs/react-api.html#reactforwardref)

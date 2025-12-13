@@ -30,7 +30,6 @@ interface _ArticleMetaData {
   tag: string[];
   thumbnailImage: ThumbnailImage;
   ogpImage: string;
-  html: string;
   description: string;
 }
 
