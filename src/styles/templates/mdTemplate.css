@@ -122,6 +122,13 @@
     border-radius: 0.25rem;
 }
 
+@media (prefers-color-scheme: dark) {
+    .md-article p > code {
+        background-color: var(--color-gray-700, #374151);
+        color: var(--color-gray-200, #e5e7eb);
+    }
+}
+
 .md-article pre {
     margin-left: 0.5rem;
 }

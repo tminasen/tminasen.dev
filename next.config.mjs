@@ -1,12 +1,22 @@
 import createMDX from '@next/mdx';
-import rehypePrism from '@mapbox/rehype-prism';
+import rehypePrettyCode from 'rehype-pretty-code';
 import remarkFrontmatter from 'remark-frontmatter';
+
+/** @type {import('rehype-pretty-code').Options} */
+const rehypePrettyCodeOptions = {
+  theme: {
+    light: 'github-light',
+    dark: 'github-dark-dimmed',
+  },
+  keepBackground: true,
+  defaultLang: 'plaintext',
+};
 
 const withMDX = createMDX({
   extension: /\.mdx?$/,
   options: {
     remarkPlugins: [remarkFrontmatter],
-    rehypePlugins: [rehypePrism],
+    rehypePlugins: [[rehypePrettyCode, rehypePrettyCodeOptions]],
   },
 });
 

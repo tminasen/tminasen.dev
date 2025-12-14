@@ -1,0 +1,82 @@
+/* Shiki / rehype-pretty-code スタイル */
+
+/* コードブロック基本スタイル */
+pre {
+  overflow-x: auto;
+  padding: 1rem;
+  margin: 0.5rem 0;
+  border-radius: 0.5rem;
+  font-family: Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace;
+  font-size: 0.875rem;
+  line-height: 1.5;
+  tab-size: 4;
+}
+
+pre > code {
+  display: block;
+  padding: 0;
+  background: transparent;
+}
+
+pre [data-line] {
+  padding: 0 1rem;
+}
+
+/* デュアルテーマ設定 */
+
+/* ライトモード（デフォルト）*/
+pre,
+pre span {
+  color: var(--shiki-light) !important;
+  background-color: var(--shiki-light-bg) !important;
+  font-style: var(--shiki-light-font-style) !important;
+  font-weight: var(--shiki-light-font-weight) !important;
+  text-decoration: var(--shiki-light-text-decoration) !important;
+}
+
+/* ダークモード */
+@media (prefers-color-scheme: dark) {
+  pre,
+  pre span {
+    color: var(--shiki-dark) !important;
+    background-color: var(--shiki-dark-bg) !important;
+    font-style: var(--shiki-dark-font-style) !important;
+    font-weight: var(--shiki-dark-font-weight) !important;
+    text-decoration: var(--shiki-dark-text-decoration) !important;
+  }
+}
+
+/* 行ハイライト */
+[data-highlighted-line] {
+  background-color: rgba(100, 100, 100, 0.15);
+}
+
+@media (prefers-color-scheme: dark) {
+  [data-highlighted-line] {
+    background-color: rgba(200, 200, 200, 0.1);
+  }
+}
+
+/* タイトル */
+[data-rehype-pretty-code-title] {
+  padding: 0.5rem 1rem;
+  font-size: 0.75rem;
+  font-weight: 600;
+  background-color: #e5e7eb;
+  border-top-left-radius: 0.5rem;
+  border-top-right-radius: 0.5rem;
+  color: #374151;
+}
+
+[data-rehype-pretty-code-title] + pre {
+  margin-top: 0;
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
+}
+
+@media (prefers-color-scheme: dark) {
+  [data-rehype-pretty-code-title] {
+    background-color: #374151;
+    color: #e5e7eb;
+  }
+}

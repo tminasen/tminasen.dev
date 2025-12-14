@@ -1,6 +1,6 @@
 import React from 'react';
 import '../index.css';
-import '../styles/highlight/prism.css';
+import '../styles/highlight/shiki.css';
 import { AppProps } from 'next/app';
 import { HeadComponent } from '../components/HeadComponent';
 

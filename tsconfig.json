@@ -18,12 +18,7 @@
     "isolatedModules": true,
     "noEmit": true,
     "jsx": "preserve",
-    "incremental": true,
-    "paths": {
-      "@mapbox/rehype-prism": [
-        "./src/types/@mapbox__rehype-prism"
-      ]
-    }
+    "incremental": true
   },
   "include": [
     "./src/**/*"
