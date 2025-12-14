@@ -3,12 +3,15 @@
 @import './styles/templates/mdTemplate.css';
 
 @layer base {
-  :root {
-    --card-image-width: 336px;
-    --card-image-max-height: 448px;
-    --image-pc-width: 336px;
-    --image-sp-width: 336px;
-    --color-text-base: #333333;
-    --color-header-bg-blue: #448aff
-  }
+    :root {
+        --card-image-width: 336px;
+        --card-max-height: 400px;
+        --card-image-max-height: 176px;
+        --card-title-height: 58px;
+        --card-title-line-height: 1.2;
+        --image-pc-width: 336px;
+        --image-sp-width: 336px;
+        --color-text-base: #333333;
+        --color-header-bg-blue: #448aff
+    }
 }

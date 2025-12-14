@@ -14,6 +14,8 @@ const ArticleCardItem: (param: {
         path={articleData.path}
         image={articleData.thumbnailImage}
         excerpt={articleData.description}
+        date={articleData.date}
+        tags={articleData.tag}
       />
     </li>
   );

@@ -21,6 +21,19 @@ function removeTags(markdownText: string): string {
 }
 
 /**
+ * 「概要」または「はじめに」セクションの内容を抽出する
+ * @param content Markdown/MDXコンテンツ
+ * @returns セクションの内容、見つからない場合は空文字
+ */
+function extractIntroSection(content: string): string {
+  const sectionMatch = content.match(/^# (概要|はじめに)\s*\n([\s\S]*?)(?=^#\s|\z)/m);
+  if (sectionMatch) {
+    return sectionMatch[2].trim();
+  }
+  return '';
+}
+
+/**
  * 記事の概要表示に必要なデータを更新日降順で取得する
  * @return @see {@link MarkdownMetaData}
  */
@@ -91,11 +104,17 @@ function convertArticleMetaData(
   if (!isArticleMetaData(data)) {
     throw new Error('data is invalid.');
   }
-  // MDXではimport/exportの行を除いてdescriptionを生成
+  // MDXではimport/export/metaオブジェクトを除いてdescriptionを生成
   const contentWithoutImports = context
     .replace(/^import .+$/gm, '')
-    .replace(/^export .+$/gm, '')
+    .replace(/^export const meta = \{[\s\S]*?\};$/gm, '')
+    .replace(/^export default .+$/gm, '')
     .trim();
+
+  // 「概要」または「はじめに」セクションを抽出
+  const introSection = extractIntroSection(contentWithoutImports);
+  const descriptionSource = introSection || contentWithoutImports;
+
   return {
     path: data.path,
     date: data.date,
@@ -106,7 +125,7 @@ function convertArticleMetaData(
       size: getImageSize(data.thumbnailImage, 'thumbnail'),
     },
     ogpImage: data.ogpImage,
-    description: `${removeTags(contentWithoutImports).substring(0, 130)}…`,
+    description: `${removeTags(descriptionSource).substring(0, 130)}…`,
   };
 }
 
