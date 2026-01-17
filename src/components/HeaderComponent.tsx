@@ -27,7 +27,7 @@ export const HeaderComponent: FC<Props> = ({
           {siteTitle}
         </LinkComponent>
       </h1>
-      <div
+      <nav
         className={`${
           showModal ? 'block' : 'hidden'
         } absolute left-1 sm:left-7 top-2 z-10 bg-white min-w-[360px] sm:min-w-[500px] min-h-[75vh] rounded-sm`}
@@ -47,7 +47,7 @@ export const HeaderComponent: FC<Props> = ({
             </LinkComponent>
           </li>
         </ul>
-      </div>
+      </nav>
     </header>
   );
 };
