@@ -16,7 +16,7 @@ const useModalCondition = () => {
 export const PageTemplate: React.FC<Props> = ({ children }) => {
   const [showModal, closeModal, openModal] = useModalCondition();
   return (
-    <div className='flex flex-col relative min-h-lvh min-w-86 sm:min-w-7xl bg-neutral-100'>
+    <div className='flex flex-col relative min-h-lvh min-w-86 sm:min-w-7xl bg-(--color-bg-base)'>
       <HeaderComponent
         siteTitle="水無瀬のプログラミング日記"
         showModal={showModal}

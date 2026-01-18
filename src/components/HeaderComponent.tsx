@@ -30,7 +30,7 @@ export const HeaderComponent: FC<Props> = ({
       <nav
         className={`${
           showModal ? 'block' : 'hidden'
-        } absolute left-1 sm:left-7 top-2 z-10 bg-white min-w-[360px] sm:min-w-[500px] min-h-[75vh] rounded-sm`}
+        } absolute left-1 sm:left-7 top-2 z-10 bg-(--color-bg-card) min-w-[360px] sm:min-w-[500px] min-h-[75vh] rounded-sm`}
       >
         <button
           className="close-button relative border-none bg-transparent w-10 h-10"

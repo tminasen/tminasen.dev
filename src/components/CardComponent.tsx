@@ -23,7 +23,7 @@ export const CardComponent: FC<DeepReadonly<Props>> = ({
   const displayTags = tags.slice(0, 3);
 
   return (
-    <article className="flex flex-col w-(--card-image-width) h-(--card-max-height) rounded-lg bg-white shadow-md">
+    <article className="flex flex-col w-(--card-image-width) h-(--card-max-height) rounded-lg bg-(--color-bg-card) shadow-md">
       <a className="text-(--color-text-base) no-underline" href={path}>
         <Image
           imageSrc={image.url}
@@ -36,8 +36,8 @@ export const CardComponent: FC<DeepReadonly<Props>> = ({
           <h1 className="text-2xl font-bold text-center mt-2 max-h-(--card-title-height) leading-(--card-title-line-height) line-clamp-2 overflow-hidden">
             {title}
           </h1>
-          <p className="text-sm mt-1 text-gray-600">{date}</p>
-          <div className="flex gap-2 text-xs text-gray-600 mt-1">
+          <p className="text-sm mt-1 text-(--color-text-muted)">{date}</p>
+          <div className="flex gap-2 text-xs text-(--color-text-muted) mt-1">
             {displayTags.map(tag => (
               <span key={tag}>#{tag}</span>
             ))}

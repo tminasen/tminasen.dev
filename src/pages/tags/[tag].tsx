@@ -29,16 +29,16 @@ const getArticles = (
       return (
         <li className='basis-full' key={`${data.path}`}>
           <section>
-            <div className='flex flex-col justify-around h-20 py-1 px-5 bg-slate-400'>
+            <div className='flex flex-col justify-around h-20 py-1 px-5 bg-(--color-bg-card)'>
               <LinkComponent url={data.path} color="black">
                 <h1 className='text-xl sm:text-2xl'>{data.title}</h1>
               </LinkComponent>
-              <time className='text-xs sm:text-base'>{data.date}</time>
+              <time className='text-xs sm:text-base text-(--color-text-muted)'>{data.date}</time>
               {tagList.length !== 0 ? (
                 <ul className='flex text-xs sm:text-base -my-0.5'>{tagList}</ul>
               ) : null}
             </div>
-            <div className='flex h-25 bg-slate-100'>
+            <div className='flex h-25 bg-(--color-bg-base)'>
               <Image
                 imageSrc={data.thumbnailImage.url}
                 isRounded={false}

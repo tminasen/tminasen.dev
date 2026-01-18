@@ -11,7 +11,27 @@
         --card-title-line-height: 1.2;
         --image-pc-width: 336px;
         --image-sp-width: 336px;
+
+        /* ライトモード カラー */
         --color-text-base: #333333;
-        --color-header-bg-blue: #448aff
+        --color-text-muted: #6b7280;
+        --color-bg-base: #f5f5f5;
+        --color-bg-card: #ffffff;
+        --color-bg-footer: #cbd5e1;
+        --color-header-bg-blue: #448aff;
+        --color-border: #000000;
+    }
+
+    @media (prefers-color-scheme: dark) {
+        :root {
+            /* ダークモード カラー */
+            --color-text-base: #e5e7eb;
+            --color-text-muted: #9ca3af;
+            --color-bg-base: #1f2937;
+            --color-bg-card: #374151;
+            --color-bg-footer: #111827;
+            --color-header-bg-blue: #1e40af;
+            --color-border: #4b5563;
+        }
     }
 }
