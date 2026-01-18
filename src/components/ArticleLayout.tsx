@@ -59,7 +59,7 @@ export const ArticleLayout: FC<Props> = ({ meta, children }) => {
               {meta.date}
             </time>
           </div>
-          <div className="md-article bg-white mt-5 sm:mt-8 text-base rounded-sm py-2 px-3 sm:px-4">
+          <div className="prose prose-slate max-w-none bg-white mt-5 sm:mt-8 text-base rounded-sm py-2 px-3 sm:px-4 prose-headings:mt-3 prose-headings:mb-2 prose-p:my-2 prose-img:my-2 prose-figure:my-2 prose-h1:text-2xl prose-h2:text-xl prose-h3:text-base prose-ul:my-2 prose-ol:my-2 prose-li:my-0">
             {children}
           </div>
           <div className="flex mt-2 content-center items-center gap-x-2">
