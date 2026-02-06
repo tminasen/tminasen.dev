@@ -17,7 +17,7 @@ const feed = new Feed({
   language: 'ja',
   image: `${BASE_URL}/images/ogp.png`,
   favicon: `${BASE_URL}/images/icon32x.png`,
-  copyright: 'All rights reserved 2024, tminasen',
+  copyright: `All rights reserved ${new Date().getFullYear()}, tminasen`,
   updated: new Date(),
   author: {
     name: 'tminasen',

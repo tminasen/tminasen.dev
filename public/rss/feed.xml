@@ -4,7 +4,7 @@
         <title>水無瀬のプログラミング日記feed</title>
         <link>https://tminasen.dev</link>
         <description>水無瀬のプログラミング日記のfeed</description>
-        <lastBuildDate>Mon, 24 Nov 2025 12:10:22 GMT</lastBuildDate>
+        <lastBuildDate>Fri, 06 Feb 2026 13:41:36 GMT</lastBuildDate>
         <docs>https://validator.w3.org/feed/docs/rss2.html</docs>
         <generator>https://github.com/jpmonette/feed</generator>
         <language>ja</language>
@@ -13,23 +13,17 @@
             <url>https://tminasen.dev/images/ogp.png</url>
             <link>https://tminasen.dev</link>
         </image>
-        <copyright>All rights reserved 2024, tminasen</copyright>
+        <copyright>All rights reserved 2026, tminasen</copyright>
         <item>
             <title><![CDATA[Figma MCP試してみる]]></title>
             <link>https://tminasen.dev/blog/05c7d85f-018c-4b84-a2df-c2c61b887c14</link>
             <guid>https://tminasen.dev/blog/05c7d85f-018c-4b84-a2df-c2c61b887c14</guid>
             <pubDate>Mon, 24 Nov 2025 00:00:00 GMT</pubDate>
-            <description><![CDATA[概要
-
-Figma MCPを試してみたいので試してみる。
-
-リンク
-
-- https://developers.figma.com/docs/figma-mcp-server/
-
-試してみる
-
-自分はよくClaude Codeを利用しているので、インストールガ…]]></description>
+            <description><![CDATA[path: "/blog/05c7d85f-018c-4b84-a2df-c2c61b887c14",
+  date: "2025/11/24",
+  title: "Figma MCP試してみる",
+  tag: ["生成AI"],
+  ogpImage: …]]></description>
             <enclosure url="https://tminasen.dev/images/article/05c7d85f-018c-4b84-a2df-c2c61b887c14/ogp.png" length="0" type="image/png"/>
         </item>
         <item>
@@ -37,12 +31,10 @@ Figma MCPを試してみたいので試してみる。
             <link>https://tminasen.dev/blog/eab71937-2e30-4b94-86ef-2655be02c38e</link>
             <guid>https://tminasen.dev/blog/eab71937-2e30-4b94-86ef-2655be02c38e</guid>
             <pubDate>Mon, 14 Apr 2025 00:00:00 GMT</pubDate>
-            <description><![CDATA[styled-componentsからTailwind CSSに移行
-
-概要
-
-`styled-components`がメンテナンスモードとのことなので、他でも使っていた `Tailwind CSS`に乗り換える。  
-https://opencollecti…]]></description>
+            <description><![CDATA[path: "/blog/eab71937-2e30-4b94-86ef-2655be02c38e",
+  date: "2025/04/14",
+  title: "styled-componentsからTailwindCSSに移行する際に困ったこと",
+ …]]></description>
             <enclosure url="https://tminasen.dev/images/article/eab71937-2e30-4b94-86ef-2655be02c38e/ogp.png" length="0" type="image/png"/>
         </item>
         <item>
@@ -50,16 +42,11 @@ https://opencollecti…]]></description>
             <link>https://tminasen.dev/blog/976f8b32-937c-4cb8-b6f5-6d5e62228750</link>
             <guid>https://tminasen.dev/blog/976f8b32-937c-4cb8-b6f5-6d5e62228750</guid>
             <pubDate>Fri, 11 Apr 2025 00:00:00 GMT</pubDate>
-            <description><![CDATA[
-概要
-
-最近Claudeとたくさんお話しして今更ながら感動している。  
-色々試したくなっているので、最近良く聞くMCPについて調べる。
-
-関連リンク
-
-- https://modelcontextprotocol.io/introduction
-- Tet…]]></description>
+            <description><![CDATA[path: "/blog/976f8b32-937c-4cb8-b6f5-6d5e62228750",
+  date: "2025/04/11",
+  title: "MCPについて調べてみる",
+  tag: ["生成AI"],
+  ogpImage: "/…]]></description>
             <enclosure url="https://tminasen.dev/images/article/976f8b32-937c-4cb8-b6f5-6d5e62228750/ogp.png" length="0" type="image/png"/>
         </item>
         <item>
@@ -67,11 +54,10 @@ https://opencollecti…]]></description>
             <link>https://tminasen.dev/blog/64b0cd78-e933-463c-b3c3-5474a112ad05</link>
             <guid>https://tminasen.dev/blog/64b0cd78-e933-463c-b3c3-5474a112ad05</guid>
             <pubDate>Thu, 27 Feb 2025 00:00:00 GMT</pubDate>
-            <description><![CDATA[
-はじめに
-
-最近、開発効率を上げるためのAIツールが次々と登場していますが、その中でも「Cline」というVSCode拡張機能が注目を集めています。  
-Clineは、Anthropic社のAIアシスタント「Claude」をVSCode内で直接利用できるよう…]]></description>
+            <description><![CDATA[path: "/blog/64b0cd78-e933-463c-b3c3-5474a112ad05",
+  date: "2025/02/27",
+  title: "VSCode拡張機能「Cline」を試してみる",
+  tag: ["VSCode","生成…]]></description>
             <enclosure url="https://tminasen.dev/images/article/64b0cd78-e933-463c-b3c3-5474a112ad05/ogp.png" length="0" type="image/png"/>
         </item>
         <item>
@@ -79,19 +65,11 @@ Clineは、Anthropic社のAIアシスタント「Claude」をVSCode内で直接�
             <link>https://tminasen.dev/blog/4055d368bf410655f0363f255495d9</link>
             <guid>https://tminasen.dev/blog/4055d368bf410655f0363f255495d9</guid>
             <pubDate>Wed, 24 Apr 2024 00:00:00 GMT</pubDate>
-            <description><![CDATA[
-はじめに
-
-生成AIが話題だが、どの様なものがあって使われているのかあんまり知らないので調べる。
-
-有名な生成AIのサービス
-
-- ChatGPT
-- Claude
-- Gemini
-- DALL-E
-- Midjourney
-- Stable Diffus…]]></description>
+            <description><![CDATA[path: "/blog/4055d368bf410655f0363f255495d9",
+  date: "2024/04/24",
+  title: "生成AIについて調べてみる",
+  tag: ["作業ログ"],
+  ogpImage: "/image…]]></description>
             <enclosure url="https://tminasen.dev/images/article/4055d368bf410655f0363f255495d9/ogp.png" length="0" type="image/png"/>
         </item>
         <item>
@@ -99,20 +77,11 @@ Clineは、Anthropic社のAIアシスタント「Claude」をVSCode内で直接�
             <link>https://tminasen.dev/blog/1ba0f384ec9f09200bac8ef1a98542</link>
             <guid>https://tminasen.dev/blog/1ba0f384ec9f09200bac8ef1a98542</guid>
             <pubDate>Fri, 02 Dec 2022 00:00:00 GMT</pubDate>
-            <description><![CDATA[
-はじめに
-
-最近`Next.js`を用いてアプリを作ることが多いのでより良いディレクトリ構成を考える。
-
-TL;DR.
-
-キレイに書けなかったのでgist行き。
-
-ディレクトリ詳細
-
-全体構成
-
-`create-next-app`で吐き出した状態から`pag…]]></description>
+            <description><![CDATA[path: "/blog/1ba0f384ec9f09200bac8ef1a98542",
+  date: "2022/12/02",
+  title: "Next.jsでbetterなディレクトリ構成を考える",
+  tag: ["Next.js"],
+  …]]></description>
             <enclosure url="https://tminasen.dev/images/article/1ba0f384ec9f09200bac8ef1a98542/ogp.png" length="0" type="image/png"/>
         </item>
         <item>
@@ -120,19 +89,11 @@ TL;DR.
             <link>https://tminasen.dev/blog/49e96efeafa81d005101a61d382bf8</link>
             <guid>https://tminasen.dev/blog/49e96efeafa81d005101a61d382bf8</guid>
             <pubDate>Sun, 19 Jun 2022 00:00:00 GMT</pubDate>
-            <description><![CDATA[
-はじめに
-
-Electron代替を目指すRust製FWのTauriがバージョン1.0になり、正式リリースされたので試してみる。
-
-TL;DR.
-
-今回作ったコード
-
-前提条件
-
-Rustがinstall済みであること。  
-install方法は下記参照。  …]]></description>
+            <description><![CDATA[path: "/blog/49e96efeafa81d005101a61d382bf8",
+  date: "2022/06/19",
+  title: "Tauriを試してみる",
+  tag: ["Rust","Angular"],
+  ogpImage:…]]></description>
             <enclosure url="https://tminasen.dev/images/article/49e96efeafa81d005101a61d382bf8/ogp.png" length="0" type="image/png"/>
         </item>
         <item>
@@ -140,22 +101,11 @@ install方法は下記参照。  …]]></description>
             <link>https://tminasen.dev/blog/b33f8b2ef5e73ea3f219daff5952b3</link>
             <guid>https://tminasen.dev/blog/b33f8b2ef5e73ea3f219daff5952b3</guid>
             <pubDate>Sat, 18 Sep 2021 00:00:00 GMT</pubDate>
-            <description><![CDATA[
-はじめに
-
-linariaを使ってみたかったのでNextjsと一緒に使ってみる。
-
-TL;DR
-
-今回のコード
-
-前提
-
-`create-next-app --ts`でNext.jsのテンプレートが出来上がっている状態。
-
-インストール
-
-必要なライブラリの…]]></description>
+            <description><![CDATA[path: "/blog/b33f8b2ef5e73ea3f219daff5952b3",
+  date: "2021/09/18",
+  title: "Next.js+linariaを試してみる",
+  tag: ["Next.js"],
+  ogpIma…]]></description>
             <enclosure url="https://tminasen.dev/images/article/b33f8b2ef5e73ea3f219daff5952b3/ogp.png" length="0" type="image/png"/>
         </item>
         <item>
@@ -163,12 +113,11 @@ TL;DR
             <link>https://tminasen.dev/blog/f577388af27e01f70f2093db050e44</link>
             <guid>https://tminasen.dev/blog/f577388af27e01f70f2093db050e44</guid>
             <pubDate>Sun, 11 Jul 2021 00:00:00 GMT</pubDate>
-            <description><![CDATA[
-はじめに
-
-a11yを意識し始めた今日このごろ。  
-なんとなくこうした方が良いと言うのはわかるものの素人目線でしかないため、a11yを検証してくれるツールを導入し改善をできるようにしていきたい。  
-そこで今回はどのようなツールがあり、使い勝手はどんなもん…]]></description>
+            <description><![CDATA[path: "/blog/f577388af27e01f70f2093db050e44",
+  date: "2021/07/11",
+  title: "Reactでa11y検証ツールを試してみる",
+  tag: ["React"],
+  ogpImage…]]></description>
             <enclosure url="https://tminasen.dev/images/article/f577388af27e01f70f2093db050e44/ogp.png" length="0" type="image/png"/>
         </item>
         <item>
@@ -176,21 +125,11 @@ a11yを意識し始めた今日このごろ。
             <link>https://tminasen.dev/blog/11c2a153a6dce58dd93fc2d0a364fe</link>
             <guid>https://tminasen.dev/blog/11c2a153a6dce58dd93fc2d0a364fe</guid>
             <pubDate>Sun, 06 Jun 2021 00:00:00 GMT</pubDate>
-            <description><![CDATA[
-はじめに
-
-jsで画像を扱おうと思い調べ直したのでまとめる。
-
-TL;DR.
-
-今回書いたコード
-
-準備
-
-Reactで試すのでプロジェクト作るところから。
-
-```bash
-$ npx create-react-app image-sample --tem…]]></description>
+            <description><![CDATA[path: "/blog/11c2a153a6dce58dd93fc2d0a364fe",
+  date: "2021/06/06",
+  title: "JSで画像を扱うときのメモ",
+  tag: ["JavaScript","React"],
+  ogp…]]></description>
             <enclosure url="https://tminasen.dev/images/article/11c2a153a6dce58dd93fc2d0a364fe/ogp.png" length="0" type="image/png"/>
         </item>
     </channel>
