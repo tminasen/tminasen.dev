@@ -33,10 +33,15 @@ export const CardComponent: FC<DeepReadonly<Props>> = ({
           height={{ pc: image.size.pc.height, sp: image.size.sp.height }}
         />
         <div className="px-2">
-          <h1 className="text-2xl font-bold text-center mt-2 max-h-(--card-title-height) leading-(--card-title-line-height) line-clamp-2 overflow-hidden">
+          <h2 className="text-2xl font-bold text-center mt-2 max-h-(--card-title-height) leading-(--card-title-line-height) line-clamp-2 overflow-hidden">
             {title}
-          </h1>
-          <p className="text-sm mt-1 text-(--color-text-muted)">{date}</p>
+          </h2>
+          <time
+            className="text-sm mt-1 text-(--color-text-muted)"
+            dateTime={date}
+          >
+            {date}
+          </time>
           <div className="flex gap-2 text-xs text-(--color-text-muted) mt-1">
             {displayTags.map(tag => (
               <span key={tag}>#{tag}</span>

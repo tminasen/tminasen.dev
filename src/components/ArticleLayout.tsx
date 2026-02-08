@@ -51,11 +51,14 @@ export const ArticleLayout: FC<Props> = ({ meta, children }) => {
               {meta.title}
             </h1>
             <ul className="flex items-center mt-2 space-x-1">
-              {meta.tag.map((t) => (
+              {meta.tag.map(t => (
                 <TagLink key={t} tag={t} />
               ))}
             </ul>
-            <time className="block mt-1 text-base leading-[1.5] text-(--color-text-muted)">
+            <time
+              className="block mt-1 text-base leading-[1.5] text-(--color-text-muted)"
+              dateTime={meta.date}
+            >
               {meta.date}
             </time>
           </div>

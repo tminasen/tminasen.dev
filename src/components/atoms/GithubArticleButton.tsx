@@ -24,15 +24,25 @@ export const GithubArticleButton: FC<Props> = ({ path }) => {
     return null;
   }
   return (
-    <div className='inline-block'>
-      <a className='block relative w-[30px] h-[30px] sm:w-[40px] sm:h-[40px]' href={buttonLink} title="Githubリンク" target="_blank">
+    <div className="inline-block">
+      <a
+        className="block relative w-[30px] h-[30px] sm:w-[40px] sm:h-[40px]"
+        href={buttonLink}
+        title="Githubリンク"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
         <picture>
           <source
             type="image/webp"
             srcSet={metaData.githubIcon.replace(/\.png$/, '.webp')}
           />
           <source type="image/png" srcSet={metaData.githubIcon} />
-          <img className='object-contain w-full h-full' src={metaData.githubIcon} alt="Githubリンク" />
+          <img
+            className="object-contain w-full h-full"
+            src={metaData.githubIcon}
+            alt="Githubリンク"
+          />
         </picture>
       </a>
     </div>

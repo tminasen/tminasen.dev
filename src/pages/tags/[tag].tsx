@@ -19,7 +19,7 @@ const getArticles = (
     .filter(data => data.tag.includes(tagName))
     .map((data): JSX.Element | null => {
       const tagList = data.tag.map(tag => (
-        <li className='mr-1.5' key={`/tags/${tag}`}>
+        <li className="mr-1.5" key={`/tags/${tag}`}>
           <LinkComponent url={`/tags/${tag}`} color="black">
             {tag}
           </LinkComponent>
@@ -27,18 +27,23 @@ const getArticles = (
       ));
 
       return (
-        <li className='basis-full' key={`${data.path}`}>
+        <li className="basis-full" key={`${data.path}`}>
           <section>
-            <div className='flex flex-col justify-around h-20 py-1 px-5 bg-(--color-bg-card)'>
+            <div className="flex flex-col justify-around h-20 py-1 px-5 bg-(--color-bg-card)">
               <LinkComponent url={data.path} color="black">
-                <h1 className='text-xl sm:text-2xl'>{data.title}</h1>
+                <h2 className="text-xl sm:text-2xl">{data.title}</h2>
               </LinkComponent>
-              <time className='text-xs sm:text-base text-(--color-text-muted)'>{data.date}</time>
+              <time
+                className="text-xs sm:text-base text-(--color-text-muted)"
+                dateTime={data.date}
+              >
+                {data.date}
+              </time>
               {tagList.length !== 0 ? (
-                <ul className='flex text-xs sm:text-base -my-0.5'>{tagList}</ul>
+                <ul className="flex text-xs sm:text-base -my-0.5">{tagList}</ul>
               ) : null}
             </div>
-            <div className='flex h-25 bg-(--color-bg-base)'>
+            <div className="flex h-25 bg-(--color-bg-base)">
               <Image
                 imageSrc={data.thumbnailImage.url}
                 isRounded={false}
@@ -46,7 +51,7 @@ const getArticles = (
                 width={{ pc: 150, sp: 150 }}
                 height={{ pc: 100, sp: 100 }}
               />
-              <p className='text-base sm:text-xl p-2'>
+              <p className="text-base sm:text-xl p-2">
                 <LinkComponent url={data.path} color="black">
                   {data.description}
                 </LinkComponent>
@@ -60,14 +65,14 @@ const getArticles = (
   if (articleList.length === 0) {
     return null;
   }
-  return <ul className='flex flex-wrap gap-y-2'>{articleList}</ul>;
+  return <ul className="flex flex-wrap gap-y-2">{articleList}</ul>;
 };
 
 const tagPage: React.FC<Props> = ({ tagName, articleMetaDataList }) => {
   return (
     <PageTemplate>
-      <article className='text-(--color-text-base)'>
-        <h1 className='text-2xl sm:text-3xl mb-4'>{tagName}の記事一覧</h1>
+      <article className="text-(--color-text-base)">
+        <h1 className="text-2xl sm:text-3xl mb-4">{tagName}の記事一覧</h1>
         {getArticles(tagName, articleMetaDataList)}
       </article>
     </PageTemplate>
