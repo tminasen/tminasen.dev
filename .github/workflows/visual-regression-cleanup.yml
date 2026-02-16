@@ -1,0 +1,51 @@
+name: Visual Regression Cleanup
+
+on:
+  pull_request:
+    types:
+      - closed
+
+jobs:
+  cleanup:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Remove closed PR report directory from gh-pages
+        env:
+          PR_NUMBER: ${{ github.event.pull_request.number }}
+        run: |
+          set -eu
+
+          if ! git fetch origin gh-pages:gh-pages; then
+            echo "gh-pages branch does not exist. Skip cleanup."
+            exit 0
+          fi
+
+          git checkout gh-pages
+
+          target_dir="pr-${PR_NUMBER}"
+          if [ ! -d "${target_dir}" ]; then
+            echo "${target_dir} does not exist. Skip cleanup."
+            exit 0
+          fi
+
+          rm -rf "${target_dir}"
+
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -A
+
+          if git diff --cached --quiet; then
+            echo "No cleanup changes to commit."
+            exit 0
+          fi
+
+          git commit -m "chore: remove visual regression report for PR #${PR_NUMBER}"
+          git push origin gh-pages

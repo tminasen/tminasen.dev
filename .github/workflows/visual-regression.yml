@@ -1,0 +1,197 @@
+name: Visual Regression
+
+on:
+  pull_request:
+    types:
+      - opened
+      - synchronize
+      - reopened
+
+jobs:
+  visual-regression:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    permissions:
+      contents: write
+      deployments: read
+      pull-requests: write
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: yarn
+
+      - name: Install dependencies
+        run: yarn install --frozen-lockfile
+
+      - name: Install Playwright Chromium
+        run: yarn playwright install --with-deps chromium
+
+      - name: Resolve Vercel preview URL from Deployment API
+        id: resolve-preview
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const owner = context.repo.owner;
+            const repo = context.repo.repo;
+            const sha = context.payload.pull_request?.head?.sha || context.sha;
+            const timeoutMs = 5 * 60 * 1000;
+            const intervalMs = 10 * 1000;
+            const startedAt = Date.now();
+            let previewUrl = '';
+
+            while (Date.now() - startedAt < timeoutMs) {
+              const deployments = await github.paginate(github.rest.repos.listDeployments, {
+                owner,
+                repo,
+                sha,
+                per_page: 100,
+              });
+
+              for (const deployment of deployments) {
+                const statuses = await github.paginate(github.rest.repos.listDeploymentStatuses, {
+                  owner,
+                  repo,
+                  deployment_id: deployment.id,
+                  per_page: 100,
+                });
+
+                const successStatus = statuses.find(status => {
+                  if (status.state !== 'success') {
+                    return false;
+                  }
+                  const url = status.environment_url || status.target_url || '';
+                  return url.includes('vercel.app');
+                });
+
+                if (successStatus) {
+                  previewUrl = (successStatus.environment_url || successStatus.target_url || '').replace(/\/$/, '');
+                  break;
+                }
+              }
+
+              if (previewUrl) {
+                break;
+              }
+
+              core.info('Vercel preview deployment is not ready yet. Waiting 10 seconds...');
+              await new Promise(resolve => setTimeout(resolve, intervalMs));
+            }
+
+            if (!previewUrl) {
+              core.setFailed('Could not resolve Vercel preview URL from GitHub Deployment API within 5 minutes.');
+              return;
+            }
+
+            core.info(`Resolved preview URL: ${previewUrl}`);
+            core.setOutput('preview_url', previewUrl);
+
+      - name: Run visual regression tests
+        id: test
+        continue-on-error: true
+        env:
+          VERCEL_PREVIEW_URL: ${{ steps.resolve-preview.outputs.preview_url }}
+        run: yarn test:visual tests/visual-regression
+
+      - name: Set test result
+        if: always()
+        id: test-result
+        run: |
+          if [ "${{ steps.test.outcome }}" = "success" ]; then
+            echo "status=success" >> "$GITHUB_OUTPUT"
+          else
+            echo "status=failure" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Deploy visual report to GitHub Pages
+        if: always()
+        continue-on-error: true
+        uses: peaceiris/actions-gh-pages@v4
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./playwright-report
+          destination_dir: pr-${{ github.event.pull_request.number }}
+          keep_files: true
+          enable_jekyll: false
+
+      - name: Build PR comment body
+        if: always() && steps.test-result.outputs.status == 'failure'
+        id: build-comment
+        continue-on-error: true
+        env:
+          REPORT_URL: https://${{ github.repository_owner }}.github.io/${{ github.event.repository.name }}/pr-${{ github.event.pull_request.number }}/
+        run: |
+          node .github/scripts/parse-visual-regression-results.js \
+            --report-path test-results/playwright-report.json \
+            --output-path test-results/visual-regression-comment.md \
+            --report-url "$REPORT_URL"
+
+      - name: Upsert visual regression comment
+        if: always() && steps.test-result.outputs.status == 'failure'
+        continue-on-error: true
+        uses: actions/github-script@v7
+        env:
+          COMMENT_PATH: ${{ steps.build-comment.outputs.comment_path }}
+          REPORT_URL: https://${{ github.repository_owner }}.github.io/${{ github.event.repository.name }}/pr-${{ github.event.pull_request.number }}/
+        with:
+          script: |
+            const fs = require('fs');
+            const identifier = '<!-- visual-regression-report -->';
+            const commentPath = process.env.COMMENT_PATH || 'test-results/visual-regression-comment.md';
+            const reportUrl = process.env.REPORT_URL || '';
+
+            let body = `${identifier}
+            ## ⚠️ Visual Regression Test Failed
+
+            詳細なテスト結果の抽出に失敗しました。
+
+            **Detailed Report:** ${reportUrl}
+            `;
+
+            if (fs.existsSync(commentPath)) {
+              body = fs.readFileSync(commentPath, 'utf8');
+            }
+
+            const { owner, repo } = context.repo;
+            const issueNumber = context.issue.number;
+            const comments = await github.paginate(github.rest.issues.listComments, {
+              owner,
+              repo,
+              issue_number: issueNumber,
+              per_page: 100,
+            });
+            const existingComment = comments.find(comment =>
+              typeof comment.body === 'string' && comment.body.includes(identifier)
+            );
+
+            if (existingComment) {
+              await github.rest.issues.updateComment({
+                owner,
+                repo,
+                comment_id: existingComment.id,
+                body,
+              });
+            } else {
+              await github.rest.issues.createComment({
+                owner,
+                repo,
+                issue_number: issueNumber,
+                body,
+              });
+            }
+
+      - name: Upload visual diff artifacts
+        if: always() && steps.test-result.outputs.status == 'failure'
+        uses: actions/upload-artifact@v4
+        with:
+          name: visual-regression-artifacts
+          path: |
+            test-results
+            playwright-report
+          if-no-files-found: ignore
+          retention-days: 14

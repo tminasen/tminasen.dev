@@ -6,6 +6,10 @@
 
 # testing
 /coverage
+/test-results
+/playwright-report
+/playwright/.cache
+/tests/visual-regression/__screenshots__
 
 # next.js
 /.next/
