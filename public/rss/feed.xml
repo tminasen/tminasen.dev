@@ -4,7 +4,7 @@
         <title>水無瀬のプログラミング日記feed</title>
         <link>https://tminasen.dev</link>
         <description>水無瀬のプログラミング日記のfeed</description>
-        <lastBuildDate>Fri, 06 Feb 2026 13:41:36 GMT</lastBuildDate>
+        <lastBuildDate>Fri, 10 Apr 2026 14:44:56 GMT</lastBuildDate>
         <docs>https://validator.w3.org/feed/docs/rss2.html</docs>
         <generator>https://github.com/jpmonette/feed</generator>
         <language>ja</language>
@@ -14,6 +14,18 @@
             <link>https://tminasen.dev</link>
         </image>
         <copyright>All rights reserved 2026, tminasen</copyright>
+        <item>
+            <title><![CDATA[生成AIのコード品質とレビュー負担について考える]]></title>
+            <link>https://tminasen.dev/blog/e0e06c38-5dc7-4d6d-80ef-c50eba747552</link>
+            <guid>https://tminasen.dev/blog/e0e06c38-5dc7-4d6d-80ef-c50eba747552</guid>
+            <pubDate>Wed, 08 Apr 2026 00:00:00 GMT</pubDate>
+            <description><![CDATA[path: "/blog/e0e06c38-5dc7-4d6d-80ef-c50eba747552",
+  date: "2026/04/08",
+  title: "生成AIのコード品質とレビュー負担について考える",
+  tag: ["生成AI"],
+  …]]></description>
+            <enclosure url="https://tminasen.dev/images/article/e0e06c38-5dc7-4d6d-80ef-c50eba747552/ogp.png" length="0" type="image/png"/>
+        </item>
         <item>
             <title><![CDATA[Figma MCP試してみる]]></title>
             <link>https://tminasen.dev/blog/05c7d85f-018c-4b84-a2df-c2c61b887c14</link>
@@ -119,18 +131,6 @@
   tag: ["React"],
   ogpImage…]]></description>
             <enclosure url="https://tminasen.dev/images/article/f577388af27e01f70f2093db050e44/ogp.png" length="0" type="image/png"/>
-        </item>
-        <item>
-            <title><![CDATA[JSで画像を扱うときのメモ]]></title>
-            <link>https://tminasen.dev/blog/11c2a153a6dce58dd93fc2d0a364fe</link>
-            <guid>https://tminasen.dev/blog/11c2a153a6dce58dd93fc2d0a364fe</guid>
-            <pubDate>Sun, 06 Jun 2021 00:00:00 GMT</pubDate>
-            <description><![CDATA[path: "/blog/11c2a153a6dce58dd93fc2d0a364fe",
-  date: "2021/06/06",
-  title: "JSで画像を扱うときのメモ",
-  tag: ["JavaScript","React"],
-  ogp…]]></description>
-            <enclosure url="https://tminasen.dev/images/article/11c2a153a6dce58dd93fc2d0a364fe/ogp.png" length="0" type="image/png"/>
         </item>
     </channel>
 </rss>

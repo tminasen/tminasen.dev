@@ -32,3 +32,27 @@ VERCEL_PREVIEW_URL=https://example-preview.vercel.app yarn test:visual tests/vis
 - GitHub Actions: `.github/workflows/visual-regression.yml`
 - GitHub Deployment API から Vercel プレビューURLを取得して比較します
 - 失敗時は `test-results` / `playwright-report` がアーティファクトに保存されます。
+
+## OGP画像生成
+
+### 概要
+
+変更された記事のOGP画像を自動生成するスクリプト。git diffの結果を引数として受け取り、変更された記事のみOGP画像を生成する。
+
+### 実行方法
+
+特定の記事ファイルを指定して実行:
+
+```bash
+yarn generate:ogp src/pages/blog/{記事ID}.mdx
+```
+
+git diffの結果を渡して実行:
+
+```bash
+yarn generate:ogp $(git diff --name-only HEAD~1)
+```
+
+### 生成物
+
+- `public/images/article/{記事ID}/ogp.png` : OGP画像（1200x630px）

@@ -10,7 +10,7 @@
     "format": "prettier --write \"**/*.{js,jsx,ts,tsx,json,md}\"",
     "start": "next start",
     "test:visual": "playwright test",
-    "create:md": "tsx ./scripts/article-scripts/article-creator.mts",
+    "create:article": "tsx ./scripts/article-scripts/article-creator.mts",
     "rename:files": "tsx ./scripts/article-scripts/article-creator.mts --rename",
     "generate:rss": "tsx ./scripts/generate-rss/generate-rss.mts",
     "generate:ogp": "tsx ./scripts/generate-ogp/generate-ogp.mts",
