@@ -22,6 +22,7 @@
   .prose-article :where(img) {
     margin-top: 0.5rem;
     margin-bottom: 0.5rem;
+    cursor: zoom-in;
   }
   .prose-article :where(figure) {
     margin-top: 0.5rem;
@@ -35,4 +36,73 @@
     margin-top: 0;
     margin-bottom: 0;
   }
+}
+
+.lightbox-dialog {
+  border: none;
+  background: transparent;
+  padding: 0;
+  max-width: 90vw;
+  max-height: 90vh;
+  overflow: visible;
+  position: fixed;
+  inset: 0;
+  margin: auto;
+  width: fit-content;
+  height: fit-content;
+}
+
+.lightbox-dialog[open] {
+  animation: lightbox-fade-in 0.2s ease-out;
+}
+
+@keyframes lightbox-fade-in {
+  from {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.lightbox-dialog::backdrop {
+  background: rgba(0, 0, 0, 0.7);
+  animation: lightbox-backdrop-fade-in 0.2s ease-out;
+}
+
+@keyframes lightbox-backdrop-fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.lightbox-image {
+  max-width: 90vw;
+  max-height: 85vh;
+  object-fit: contain;
+  display: block;
+  border-radius: 0.5rem;
+  border: 2px solid white;
+}
+
+.lightbox-close {
+  position: absolute;
+  top: -2rem;
+  right: -0.5rem;
+  background: transparent;
+  border: none;
+  color: white;
+  font-size: 2rem;
+  cursor: pointer;
+  line-height: 1;
+  padding: 0.25rem;
+}
+
+.lightbox-close:hover {
+  opacity: 0.7;
 }
