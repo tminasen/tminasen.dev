@@ -9,13 +9,13 @@
 ### 実行方法
 
 ```bash
-yarn test:visual tests/visual-regression
+pnpm test:visual tests/visual-regression
 ```
 
 `VERCEL_PREVIEW_URL` を指定すると、本番環境とプレビュー環境の差分比較を実行します。
 
 ```bash
-VERCEL_PREVIEW_URL=https://example-preview.vercel.app yarn test:visual tests/visual-regression
+VERCEL_PREVIEW_URL=https://example-preview.vercel.app pnpm test:visual tests/visual-regression
 ```
 
 `VERCEL_PREVIEW_URL` 未指定時は、本番環境同士の比較（差分なし想定）として実行されます。
@@ -44,13 +44,13 @@ VERCEL_PREVIEW_URL=https://example-preview.vercel.app yarn test:visual tests/vis
 特定の記事ファイルを指定して実行:
 
 ```bash
-yarn generate:ogp src/pages/blog/{記事ID}.mdx
+pnpm generate:ogp src/pages/blog/{記事ID}.mdx
 ```
 
 git diffの結果を渡して実行:
 
 ```bash
-yarn generate:ogp $(git diff --name-only HEAD~1)
+pnpm generate:ogp $(git diff --name-only HEAD~1)
 ```
 
 ### 生成物

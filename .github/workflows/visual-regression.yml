@@ -20,17 +20,20 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4
+
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
           node-version: '22'
-          cache: yarn
+          cache: pnpm
 
       - name: Install dependencies
-        run: yarn install --frozen-lockfile
+        run: pnpm install --frozen-lockfile
 
       - name: Install Playwright Chromium
-        run: yarn playwright install --with-deps chromium
+        run: pnpm exec playwright install --with-deps chromium
 
       - name: Resolve Vercel preview URL from Deployment API
         id: resolve-preview
@@ -96,7 +99,7 @@ jobs:
         continue-on-error: true
         env:
           VERCEL_PREVIEW_URL: ${{ steps.resolve-preview.outputs.preview_url }}
-        run: yarn test:visual tests/visual-regression
+        run: pnpm test:visual tests/visual-regression
 
       - name: Set test result
         if: always()
