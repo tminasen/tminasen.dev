@@ -1,38 +1,54 @@
-@layer components {
-  .prose-article :where(h1, h2, h3, h4, h5, h6) {
-    margin-top: 0.75rem;
-    margin-bottom: 0.5rem;
-  }
-  .prose-article :where(h1) {
-    font-size: 1.5rem;
-    line-height: 2rem;
-  }
-  .prose-article :where(h2) {
+@layer utilities {
+  .prose-article h1 {
     font-size: 1.25rem;
     line-height: 1.75rem;
   }
-  .prose-article :where(h3) {
+  .prose-article h2 {
+    font-size: 1.125rem;
+    line-height: 1.5rem;
+  }
+  .prose-article h3 {
     font-size: 1rem;
     line-height: 1.5rem;
   }
-  .prose-article :where(p) {
+  .prose-article h1,
+  .prose-article h2,
+  .prose-article h3,
+  .prose-article h4,
+  .prose-article h5,
+  .prose-article h6 {
+    margin-top: 0.75rem;
+    margin-bottom: 0.5rem;
+  }
+  @media (min-width: theme('screens.sm')) {
+    .prose-article h1 {
+      font-size: 1.5rem;
+      line-height: 2rem;
+    }
+    .prose-article h2 {
+      font-size: 1.25rem;
+      line-height: 1.75rem;
+    }
+  }
+  .prose-article p {
     margin-top: 0.5rem;
     margin-bottom: 0.5rem;
   }
-  .prose-article :where(img) {
+  .prose-article img {
     margin-top: 0.5rem;
     margin-bottom: 0.5rem;
     cursor: zoom-in;
   }
-  .prose-article :where(figure) {
+  .prose-article figure {
     margin-top: 0.5rem;
     margin-bottom: 0.5rem;
   }
-  .prose-article :where(ul, ol) {
+  .prose-article ul,
+  .prose-article ol {
     margin-top: 0.5rem;
     margin-bottom: 0.5rem;
   }
-  .prose-article :where(li) {
+  .prose-article li {
     margin-top: 0;
     margin-bottom: 0;
   }

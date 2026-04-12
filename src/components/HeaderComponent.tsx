@@ -22,7 +22,7 @@ export const HeaderComponent: FC<Props> = ({
         </LinkComponent>
       </h1>
       <nav
-        className="absolute left-1 sm:left-7 top-2 z-10"
+        className="absolute flex left-1 sm:left-7 top-1/2 -translate-y-1/2 z-10"
         aria-label="グローバルメニュー"
       >
         <button
@@ -39,7 +39,7 @@ export const HeaderComponent: FC<Props> = ({
           id="global-menu"
           className={`${
             showModal ? 'block' : 'hidden'
-          } mt-2 bg-(--color-bg-card) min-w-[360px] sm:min-w-[500px] min-h-[75vh] rounded-sm`}
+          } absolute top-full mt-2 bg-(--color-bg-card) min-w-[360px] sm:min-w-[500px] min-h-[75vh] rounded-sm`}
         >
           <button
             className="close-button relative border-none bg-transparent w-10 h-10"
