@@ -52,6 +52,10 @@
     margin-top: 0;
     margin-bottom: 0;
   }
+  .prose-article td,
+  .prose-article th {
+    vertical-align: middle;
+  }
 }
 
 .lightbox-dialog {
