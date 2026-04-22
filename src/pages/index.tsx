@@ -6,7 +6,8 @@ import { CardComponent } from '../components/CardComponent';
 
 const ArticleCardItem: (param: {
   articleData: ArticleMetaData;
-}) => JSX.Element = ({ articleData }) => {
+  fetchPriority?: 'high' | 'low' | 'auto';
+}) => JSX.Element = ({ articleData, fetchPriority }) => {
   return (
     <li>
       <CardComponent
@@ -16,6 +17,7 @@ const ArticleCardItem: (param: {
         excerpt={articleData.description}
         date={articleData.date}
         tags={articleData.tag}
+        fetchPriority={fetchPriority}
       />
     </li>
   );
@@ -27,8 +29,12 @@ const IndexPage: React.FC<{ articleMetaDataList: ArticleMetaData[] }> = ({
   return (
     <PageTemplate>
       <ul className='text-base grid justify-center [grid-template-columns:repeat(auto-fill,var(--card-image-width))] gap-[20px]'>
-        {articleMetaDataList.map(article => (
-          <ArticleCardItem articleData={article} key={article.path} />
+        {articleMetaDataList.map((article, index) => (
+          <ArticleCardItem
+            articleData={article}
+            key={article.path}
+            fetchPriority={index === 0 ? 'high' : undefined}
+          />
         ))}
       </ul>
     </PageTemplate>

@@ -5,16 +5,19 @@ import { AppProps } from 'next/app';
 import { HeadComponent } from '../components/HeadComponent';
 
 export default function MyApp({ Component, pageProps }: AppProps) {
+  const hasCanonical = Boolean(pageProps.articleMetaData?.path || pageProps.path);
   return (
     <>
-      <HeadComponent
-        title={pageProps.articleMetaData?.title || pageProps.title}
-        ogpImage={pageProps.articleMetaData?.ogpImage}
-        additionalMetaData={undefined}
-        description={undefined}
-        canonicalPath={pageProps.articleMetaData?.path || pageProps.path}
-        ogType={pageProps.ogType}
-      />
+      {hasCanonical && (
+        <HeadComponent
+          title={pageProps.articleMetaData?.title || pageProps.title}
+          ogpImage={pageProps.articleMetaData?.ogpImage}
+          additionalMetaData={undefined}
+          description={undefined}
+          canonicalPath={pageProps.articleMetaData?.path || pageProps.path}
+          ogType={pageProps.ogType}
+        />
+      )}
       <Component {...pageProps} />
     </>
   );

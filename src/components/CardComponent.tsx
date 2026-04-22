@@ -10,6 +10,7 @@ type Props = {
   image: ThumbnailImage;
   date: string;
   tags: string[];
+  fetchPriority?: 'high' | 'low' | 'auto';
 };
 
 export const CardComponent: FC<DeepReadonly<Props>> = ({
@@ -19,6 +20,7 @@ export const CardComponent: FC<DeepReadonly<Props>> = ({
   image,
   date,
   tags,
+  fetchPriority,
 }) => {
   const displayTags = tags.slice(0, 3);
 
@@ -31,6 +33,7 @@ export const CardComponent: FC<DeepReadonly<Props>> = ({
           alt={title}
           width={{ pc: image.size.pc.width, sp: image.size.sp.width }}
           height={{ pc: image.size.pc.height, sp: image.size.sp.height }}
+          fetchPriority={fetchPriority}
         />
         <div className="px-2">
           <h2 className="text-2xl font-bold text-center mt-2 max-h-(--card-title-height) leading-(--card-title-line-height) line-clamp-2 overflow-hidden">

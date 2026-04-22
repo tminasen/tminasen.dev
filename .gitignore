@@ -44,3 +44,4 @@ yarn-error.log*
 
 # AI
 .clinerules
+/ai-docs

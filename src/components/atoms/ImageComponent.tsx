@@ -12,12 +12,16 @@ interface Props {
     pc: number;
     sp: number;
   };
+  fetchPriority?: 'high' | 'low' | 'auto';
 }
 
 export const Image: FC<Props> = ({
   imageSrc,
   isRounded,
-  alt
+  alt,
+  width,
+  height,
+  fetchPriority,
 }) => {
   return (
     <picture>
@@ -26,6 +30,9 @@ export const Image: FC<Props> = ({
         className={`${isRounded ? 'rounded-t-lg' : ''} w-(--image-sp-width) sm:w-(--image-pc-width) max-h-(--card-image-max-height) object-cover`}
         src={imageSrc}
         alt={alt}
+        width={width.sp}
+        height={height.sp}
+        fetchPriority={fetchPriority}
       />
     </picture>
   );

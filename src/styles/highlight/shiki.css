@@ -79,4 +79,9 @@ pre span {
     background-color: #374151;
     color: #e5e7eb;
   }
+
+  /* github-dark-dimmed コメント色のコントラスト改善 (3.87:1 → 4.5:1+) */
+  pre span[style*="--shiki-dark:#768390"] {
+    --shiki-dark: #8b949e !important;
+  }
 }
