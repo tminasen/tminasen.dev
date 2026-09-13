@@ -41,6 +41,7 @@ yarn-error.log*
 
 # cache
 /.cache
+*.tsbuildinfo
 
 # AI
 .clinerules
