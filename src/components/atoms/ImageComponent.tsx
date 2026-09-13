@@ -13,6 +13,7 @@ interface Props {
     sp: number;
   };
   fetchPriority?: 'high' | 'low' | 'auto';
+  loading?: 'lazy' | 'eager';
 }
 
 export const Image: FC<Props> = ({
@@ -22,6 +23,7 @@ export const Image: FC<Props> = ({
   width,
   height,
   fetchPriority,
+  loading,
 }) => {
   return (
     <picture>
@@ -33,6 +35,8 @@ export const Image: FC<Props> = ({
         width={width.sp}
         height={height.sp}
         fetchPriority={fetchPriority}
+        loading={loading}
+        decoding="async"
       />
     </picture>
   );

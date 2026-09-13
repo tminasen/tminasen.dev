@@ -4,10 +4,13 @@ import { getArticleMetaData } from '../libraries/articles';
 import { ArticleMetaData } from '../types/article';
 import { CardComponent } from '../components/CardComponent';
 
+const EAGER_CARD_COUNT = 6;
+
 const ArticleCardItem: (param: {
   articleData: ArticleMetaData;
   fetchPriority?: 'high' | 'low' | 'auto';
-}) => JSX.Element = ({ articleData, fetchPriority }) => {
+  loading?: 'eager' | 'lazy';
+}) => JSX.Element = ({ articleData, fetchPriority, loading }) => {
   return (
     <li>
       <CardComponent
@@ -18,6 +21,7 @@ const ArticleCardItem: (param: {
         date={articleData.date}
         tags={articleData.tag}
         fetchPriority={fetchPriority}
+        loading={loading}
       />
     </li>
   );
@@ -34,6 +38,7 @@ const IndexPage: React.FC<{ articleMetaDataList: ArticleMetaData[] }> = ({
             articleData={article}
             key={article.path}
             fetchPriority={index === 0 ? 'high' : undefined}
+            loading={index < EAGER_CARD_COUNT ? 'eager' : 'lazy'}
           />
         ))}
       </ul>

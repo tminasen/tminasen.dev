@@ -14,7 +14,8 @@
     "rename:files": "tsx ./scripts/article-scripts/article-creator.mts --rename",
     "generate:rss": "tsx ./scripts/generate-rss/generate-rss.mts",
     "generate:ogp": "tsx ./scripts/generate-ogp/generate-ogp.mts",
-    "type-check": "tsc"
+    "type-check": "tsc",
+    "test": "vitest run"
   },
   "dependencies": {
     "@mdx-js/loader": "^3.1.1",
@@ -60,6 +61,11 @@
     "puppeteer": "^25.10.0",
     "tsx": "^4.23.13",
     "typescript": "^5.9.3",
+    "vitest": "^2.1.8",
+    "@testing-library/react": "^16.1.0",
+    "@testing-library/jest-dom": "^6.6.3",
+    "jsdom": "^25.0.1",
+    "@vitejs/plugin-react": "^4.3.4",
     "zx": "8.8.5"
   },
   "license": "MIT",

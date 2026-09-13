@@ -17,7 +17,7 @@ const getArticles = (
 ): JSX.Element | null => {
   const articleList = articleMetaDataList
     .filter(data => data.tag.includes(tagName))
-    .map((data): JSX.Element | null => {
+    .map((data, index): JSX.Element | null => {
       const tagList = data.tag.map(tag => (
         <li className="mr-1.5" key={`/tags/${tag}`}>
           <LinkComponent url={`/tags/${tag}`} color="black">
@@ -50,6 +50,7 @@ const getArticles = (
                 alt={data.title}
                 width={{ pc: 150, sp: 150 }}
                 height={{ pc: 100, sp: 100 }}
+                loading={index === 0 ? 'eager' : 'lazy'}
               />
               <p className="text-base sm:text-xl p-2">
                 <LinkComponent url={data.path} color="black">
