@@ -15,6 +15,9 @@
 /.next/
 /out/
 
+# generated article chunks
+/public/articles/
+
 # production
 /build
 

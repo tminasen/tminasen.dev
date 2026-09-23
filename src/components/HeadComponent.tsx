@@ -60,22 +60,20 @@ export const HeadComponent: FC<Props> = ({
               <meta name={item.name} content={item.content} />
             ))
           : null}
-        {/* Google tag (gtag.js) */}
-        <script
-          dangerouslySetInnerHTML={{
-            __html: `
-            window.dataLayer = window.dataLayer || [];
-            function gtag(){dataLayer.push(arguments);}
-            gtag('js', new Date());
-            gtag('config', 'G-L82JQBNL8M');
-            `,
-          }}
-        />
       </Head>
+      {/* Google tag (gtag.js) */}
       <Script
         src="https://www.googletagmanager.com/gtag/js?id=G-L82JQBNL8M"
         strategy="afterInteractive"
       />
+      <Script id="gtag-init" strategy="afterInteractive">
+        {`
+          window.dataLayer = window.dataLayer || [];
+          function gtag(){dataLayer.push(arguments);}
+          gtag('js', new Date());
+          gtag('config', 'G-L82JQBNL8M');
+        `}
+      </Script>
     </>
   );
 };

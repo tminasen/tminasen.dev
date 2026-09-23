@@ -1,19 +1,12 @@
 import { defineConfig } from 'vitest/config';
-import react from '@vitejs/plugin-react';
-import path from 'path';
 
 export default defineConfig({
-  plugins: [react()],
   test: {
     environment: 'jsdom',
-    setupFiles: ['./tests/setup.ts'],
+    setupFiles: ['./vitest.setup.ts'],
     globals: true,
-    include: ['src/**/*.test.{ts,tsx}', 'tests/unit/**/*.test.{ts,tsx}'],
-    exclude: ['**/node_modules/**', '**/dist/**', '**/tests/visual-regression/**'],
-  },
-  resolve: {
-    alias: {
-      '@': path.resolve(__dirname, './src'),
-    },
+    // ユニットテストはテスト対象と同じ場所に置く（src 配下でコロケーション）。
+    // tests/visual-regression は Playwright 専用のため、この include には元々かからない。
+    include: ['src/**/*.test.{ts,tsx}'],
   },
 });
