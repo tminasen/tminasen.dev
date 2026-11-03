@@ -27,7 +27,7 @@ Recoilが気になっていた今日このごろ。
 
 # TL;DR.
 
-[コード](https://github.com/Tetsuya-Minase/program-samples/tree/master/recoil-sample)
+[コード](https://github.com/tminasen/program-samples/tree/master/recoil-sample)
 
 # 導入
 
@@ -212,7 +212,7 @@ const item = [
 ```
 
 これを表示するコンポーネントは下記のようにした。  
-CSSについては[こちら](https://github.com/Tetsuya-Minase/program-samples/blob/master/recoil-sample/src/components/List/List.css)
+CSSについては[こちら](https://github.com/tminasen/program-samples/blob/master/recoil-sample/src/components/List/List.css)
 を参照。
 
 ```tsx
@@ -289,7 +289,7 @@ export const getTodoListView = selector({
 
 次に実際にリクエストを送ってデータを取ってくる。  
 CQRSっぽくするためリクエストを送りデータを更新する処理とデータを読み込む処理を別にしてみた。  
-※サーバは最初のitemの内容を返すものを作った。詳細は[こちら](https://github.com/Tetsuya-Minase/program-samples/blob/master/recoil-sample/server/app.js)
+※サーバは最初のitemの内容を返すものを作った。詳細は[こちら](https://github.com/tminasen/program-samples/blob/master/recoil-sample/server/app.js)
 を参照。
 
 ```tsx
@@ -367,7 +367,7 @@ export const List = () => {
 次にTodoを追加するようのフォームを作成する。  
 フォームの作成には[React Fook Form](https://react-hook-form.com/)を使うことにした。  
 そのため、`yarn add react-hook-form`でライブラリを追加しておく。  
-CSSについては割愛するので詳細は[こちら](https://github.com/Tetsuya-Minase/program-samples/blob/master/recoil-sample/src/components/Form/Form.css)
+CSSについては割愛するので詳細は[こちら](https://github.com/tminasen/program-samples/blob/master/recoil-sample/src/components/Form/Form.css)
 。
 
 ```tsx
@@ -438,7 +438,7 @@ export const Form = () => {
 ## リクエストを送れるようにする
 
 こちらもリクエストを送るのを試してみる。  
-サーバの内容については[こちら](https://github.com/Tetsuya-Minase/program-samples/blob/master/recoil-sample/server/app.js)を参照。
+サーバの内容については[こちら](https://github.com/tminasen/program-samples/blob/master/recoil-sample/server/app.js)を参照。
 
 ```tsx
 // fetchClientのPOST用を作成する
