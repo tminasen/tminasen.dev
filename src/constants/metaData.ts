@@ -3,7 +3,7 @@ export const metaData = {
   description: 'プログラミング周りのメモ',
   author: '@tminasen',
   domain: 'https://tminasen.dev',
-  githubUrl: 'https://github.com/Tetsuya-Minase/',
+  githubUrl: 'https://github.com/tminasen/',
   ogpImage: '/images/ogp.png',
   XIcon: '/images/XSocialIcon.png',
   githubIcon: '/images/GithubIcon.png',
