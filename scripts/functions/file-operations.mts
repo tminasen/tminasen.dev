@@ -41,6 +41,7 @@ path: "/blog/${fileId}"
 date: "${currentDate}"
 title: ""
 tag: [""]
+description: ""
 ogpImage: "/images/article/${fileId}/ogp.png"
 thumbnailImage: "/images/article/${fileId}/thumbnail.png"
 ---
@@ -52,6 +53,7 @@ export const meta = {
   date: "${currentDate}",
   title: "",
   tag: [""],
+  description: "",
   ogpImage: "/images/article/${fileId}/ogp.png",
   thumbnailImage: "/images/article/${fileId}/thumbnail.png",
 };

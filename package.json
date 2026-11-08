@@ -5,7 +5,7 @@
   "version": "2.0.0",
   "author": "tminasen",
   "scripts": {
-    "build": "pnpm generate:article-chunks && next build",
+    "build": "pnpm generate:article-chunks && pnpm generate:ai-assets && next build",
     "dev": "next",
     "format": "prettier --write \"**/*.{js,jsx,ts,tsx,json,md}\"",
     "start": "next start",
@@ -14,6 +14,7 @@
     "rename:files": "tsx ./scripts/article-scripts/article-creator.mts --rename",
     "generate:rss": "tsx ./scripts/generate-rss/generate-rss.mts",
     "generate:article-chunks": "tsx ./scripts/generate-article-chunks/generate-article-chunks.mts",
+    "generate:ai-assets": "tsx ./scripts/generate-ai-assets/generate-ai-assets.mts",
     "generate:ogp": "tsx ./scripts/generate-ogp/generate-ogp.mts",
     "type-check": "tsc",
     "test": "vitest run"

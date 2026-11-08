@@ -41,3 +41,18 @@ function convertToDecimal(value: string): number | Error {
   }
   return decimalValue;
 }
+
+/**
+ * YYYY/MM/DD形式の日付文字列をYYYY-MM-DD形式に変換する
+ * @param dateString YYYY/MM/DD
+ * @throws 不正な日付文字列の場合
+ */
+export function toIsoDateString(dateString: string): string {
+  const date = dateFromDateString(dateString);
+  if (date instanceof Error) {
+    throw date;
+  }
+  const month = String(date.getMonth() + 1).padStart(2, '0');
+  const day = String(date.getDate()).padStart(2, '0');
+  return `${date.getFullYear()}-${month}-${day}`;
+}

@@ -5,6 +5,7 @@ interface _MarkdownMetaData {
   tag: string[];
   thumbnailImage: string;
   ogpImage: string;
+  description?: string;
 }
 
 export type MarkdownMetaData = Readonly<_MarkdownMetaData>;
