@@ -5,6 +5,7 @@ title: "markdown内の画像をamp-img対応メモ"
 tag: ["TypeScript"]
 ogpImage: "/images/article/jzle6s7y8qa1gscz9ecv/ogp.png"
 thumbnailImage: "/images/ogp.png"
+description: "markdownからhtmlを生成するNext.jsのブログで、markdown内の画像がimgタグに変換されてしまう問題に対し、remarkを使ってamp-imgへ変換するようにした対応のメモ。"
 ---
 
 import { ArticleLayout } from '../../components/ArticleLayout';
@@ -16,6 +17,7 @@ export const meta = {
   tag: ["TypeScript"],
   ogpImage: "/images/article/jzle6s7y8qa1gscz9ecv/ogp.png",
   thumbnailImage: "/images/ogp.png",
+  description: "markdownからhtmlを生成するNext.jsのブログで、markdown内の画像がimgタグに変換されてしまう問題に対し、remarkを使ってamp-imgへ変換するようにした対応のメモ。",
 };
 
 export default ({ children }) => <ArticleLayout meta={meta}>{children}</ArticleLayout>;

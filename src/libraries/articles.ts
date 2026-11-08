@@ -97,12 +97,18 @@ export function convertTagList(tagCount: TagCount): Tag[] {
     .sort(sortTagDescArticleCount);
 }
 
-function convertArticleMetaData(
-  data: Record<string, any>,
+/**
+ * 記事の説明文を決定する。frontmatterのdescriptionが空でなければそれを採用し、
+ * 空・未定義の場合は本文から自動生成する
+ * @param description frontmatterのdescription
+ * @param context Markdown/MDXコンテンツ
+ */
+export function resolveDescription(
+  description: unknown,
   context: string,
-): ArticleMetaData | undefined {
-  if (!isArticleMetaData(data)) {
-    throw new Error('data is invalid.');
+): string {
+  if (typeof description === 'string' && description.trim() !== '') {
+    return description.trim();
   }
   // MDXではimport/export/metaオブジェクトを除いてdescriptionを生成
   const contentWithoutImports = context
@@ -114,7 +120,16 @@ function convertArticleMetaData(
   // 「概要」または「はじめに」セクションを抽出
   const introSection = extractIntroSection(contentWithoutImports);
   const descriptionSource = introSection || contentWithoutImports;
+  return `${removeTags(descriptionSource).substring(0, 130)}…`;
+}
 
+function convertArticleMetaData(
+  data: Record<string, any>,
+  context: string,
+): ArticleMetaData | undefined {
+  if (!isArticleMetaData(data)) {
+    throw new Error('data is invalid.');
+  }
   return {
     path: data.path,
     date: data.date,
@@ -125,7 +140,7 @@ function convertArticleMetaData(
       size: getImageSize(data.thumbnailImage, 'thumbnail'),
     },
     ogpImage: data.ogpImage,
-    description: `${removeTags(descriptionSource).substring(0, 130)}…`,
+    description: resolveDescription(data.description, context),
   };
 }
 

@@ -1,9 +1,12 @@
 import { FC, ReactNode } from 'react';
+import Head from 'next/head';
 import { PageTemplate } from '../templates/PageTemplate';
 import { HeadComponent } from './HeadComponent';
 import { XShareButton } from './atoms/XShareButton';
 import { GithubArticleButton } from './atoms/GithubArticleButton';
 import { LinkComponent } from './atoms/LinkComponent';
+import { metaData } from '../constants/metaData';
+import { buildBlogPostingJsonLd, serializeJsonLd } from '../libraries/jsonLd';
 
 export interface ArticleMeta {
   path: string;
@@ -44,6 +47,19 @@ export const ArticleLayout: FC<Props> = ({ meta, children }) => {
         ogType="article"
         additionalMetaData={undefined}
       />
+      <Head>
+        <link
+          rel="alternate"
+          type="text/markdown"
+          href={`${metaData.domain}${meta.path}.md`}
+        />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: serializeJsonLd(buildBlogPostingJsonLd(meta)),
+          }}
+        />
+      </Head>
       <PageTemplate>
         <article className="max-w-93 sm:max-w-5xl flex flex-col mx-auto">
           <div className="bg-(--color-bg-card) rounded-sm px-3 sm:px-4 py-1">

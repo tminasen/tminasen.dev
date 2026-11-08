@@ -2,8 +2,8 @@
 
 import { $, path, fs } from 'zx';
 import { Feed } from 'feed';
-import { getArticleMetaData } from '../functions/article.mts';
-import { dateFromDateString } from '../functions/date.mts';
+import { getArticleMetaData } from '../../src/libraries/articles';
+import { buildFeedItem } from '../../src/libraries/rssItem';
 
 const BASE_URL = 'https://tminasen.dev';
 const getCurrentDirectory = await $`pwd`;
@@ -28,26 +28,7 @@ const feed = new Feed({
 (async () => {
   const metaData = await getArticleMetaData();
   metaData.slice(0, 10).forEach(d => {
-    if (!d) return;
-    
-    const date = dateFromDateString(d.date);
-    if (date instanceof Error) {
-      throw date;
-    }
-    feed.addItem({
-      title: d.title,
-      id: `${BASE_URL}/blog/${d.path}`,
-      link: `${BASE_URL}/blog/${d.path}`,
-      description: d.description,
-      author: [
-        {
-          name: 'tminasen',
-          link: 'https://twitter.com/tminasen',
-        },
-      ],
-      date,
-      image: `${BASE_URL}${d.ogpImage}`,
-    });
+    feed.addItem(buildFeedItem(d, BASE_URL));
   });
   if (!fs.existsSync(RSS_DIRECTORY)) {
     fs.mkdirSync(RSS_DIRECTORY);

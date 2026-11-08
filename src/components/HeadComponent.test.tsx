@@ -77,4 +77,45 @@ describe('HeadComponent', () => {
     expect(initIndex).toBeGreaterThanOrEqual(0);
     expect(externalIndex).toBeLessThan(initIndex);
   });
+
+  describe('OGP / Twitter meta tags', () => {
+    const ogProps = {
+      ...defaultProps,
+      title: '記事A',
+      description: '要約',
+      ogpImage: '/images/a.png',
+      ogType: 'article' as const,
+    };
+
+    it('should render og:* with the property attribute', () => {
+      // Given / When
+      render(<HeadComponent {...ogProps} />);
+
+      // Then
+      // React 19 は <meta> を document.head に巻き上げるため document から検索する
+      const head = document;
+      const content = (prop: string) =>
+        head
+          .querySelector(`meta[property="${prop}"]`)
+          ?.getAttribute('content');
+      expect(content('og:title')).toBe('記事A - 水無瀬のプログラミング日記');
+      expect(content('og:description')).toBe('要約');
+      expect(content('og:type')).toBe('article');
+      expect(content('og:image')).toBe('https://tminasen.dev/images/a.png');
+      expect(head.querySelectorAll('meta[name^="og:"]').length).toBe(0);
+    });
+
+    it('should keep twitter:* with the name attribute', () => {
+      // Given / When
+      render(<HeadComponent {...ogProps} />);
+
+      // Then
+      const head = document;
+      expect(head.querySelector('meta[name="twitter:card"]')).not.toBeNull();
+      expect(head.querySelector('meta[name="twitter:title"]')).not.toBeNull();
+      expect(head.querySelectorAll('meta[property^="twitter:"]').length).toBe(
+        0,
+      );
+    });
+  });
 });

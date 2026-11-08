@@ -36,11 +36,11 @@ export const HeadComponent: FC<Props> = ({
           content="width=device-width, initial-scale=1.0, maximum-scale=5.0, minimum-scale=1.0"
         />
         <meta name="description" content={metaDescription} />
-        <meta name="og:title" content={metaTitle} />
-        <meta name="og:description" content={metaDescription} />
-        <meta name="og:type" content={ogType} />
+        <meta property="og:title" content={metaTitle} />
+        <meta property="og:description" content={metaDescription} />
+        <meta property="og:type" content={ogType} />
         <meta
-          name="og:image"
+          property="og:image"
           content={metaImage ?? `${metaData.domain}${metaData.ogpImage}`}
         />
         <meta name="twitter:card" content="summary_large_image" />

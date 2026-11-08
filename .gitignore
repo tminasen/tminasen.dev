@@ -18,6 +18,11 @@
 # generated article chunks
 /public/articles/
 
+# generated AI assets (sitemap / llms.txt / markdown articles)
+/public/sitemap.xml
+/public/llms.txt
+/public/blog/
+
 # production
 /build
 

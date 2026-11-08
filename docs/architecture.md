@@ -31,6 +31,7 @@ C4Context
     Rel(reader, github, "記事のソース(MDX)を閲覧する", "HTTPS")
     Rel(rssReader, blog, "フィードを取得する", "HTTPS (/rss/feed.xml)")
 
+    Rel(author, aiAssetsGen, "ビルド時に自動実行", "CLI (pnpm generate:ai-assets)")
     Rel(author, github, "記事・コードをpush / PR作成", "git (HTTPS/SSH)")
     Rel(github, vercel, "pushを契機にビルド・デプロイをトリガー", "Webhook")
     Rel(vercel, blog, "静的コンテンツとしてホスティング・配信", "CDN")
@@ -60,6 +61,7 @@ C4Container
         Container(articleCreator, "記事作成スクリプト", "tsx / zx (scripts/article-scripts)", "記事IDの採番とMDX雛形の生成 (pnpm create:article)")
         Container(ogpGen, "OGP画像生成スクリプト", "tsx / Puppeteer (scripts/generate-ogp)", "git diffで変更された記事のタイトルをogp-base.htmlに埋め込み、1200x630pxのPNGを生成")
         Container(rssGen, "RSS生成スクリプト", "tsx / feed (scripts/generate-rss)", "最新10件の記事メタデータからRSSフィードXMLを生成")
+        Container(aiAssetsGen, "AI向け静的ファイル生成スクリプト", "tsx (scripts/generate-ai-assets)", "sitemap.xml・llms.txt・記事のMarkdown版(public/blog/{id}.md)をビルド時に生成。pnpm buildに組み込み済み")
         Container(vrt, "Visual Regressionテスト", "Playwright / pixelmatch (tests/)", "本番環境とVercelプレビュー環境のスクリーンショットを比較し差分率を検出")
     }
 
@@ -78,6 +80,8 @@ C4Container
     Rel(ogpGen, publicAssets, "ogp.pngを出力", "File I/O")
     Rel(rssGen, articles, "記事メタデータを取得", "File I/O")
     Rel(rssGen, publicAssets, "feed.xmlを出力", "File I/O")
+    Rel(aiAssetsGen, articles, "記事メタデータ・MDX本文を取得", "File I/O")
+    Rel(aiAssetsGen, publicAssets, "sitemap.xml・llms.txt・blog/*.mdを出力", "File I/O")
 
     Rel(vercel, articles, "ビルド時にMDXを読み込み静的HTML化", "next build (@next/mdx, remark/rehype, shiki)")
     Rel(vercel, staticSite, "ビルド成果物をCDN配信", "デプロイ")
