@@ -20,6 +20,61 @@
     margin-top: 0.75rem;
     margin-bottom: 0.5rem;
   }
+  .prose-article :is(h1, h2, h3) {
+    scroll-margin-top: 1rem;
+  }
+  .prose-article .toc {
+    margin: 1rem 0;
+    padding: 0.75rem 1rem;
+    border: 1px solid var(--color-border);
+    border-radius: 0.5rem;
+  }
+  .prose-article .toc-title {
+    margin: 0 0 0.5rem;
+    font-weight: 700;
+    color: var(--color-text-muted);
+  }
+  .prose-article .toc ol {
+    margin: 0;
+    padding-left: 1.25rem;
+    list-style: decimal;
+  }
+  .prose-article .toc li {
+    margin: 0.25rem 0;
+  }
+  .prose-article .toc a {
+    color: var(--color-text-base);
+    text-decoration: underline;
+  }
+  /*
+   * xl (1280px) 以上: 目次を本文カードの右外側に追従表示する。
+   * 目次幅 --toc-width = clamp(14rem, 100vw - 67.25rem, 20rem)。
+   *   67.25rem = main 左右余白 1rem (PageTemplate の mx-2 = 8px x 2)
+   *            + カード 64rem (max-w-5xl) + 間隔 1rem
+   *            + スクロールバー分の余裕 1.25rem (20px。100vw はスクロールバー幅を含むため)。
+   *   1280px で下限 14rem、約 1396px 以上で上限 20rem。
+   * 中央寄せの 65rem = カード 64rem + 間隔 1rem。
+   * margin-right の calc(-1 * var(--toc-width) - 2rem) の 2rem は、
+   * prose div の sm:px-4 (1rem) + 間隔 1rem。prose div の左右 padding に依存する。
+   */
+  @media (min-width: theme('screens.xl')) {
+    /* 目次を持つ記事のみ、カード＋目次の組を main 内で中央揃えにする */
+    article:has(.prose-article > .toc) {
+      --toc-width: clamp(14rem, 100vw - 67.25rem, 20rem);
+      margin-left: max(0px, calc((100% - 65rem - var(--toc-width)) / 2));
+      margin-right: auto;
+    }
+    .prose-article .toc {
+      float: right;
+      position: sticky;
+      top: 1rem;
+      width: var(--toc-width);
+      margin: 0 calc(-1 * var(--toc-width) - 2rem) 0 0;
+      max-height: calc(100vh - 2rem);
+      overflow-y: auto;
+      background: var(--color-bg-card);
+    }
+  }
   @media (min-width: theme('screens.sm')) {
     .prose-article h1 {
       font-size: 1.5rem;
