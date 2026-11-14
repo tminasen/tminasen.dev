@@ -14,6 +14,8 @@
 # next.js
 /.next/
 /out/
+# next dev / next build が自動生成し、実行するたびに内容が変わるため追跡しない
+/next-env.d.ts
 
 # generated article chunks
 /public/articles/

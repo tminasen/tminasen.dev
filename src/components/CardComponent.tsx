@@ -32,7 +32,7 @@ export const CardComponent: FC<DeepReadonly<Props>> = ({
         <Image
           imageSrc={image.url}
           isRounded={true}
-          alt={title}
+          alt=""
           width={{ pc: image.size.pc.width, sp: image.size.sp.width }}
           height={{ pc: image.size.pc.height, sp: image.size.sp.height }}
           fetchPriority={fetchPriority}

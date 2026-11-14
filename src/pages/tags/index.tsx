@@ -20,7 +20,7 @@ const TagListPage: React.FC<Props> = ({ tagList }) => {
         <h1 className='text-(--color-text-base) text-2xl sm:text-3xl mb-4'>タグ一覧</h1>
         <ul className='text-base ml-4 space-y-1'>
           {tagList.map(tag => (
-            <li key={tag.name}>
+            <li key={tag.name} className='flex *:flex *:min-h-6 *:min-w-6 *:items-center'>
               <LinkComponent url={tag.url} color="black">
                 {`${tag.name}(${tag.articleCount})`}
               </LinkComponent>
