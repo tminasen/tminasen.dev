@@ -3,7 +3,7 @@ import { PRODUCTION_BASE_URL, buildPageUrl } from './config';
 import { setColorScheme, waitForPageReady } from './helpers';
 
 test.describe('Visual helper', () => {
-  test('T18: color scheme switch should update root color variables', async ({
+  test('color scheme switch should update root color variables', async ({
     page,
   }) => {
     await page.goto(buildPageUrl(PRODUCTION_BASE_URL, '/404'));
@@ -34,7 +34,7 @@ test.describe('Visual helper', () => {
     expect(revertedLightColor).toBe(lightColor);
   });
 
-  test('T19: waitForPageReady should wait until fonts are loaded', async ({
+  test('waitForPageReady should wait until fonts are loaded', async ({
     page,
   }) => {
     await page.goto(buildPageUrl(PRODUCTION_BASE_URL, '/'));

@@ -21,9 +21,32 @@ describe('CardComponent', () => {
     tags: ['tag1', 'tag2'],
   };
 
-  it('T6: loading propsがImageへ伝搬される', () => {
-    render(<CardComponent {...defaultProps} loading="lazy" />);
-    const img = screen.getByRole('img');
+  it('loading propsがImageへ伝搬される', () => {
+    const { container } = render(
+      <CardComponent {...defaultProps} loading="lazy" />,
+    );
+    const img = container.querySelector('img')!;
     expect(img).toHaveAttribute('loading', 'lazy');
+  });
+
+  it('画像の alt が空', () => {
+    // Given
+    const props = defaultProps;
+    // When
+    const { container } = render(<CardComponent {...props} />);
+    // Then
+    expect(container.querySelector('img')!.getAttribute('alt')).toBe('');
+  });
+
+  it('リンク名にタイトルが1回だけ含まれる', () => {
+    // Given
+    const props = defaultProps;
+    // When
+    render(<CardComponent {...props} />);
+    // Then
+    expect(screen.getByRole('link', { name: /Test Title/ })).toBeInTheDocument();
+    expect(
+      screen.queryByRole('link', { name: /Test Title[\s\S]*Test Title/ }),
+    ).toBeNull();
   });
 });

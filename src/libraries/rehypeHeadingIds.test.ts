@@ -40,7 +40,7 @@ afterEach(() => {
 });
 
 describe('rehypeHeadingIds', () => {
-  it('T29: MDX コメントの明示 id が付与され、コメントと末尾空白が除去される', () => {
+  it('MDX コメントの明示 id が付与され、コメントと末尾空白が除去される', () => {
     // Given
     const h2 = el('h2', [text('はじめに '), expr('/* #introduction */')]);
     const tree = root(h2);
@@ -51,7 +51,7 @@ describe('rehypeHeadingIds', () => {
     expect(h2.children).toEqual([text('はじめに')]);
   });
 
-  it('T30: 未指定の見出しは GitHub 互換規則で自動 id が付く', () => {
+  it('未指定の見出しは GitHub 互換規則で自動 id が付く', () => {
     // Given
     const md = '## はじめに\n\n## TL;DR.\n\n## その1: 状態管理にSignalsを使った';
     // When
@@ -60,7 +60,7 @@ describe('rehypeHeadingIds', () => {
     expect(ids).toEqual(['はじめに', 'tldr', 'その1-状態管理にsignalsを使った']);
   });
 
-  it('T31: 自動 id の重複は -1, -2 が付く', () => {
+  it('自動 id の重複は -1, -2 が付く', () => {
     // Given
     const md = '## 例\n\n## 例\n\n## 例';
     // When
@@ -69,7 +69,7 @@ describe('rehypeHeadingIds', () => {
     expect(ids).toEqual(['例', '例-1', '例-2']);
   });
 
-  it('T32: 明示 id の重複も -1 が付き、例外は出ない', () => {
+  it('明示 id の重複も -1 が付き、例外は出ない', () => {
     // Given
     const a = el('h2', [text('A '), expr('/* #intro */')]);
     const b = el('h2', [text('B '), expr('/* #intro */')]);
@@ -82,7 +82,7 @@ describe('rehypeHeadingIds', () => {
     expect(b.properties?.id).toBe('intro-1');
   });
 
-  it('T33: 明示 id と自動 id の衝突は後勝ちで -1 が付く', () => {
+  it('明示 id と自動 id の衝突は後勝ちで -1 が付く', () => {
     // Given
     const a = el('h2', [text('まとめ'), expr('/* #summary */')]);
     const b = el('h2', [text('Summary')]);
@@ -94,7 +94,7 @@ describe('rehypeHeadingIds', () => {
     expect(b.properties?.id).toBe('summary-1');
   });
 
-  it('T34: 自動 slug が空になる見出しには id を付けない', () => {
+  it('自動 slug が空になる見出しには id を付けない', () => {
     // Given
     const md = '## !!!\n\n## A';
     // When
@@ -103,7 +103,7 @@ describe('rehypeHeadingIds', () => {
     expect(ids).toEqual([null, 'a']);
   });
 
-  it('T35: 形式不正の明示 id は自動 id にフォールバックし警告する', () => {
+  it('形式不正の明示 id は自動 id にフォールバックし警告する', () => {
     // Given
     const warn = vi.spyOn(console, 'warn').mockImplementation(() => {});
     const invalid = expr('/* #はじめに */');
@@ -118,7 +118,7 @@ describe('rehypeHeadingIds', () => {
     expect(warn).toHaveBeenCalledTimes(1);
   });
 
-  it('T36: 見出し以外のコメントには触れない', () => {
+  it('見出し以外のコメントには触れない', () => {
     // Given
     const p = el('p', [text('本文 '), expr('/* #foo */')]);
     const tree = root(p);
@@ -129,7 +129,7 @@ describe('rehypeHeadingIds', () => {
     expect(p.children).toEqual([text('本文 '), expr('/* #foo */')]);
   });
 
-  it('T37: h4〜h6 にも id が付く', () => {
+  it('h4〜h6 にも id が付く', () => {
     // Given
     const md = '#### Deep\n\n###### Deeper';
     // When
@@ -138,7 +138,7 @@ describe('rehypeHeadingIds', () => {
     expect(ids).toEqual(['deep', 'deeper']);
   });
 
-  it('T38: 既に id を持つ見出しは変更しない', () => {
+  it('既に id を持つ見出しは変更しない', () => {
     // Given
     const a = el('h2', [text('はじめに')], { id: 'custom' });
     const b = el('h2', [text('custom')]);
@@ -161,7 +161,7 @@ describe('rehypeHeadingIds 不変条件', () => {
     '#### Deep\n\n###### Deeper\n\n#### Deep',
   ];
 
-  it.each(inputs)('P5-P6: %j', (md) => {
+  it.each(inputs)('自動 id が一意で、使用可能な文字のみで構成される: %j', (md) => {
     // Given
     // When
     const ids = autoIds(md).filter((id): id is string => id !== null);

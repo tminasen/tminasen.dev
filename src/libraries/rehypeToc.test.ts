@@ -29,7 +29,7 @@ const hrefsOf = (root: HTMLElement): string[] =>
 const liText = (li: Element): string => li.querySelector(':scope > a')?.textContent ?? '';
 
 describe('rehypeToc', () => {
-  it('T1: h1 が2件ある記事の本文先頭に目次 nav が挿入される', () => {
+  it('h1 が2件ある記事の本文先頭に目次 nav が挿入される', () => {
     // Given
     const md = '# はじめに\n\n本文\n\n# まとめ\n\n本文';
     // When
@@ -44,7 +44,7 @@ describe('rehypeToc', () => {
     expect(links.map((a) => a.textContent)).toEqual(['はじめに', 'まとめ']);
   });
 
-  it('T2: h1/h2/h3 が階層通りに入れ子になる', () => {
+  it('h1/h2/h3 が階層通りに入れ子になる', () => {
     // Given
     const md = '# A\n\n## B\n\n### C\n\n# D';
     // When
@@ -57,7 +57,7 @@ describe('rehypeToc', () => {
     expect(liText(b.querySelector(':scope > ol > li')!)).toBe('C');
   });
 
-  it('T3: 最上位が h2 の記事は h2 を最上位として入れ子化する', () => {
+  it('最上位が h2 の記事は h2 を最上位として入れ子化する', () => {
     // Given
     const md = '## Setup\n\n### Install\n\n## Usage';
     // When
@@ -68,7 +68,7 @@ describe('rehypeToc', () => {
     expect(liText(top[0].querySelector(':scope > ol > li')!)).toBe('Install');
   });
 
-  it('T4: h4 以下は目次に含めない', () => {
+  it('h4 以下は目次に含めない', () => {
     // Given
     const md = '# A\n\n#### Deep\n\n# B';
     // When
@@ -78,7 +78,7 @@ describe('rehypeToc', () => {
     expect(Array.from(root.querySelectorAll('nav a')).some((a) => a.textContent === 'Deep')).toBe(false);
   });
 
-  it('T5: 見出し以外の本文が先行していても nav が先頭に入る', () => {
+  it('見出し以外の本文が先行していても nav が先頭に入る', () => {
     // Given
     const md = '導入文\n\n# A\n\n# B';
     // When
@@ -90,7 +90,7 @@ describe('rehypeToc', () => {
     expect(children[1].textContent).toBe('導入文');
   });
 
-  it('T6: 装飾付き見出しはプレーンテキストでリンク化される', () => {
+  it('装飾付き見出しはプレーンテキストでリンク化される', () => {
     // Given
     const md = '# `useState` の *使い方*\n\n# まとめ';
     // When
@@ -101,7 +101,7 @@ describe('rehypeToc', () => {
     expect(first.querySelector('code, em')).toBeNull();
   });
 
-  it('T7: 見出し0件では目次を出さない', () => {
+  it('見出し0件では目次を出さない', () => {
     // Given
     const md = '本文のみ';
     // When
@@ -111,7 +111,7 @@ describe('rehypeToc', () => {
     expect(withToc).toBe(convert(md, { toc: false }));
   });
 
-  it('T8: 見出し1件では目次を出さない', () => {
+  it('見出し1件では目次を出さない', () => {
     // Given
     const md = '# A\n\n本文';
     // When
@@ -120,7 +120,7 @@ describe('rehypeToc', () => {
     expect(root.querySelector('nav')).toBeNull();
   });
 
-  it('T9: 見出しちょうど2件で目次が出る（h1 と h3 の混在・レベル飛び）', () => {
+  it('見出しちょうど2件で目次が出る（h1 と h3 の混在・レベル飛び）', () => {
     // Given
     const md = '# A\n\n### C';
     // When
@@ -132,7 +132,7 @@ describe('rehypeToc', () => {
     expect(liText(top[0].querySelector(':scope > ol > li')!)).toBe('C');
   });
 
-  it('T10: 同名見出しは別々の一意なリンクになる', () => {
+  it('同名見出しは別々の一意なリンクになる', () => {
     // Given
     const md = '## 例\n\n## 例';
     // When
@@ -144,7 +144,7 @@ describe('rehypeToc', () => {
     expect(headingIds).toEqual(['例', '例-1']);
   });
 
-  it('T11: h4 は件数に数えない', () => {
+  it('h4 は件数に数えない', () => {
     // Given
     const md = '# A\n\n#### Deep';
     // When
@@ -153,7 +153,7 @@ describe('rehypeToc', () => {
     expect(root.querySelector('nav')).toBeNull();
   });
 
-  it('T12: id を持たない見出しは目次に含めない', () => {
+  it('id を持たない見出しは目次に含めない', () => {
     // Given
     const md = '# A\n\n# B';
     // When
@@ -163,7 +163,7 @@ describe('rehypeToc', () => {
     expect(act().querySelector('nav')).toBeNull();
   });
 
-  it('T14: 空文字 id の見出し（記号・絵文字のみ）は目次に含めない', () => {
+  it('空文字 id の見出し（記号・絵文字のみ）は目次に含めない', () => {
     // Given
     const md = '# !!!\n\n# A\n\n# B';
     // When
@@ -174,7 +174,7 @@ describe('rehypeToc', () => {
     expect(hrefs).not.toContain('#');
   });
 
-  it('T13: 本文の見出し要素自体は変更されない', () => {
+  it('本文の見出し要素自体は変更されない', () => {
     // Given
     const md = '# A\n\n## B';
     // When
@@ -200,7 +200,7 @@ describe('rehypeToc 不変条件', () => {
     '# A\n\n## B\n\n## C\n\n### D\n\n# E\n\n### F',
   ];
 
-  it.each(inputs)('P1-P4: %j', (md) => {
+  it.each(inputs)('目次リンクの数・リンク先・順序・一意性が本文見出しの id と対応する: %j', (md) => {
     // Given
     // When
     const root = run(md);
@@ -223,7 +223,7 @@ describe('rehypeToc 不変条件', () => {
 });
 
 describe('rehypeHeadingIds と rehypeToc の連携', () => {
-  it('T39: 明示 id が目次リンクに使われ、目次文字列にコメントが混ざらない', () => {
+  it('明示 id が目次リンクに使われ、目次文字列にコメントが混ざらない', () => {
     // Given
     const tree = {
       type: 'root',

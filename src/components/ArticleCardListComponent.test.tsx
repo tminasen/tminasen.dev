@@ -44,10 +44,12 @@ describe('ArticleCardListComponent', () => {
     const articles = createArticles(8);
 
     // When
-    render(<ArticleCardListComponent articleMetaDataList={articles} />);
+    const { container } = render(
+      <ArticleCardListComponent articleMetaDataList={articles} />,
+    );
 
     // Then
-    const images = screen.getAllByRole('img');
+    const images = Array.from(container.querySelectorAll('img'));
     expect(images).toHaveLength(8);
     images.forEach((img, index) => {
       expect(img).toHaveAttribute(
@@ -62,10 +64,12 @@ describe('ArticleCardListComponent', () => {
     const articles = createArticles(3);
 
     // When
-    render(<ArticleCardListComponent articleMetaDataList={articles} />);
+    const { container } = render(
+      <ArticleCardListComponent articleMetaDataList={articles} />,
+    );
 
     // Then
-    const images = screen.getAllByRole('img');
+    const images = Array.from(container.querySelectorAll('img'));
     expect(images).toHaveLength(3);
     images.forEach(img => {
       expect(img).toHaveAttribute('loading', 'eager');
@@ -77,10 +81,12 @@ describe('ArticleCardListComponent', () => {
     const articles: ArticleMetaData[] = [];
 
     // When
-    render(<ArticleCardListComponent articleMetaDataList={articles} />);
+    const { container } = render(
+      <ArticleCardListComponent articleMetaDataList={articles} />,
+    );
 
     // Then
-    expect(screen.queryAllByRole('img')).toHaveLength(0);
+    expect(container.querySelectorAll('img')).toHaveLength(0);
     expect(screen.queryAllByRole('listitem')).toHaveLength(0);
   });
 
@@ -89,10 +95,12 @@ describe('ArticleCardListComponent', () => {
     const articles = createArticles(2);
 
     // When
-    render(<ArticleCardListComponent articleMetaDataList={articles} />);
+    const { container } = render(
+      <ArticleCardListComponent articleMetaDataList={articles} />,
+    );
 
     // Then
-    const images = screen.getAllByRole('img');
+    const images = Array.from(container.querySelectorAll('img'));
     expect(images[0]).toHaveAttribute('fetchpriority', 'high');
     expect(images[1]).not.toHaveAttribute('fetchpriority', 'high');
   });

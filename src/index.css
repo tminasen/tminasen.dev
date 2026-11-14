@@ -1,6 +1,5 @@
 @import 'tailwindcss';
 @plugin "@tailwindcss/typography";
-@import './styles/components/header.css';
 @import './styles/article.css';
 
 @layer base {
@@ -19,8 +18,10 @@
         --color-bg-base: #f5f5f5;
         --color-bg-card: #ffffff;
         --color-bg-footer: #cbd5e1;
-        --color-header-bg-blue: #448aff;
+        --color-header-bg-blue: #2563eb;
         --color-border: #000000;
+        --color-focus-ring: #1d4ed8;
+        --color-focus-ring-on-header: #ffffff;
     }
 
     @media (prefers-color-scheme: dark) {
@@ -33,6 +34,21 @@
             --color-bg-footer: #111827;
             --color-header-bg-blue: #1e40af;
             --color-border: #4b5563;
+            --color-focus-ring: #93c5fd;
         }
+    }
+
+    /* 配色は prefers-color-scheme のみで切り替えるため、フォームやスクロールバーなど UA の配色も合わせる */
+    :root {
+        color-scheme: light dark;
+    }
+
+    :focus-visible {
+        outline: 2px solid var(--color-focus-ring);
+        outline-offset: 2px;
+    }
+
+    header :focus-visible {
+        outline-color: var(--color-focus-ring-on-header);
     }
 }

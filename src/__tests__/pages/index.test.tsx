@@ -106,6 +106,21 @@ describe('IndexPage', () => {
       expect(screen.queryByRole('status')).toBeNull();
     });
 
+    it('トップページの h1 はサイト名の1件のみ', async () => {
+      // Given
+      setupIntersectionObserverMock();
+      getArticleMetaDataMock.mockResolvedValue(buildArticles(10));
+      const { props } = (await getStaticProps()) as { props: any };
+
+      // When
+      render(<IndexPage {...props} />);
+
+      // Then
+      const headings = screen.getAllByRole('heading', { level: 1 });
+      expect(headings).toHaveLength(1);
+      expect(headings[0].textContent).toBe('水無瀬のプログラミング日記');
+    });
+
     it('should show skeleton on intersect and render 24 articles after fetch resolves', async () => {
       // Given
       const { intersect } = setupIntersectionObserverMock();

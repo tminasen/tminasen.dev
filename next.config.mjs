@@ -6,6 +6,7 @@ import createMDX from '@next/mdx';
 const librariesDir = path.resolve(path.dirname(fileURLToPath(import.meta.url)), 'src/libraries');
 const rehypeHeadingIdsPath = path.join(librariesDir, 'rehypeHeadingIds.mjs');
 const rehypeTocPath = path.join(librariesDir, 'rehypeToc.mjs');
+const rehypeDemoteHeadingsPath = path.join(librariesDir, 'rehypeDemoteHeadings.mjs');
 
 /** @type {import('rehype-pretty-code').Options} */
 const rehypePrettyCodeOptions = {
@@ -25,6 +26,8 @@ const withMDX = createMDX({
       ['rehype-pretty-code', rehypePrettyCodeOptions],
       rehypeHeadingIdsPath,
       rehypeTocPath,
+      // 目次は変換前の見出しレベル（h1〜h3）で作るため、必ず rehypeToc の後ろに置く
+      rehypeDemoteHeadingsPath,
     ],
   },
 });

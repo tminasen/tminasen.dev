@@ -19,7 +19,10 @@ const getArticles = (
     .filter(data => data.tag.includes(tagName))
     .map((data, index): JSX.Element | null => {
       const tagList = data.tag.map(tag => (
-        <li className="mr-1.5" key={`/tags/${tag}`}>
+        <li
+          className="flex *:flex *:min-h-6 *:min-w-6 *:items-center *:justify-center mr-1.5"
+          key={`/tags/${tag}`}
+        >
           <LinkComponent url={`/tags/${tag}`} color="black">
             {tag}
           </LinkComponent>
@@ -29,7 +32,7 @@ const getArticles = (
       return (
         <li className="basis-full" key={`${data.path}`}>
           <section>
-            <div className="flex flex-col justify-around h-20 py-1 px-5 bg-(--color-bg-card)">
+            <div className="flex flex-col justify-around min-h-20 py-1 px-5 bg-(--color-bg-card)">
               <LinkComponent url={data.path} color="black">
                 <h2 className="text-xl sm:text-2xl">{data.title}</h2>
               </LinkComponent>

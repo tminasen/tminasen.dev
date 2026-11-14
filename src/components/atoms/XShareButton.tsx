@@ -21,14 +21,14 @@ const useFormatShareData = (
 export const XShareButton: FC<Props> = ({ title, path }) => {
   const [shareText, shareUrl] = useFormatShareData(title, path);
   return (
-    <div className="inline-block p-[6px] bg-black rounded-full">
-      <a
-        className="block h-[18px] w-[18px] sm:w-[28px] sm:h-[28px] relative"
-        href={`https://twitter.com/intent/tweet?text=${shareText}&url=${shareUrl}`}
-        title="Xに投稿する"
-        target="_blank"
-        rel="noopener noreferrer"
-      >
+    <a
+      className="inline-block p-[6px] bg-black rounded-full"
+      href={`https://twitter.com/intent/tweet?text=${shareText}&url=${shareUrl}`}
+      title="Xに投稿する"
+      target="_blank"
+      rel="noopener noreferrer"
+    >
+      <span className="block h-[18px] w-[18px] sm:w-[28px] sm:h-[28px] relative">
         <picture>
           <source
             type="image/webp"
@@ -41,7 +41,7 @@ export const XShareButton: FC<Props> = ({ title, path }) => {
             alt="Xに投稿する"
           />
         </picture>
-      </a>
-    </div>
+      </span>
+    </a>
   );
 };

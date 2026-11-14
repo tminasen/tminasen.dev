@@ -20,7 +20,7 @@ test.describe('Visual regression config', () => {
     process.env.VERCEL_PREVIEW_URL = originalPreviewUrl;
   });
 
-  test('T20: should use VERCEL_PREVIEW_URL when provided', () => {
+  test('should use VERCEL_PREVIEW_URL when provided', () => {
     process.env.VERCEL_PREVIEW_URL = 'https://example-preview.vercel.app/';
 
     const result = getPreviewBaseUrl();
@@ -29,7 +29,7 @@ test.describe('Visual regression config', () => {
     expect(result.source).toBe('env');
   });
 
-  test('T20: should fallback to production URL when preview URL is missing', () => {
+  test('should fallback to production URL when preview URL is missing', () => {
     delete process.env.VERCEL_PREVIEW_URL;
 
     const result = getPreviewBaseUrl();
