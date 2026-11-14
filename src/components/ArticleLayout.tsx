@@ -27,7 +27,7 @@ const TagLink = ({ tag }: { tag: string }) => {
   return (
     <li
       key={tag}
-      className="border border-solid border-(--color-border) rounded-4xl text-base leading-[1.5] px-2"
+      className="flex *:flex *:min-h-6 *:min-w-6 *:items-center *:justify-center *:px-2 border border-solid border-(--color-border) rounded-4xl text-base leading-[1.5]"
     >
       <LinkComponent url={`/tags/${tag}`} color="black">
         {tag}

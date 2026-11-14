@@ -1,4 +1,4 @@
-import { render } from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
 import { describe, expect, it, vi } from 'vitest';
 import '@testing-library/jest-dom/vitest';
 import { ReactNode } from 'react';
@@ -59,5 +59,16 @@ describe('ArticleLayout', () => {
     // Then
     const description = document.querySelector('meta[name="description"]');
     expect(description?.getAttribute('content')).toBe('要約');
+  });
+
+  it('記事ページの h1 は記事タイトルの1件のみ', () => {
+    // Given
+    // When
+    render(<ArticleLayout meta={meta}>本文</ArticleLayout>);
+
+    // Then
+    const headings = screen.getAllByRole('heading', { level: 1 });
+    expect(headings).toHaveLength(1);
+    expect(headings[0].textContent).toBe('記事A');
   });
 });

@@ -1,13 +1,14 @@
 @layer utilities {
-  .prose-article h1 {
+  /* 本文に h1 がある記事は rehypeDemoteHeadings で見出しが1段下がるため、サイズ指定も h2〜h4 に対応させる */
+  .prose-article h2 {
     font-size: 1.25rem;
     line-height: 1.75rem;
   }
-  .prose-article h2 {
+  .prose-article h3 {
     font-size: 1.125rem;
     line-height: 1.5rem;
   }
-  .prose-article h3 {
+  .prose-article h4 {
     font-size: 1rem;
     line-height: 1.5rem;
   }
@@ -20,7 +21,7 @@
     margin-top: 0.75rem;
     margin-bottom: 0.5rem;
   }
-  .prose-article :is(h1, h2, h3) {
+  .prose-article :is(h2, h3, h4) {
     scroll-margin-top: 1rem;
   }
   .prose-article .toc {
@@ -43,6 +44,9 @@
     margin: 0.25rem 0;
   }
   .prose-article .toc a {
+    display: inline-block;
+    min-width: 1.5rem;
+    min-height: 1.5rem;
     color: var(--color-text-base);
     text-decoration: underline;
   }
@@ -76,11 +80,11 @@
     }
   }
   @media (min-width: theme('screens.sm')) {
-    .prose-article h1 {
+    .prose-article h2 {
       font-size: 1.5rem;
       line-height: 2rem;
     }
-    .prose-article h2 {
+    .prose-article h3 {
       font-size: 1.25rem;
       line-height: 1.75rem;
     }

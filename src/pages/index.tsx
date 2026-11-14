@@ -46,7 +46,7 @@ const IndexPage: React.FC<{
     children.push(<div key="sentinel" ref={sentinelRef} aria-hidden="true" />);
   }
 
-  return <PageTemplate>{children}</PageTemplate>;
+  return <PageTemplate isTopPage>{children}</PageTemplate>;
 };
 
 export default IndexPage;
