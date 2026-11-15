@@ -41,6 +41,7 @@ export const CardComponent: FC<DeepReadonly<Props>> = ({
           height={{ pc: image.size.pc.height, sp: image.size.sp.height }}
           fetchPriority={fetchPriority}
           loading={loading}
+          srcSet={image.srcSet}
         />
         <div className="flex flex-col gap-2 p-4">
           <time

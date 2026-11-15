@@ -41,4 +41,41 @@ describe('ImageComponent', () => {
     expect(img).toHaveAttribute('fetchpriority', 'high');
     expect(img).toHaveAttribute('loading', 'eager');
   });
+
+  describe('srcSet', () => {
+    const SRCSET = '/a-336w.webp 336w, /a-672w.webp 672w';
+
+    it('srcSet 指定時は webp の source に srcset と sizes が付く', () => {
+      // Given
+      const props = { ...defaultProps, srcSet: SRCSET };
+      // When
+      const { container } = render(<Image {...props} />);
+      // Then
+      const source = container.querySelector('source[type="image/webp"]');
+      expect(source).toHaveAttribute('srcset', SRCSET);
+      expect(source).toHaveAttribute('sizes', '336px');
+    });
+
+    it('srcSet 未指定時は .webp 単体の srcset で sizes は付かない', () => {
+      // Given
+      const props = defaultProps;
+      // When
+      const { container } = render(<Image {...props} />);
+      // Then
+      const source = container.querySelector('source[type="image/webp"]');
+      expect(source).toHaveAttribute('srcset', '/test.webp');
+      expect(source).not.toHaveAttribute('sizes');
+    });
+
+    it('srcSet 指定時も img の src は原寸の png のままで srcset は付かない', () => {
+      // Given
+      const props = { ...defaultProps, srcSet: SRCSET };
+      // When
+      render(<Image {...props} />);
+      // Then
+      const img = screen.getByRole('img');
+      expect(img).toHaveAttribute('src', '/test.png');
+      expect(img).not.toHaveAttribute('srcset');
+    });
+  });
 });

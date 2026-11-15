@@ -1,5 +1,6 @@
 import sizeOf from 'image-size';
 import path from 'path';
+import { buildThumbnailSrcSet } from './thumbnailVariants';
 
 const PC_THUMBNAIL_MAX_WIDTH = 336;
 const PC_THUMBNAIL_DEFAULT_HEIGHT = 189;
@@ -29,13 +30,15 @@ export function getImageSize(imagePath: string, type: 'thumbnail' | 'article') {
       return {
         pc: {
           width: PC_THUMBNAIL_MAX_WIDTH,
-          height:
+          height: Math.round(
             (image?.height ?? PC_THUMBNAIL_DEFAULT_HEIGHT) * pcThumbnailRatio,
+          ),
         },
         sp: {
           width: SP_THUMBNAIL_MAX_WIDTH,
-          height:
+          height: Math.round(
             (image?.height ?? SP_THUMBNAIL_DEFAULT_HEIGHT) * spThumbnailRatio,
+          ),
         },
       };
     case 'article':
@@ -57,4 +60,15 @@ export function getImageSize(imagePath: string, type: 'thumbnail' | 'article') {
       const _: never = type;
       throw new Error(`type ${type} is not allowed.`);
   }
+}
+
+/**
+ * サムネイル縮小版の srcset 文字列を取得する
+ * @param imagePath 元画像のパス
+ * @returns 縮小版がない（元画像の幅が最小幅未満）場合は undefined
+ */
+export function getThumbnailSrcSet(imagePath: string): string | undefined {
+  const targetPath = path.join(process.cwd(), 'public/', imagePath);
+  const image = sizeOf(targetPath);
+  return buildThumbnailSrcSet(imagePath, image.width ?? 0);
 }
