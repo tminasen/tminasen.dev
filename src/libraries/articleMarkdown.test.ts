@@ -58,6 +58,22 @@ describe('articleMarkdown.ts', () => {
       expect(result).not.toContain('ArticleLayout');
     });
 
+    it('should strip getStaticProps and the extra import from the preamble', () => {
+      // Given
+      const preambleWithAdjacent =
+        "import { ArticleLayout } from '../../components/ArticleLayout';\nimport { getAdjacentArticleProps } from '../../libraries/adjacentArticles';\n\nexport const meta = {\n  path: \"/blog/abc\",\n  date: \"2020/10/25\",\n};\n\nexport const getStaticProps = () => getAdjacentArticleProps(meta.path);\n\nexport default ({ children, adjacent }) => <ArticleLayout meta={meta} adjacent={adjacent}>{children}</ArticleLayout>;\n\n";
+      const source = buildSource('# はじめに\n本文A', undefined, preambleWithAdjacent);
+
+      // When
+      const result = convertMdxToMarkdown(source);
+
+      // Then
+      expect(result).not.toContain('getStaticProps');
+      expect(result).not.toContain('getAdjacentArticleProps');
+      expect(result).not.toContain('import');
+      expect(result).toContain('# はじめに');
+    });
+
     it('should keep JSX in the body as is', () => {
       // Given
       const source = buildSource('# a\n\n<Lightbox src="/a.png" />\n');

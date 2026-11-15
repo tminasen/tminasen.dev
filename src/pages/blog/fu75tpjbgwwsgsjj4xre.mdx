@@ -9,6 +9,7 @@ description: "RustのWebフレームワークActix Webを触り、Angularで作�
 ---
 
 import { ArticleLayout } from '../../components/ArticleLayout';
+import { getAdjacentArticleProps } from '../../libraries/adjacentArticles';
 
 export const meta = {
   path: "/blog/fu75tpjbgwwsgsjj4xre",
@@ -20,7 +21,9 @@ export const meta = {
   description: "RustのWebフレームワークActix Webを触り、Angularで作ったページを静的ファイルとして配信する構成を試した記事。Angularのルーティング追加まで進め、環境設定の手間などの所感をまとめている。",
 };
 
-export default ({ children }) => <ArticleLayout meta={meta}>{children}</ArticleLayout>;
+export const getStaticProps = () => getAdjacentArticleProps(meta.path);
+
+export default ({ children, adjacent }) => <ArticleLayout meta={meta} adjacent={adjacent}>{children}</ArticleLayout>;
 
 # はじめに
 

@@ -9,6 +9,7 @@ description: "生成AIについて、ChatGPT・Claude・Geminiなどのテキス
 ---
 
 import { ArticleLayout } from '../../components/ArticleLayout';
+import { getAdjacentArticleProps } from '../../libraries/adjacentArticles';
 
 export const meta = {
   path: "/blog/4055d368bf410655f0363f255495d9",
@@ -20,7 +21,9 @@ export const meta = {
   description: "生成AIについて、ChatGPT・Claude・GeminiなどのテキストAI、DALL-E・Midjourneyなどの画像AI、VALL-Eなどの音声AIの代表的なサービスをざっくり調べてまとめた記事。",
 };
 
-export default ({ children }) => <ArticleLayout meta={meta}>{children}</ArticleLayout>;
+export const getStaticProps = () => getAdjacentArticleProps(meta.path);
+
+export default ({ children, adjacent }) => <ArticleLayout meta={meta} adjacent={adjacent}>{children}</ArticleLayout>;
 
 # はじめに
 

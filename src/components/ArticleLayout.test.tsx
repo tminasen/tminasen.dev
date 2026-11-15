@@ -1,4 +1,4 @@
-import { render, screen } from '@testing-library/react';
+import { render, screen, within } from '@testing-library/react';
 import { describe, expect, it, vi } from 'vitest';
 import '@testing-library/jest-dom/vitest';
 import { ReactNode } from 'react';
@@ -13,6 +13,11 @@ vi.mock('next/head', () => ({
 vi.mock('next/script', () => ({
   default: ({ children }: { children?: ReactNode }) => <div>{children}</div>,
 }));
+
+const ADJ_BOTH = {
+  prev: { path: '/blog/a', title: 'A' },
+  next: { path: '/blog/c', title: 'C' },
+};
 
 const meta = {
   path: '/blog/abc',
@@ -102,5 +107,76 @@ describe('ArticleLayout', () => {
     // Then
     expect(screen.getByRole('link', { name: 'vue' })).toHaveAttribute('href', '/tags/vue');
     expect(screen.getByRole('link', { name: 'ts' })).toHaveAttribute('href', '/tags/ts');
+  });
+
+  describe('前後の記事ナビ', () => {
+    it('前後の記事のリンクが表示される', () => {
+      // Given
+      // When
+      render(
+        <ArticleLayout meta={meta} adjacent={ADJ_BOTH}>
+          本文
+        </ArticleLayout>,
+      );
+
+      // Then
+      const nav = screen.getByRole('navigation', { name: '前後の記事' });
+      const links = within(nav).getAllByRole('link');
+      const prev = links.find(l => l.getAttribute('href') === '/blog/a')!;
+      const next = links.find(l => l.getAttribute('href') === '/blog/c')!;
+      expect(prev.textContent).toContain('前の記事');
+      expect(prev.textContent).toContain('A');
+      expect(next.textContent).toContain('次の記事');
+      expect(next.textContent).toContain('C');
+    });
+
+    it('前の記事が無いときは次の記事だけを出す', () => {
+      // Given
+      const adjacent = { prev: null, next: { path: '/blog/c', title: 'C' } };
+
+      // When
+      render(
+        <ArticleLayout meta={meta} adjacent={adjacent}>
+          本文
+        </ArticleLayout>,
+      );
+
+      // Then
+      const nav = screen.getByRole('navigation', { name: '前後の記事' });
+      const links = within(nav).getAllByRole('link');
+      expect(links).toHaveLength(1);
+      expect(links[0]).toHaveAttribute('href', '/blog/c');
+      expect(links.some(l => l.textContent?.includes('前の記事'))).toBe(false);
+    });
+
+    it('前後とも無い（adjacent 未指定）ならナビを出さない', () => {
+      // Given
+      // When
+      render(<ArticleLayout meta={meta}>本文</ArticleLayout>);
+
+      // Then
+      expect(
+        screen.queryByRole('navigation', { name: '前後の記事' }),
+      ).toBeNull();
+    });
+
+    it('ナビは記事カードの中、本文の後ろにある', () => {
+      // Given
+      // When
+      render(
+        <ArticleLayout meta={meta} adjacent={ADJ_BOTH}>
+          本文テキスト
+        </ArticleLayout>,
+      );
+
+      // Then
+      const card = screen.getByRole('heading', { level: 1 }).parentElement!;
+      const nav = screen.getByRole('navigation', { name: '前後の記事' });
+      const body = screen.getByText('本文テキスト');
+      expect(card.contains(nav)).toBe(true);
+      expect(
+        body.compareDocumentPosition(nav) & Node.DOCUMENT_POSITION_FOLLOWING,
+      ).toBeTruthy();
+    });
   });
 });

@@ -10,6 +10,7 @@ description: "生成AIが書くコードの品質とレビュー負担につい�
 
 
 import {ArticleLayout} from '../../components/ArticleLayout';
+import { getAdjacentArticleProps } from '../../libraries/adjacentArticles';
 
 export const meta = {
   path: "/blog/e0e06c38-5dc7-4d6d-80ef-c50eba747552",
@@ -21,7 +22,9 @@ export const meta = {
   description: "生成AIが書くコードの品質とレビュー負担について整理した考察。レビューが重くなる理由と品質の捉え方の違いを分析し、出力が安定するドキュメントを共有して仕様を明確にしてからAIに書かせる進め方を提案している。",
 };
 
-export default ({children}) => <ArticleLayout meta={meta}>{children}</ArticleLayout>;
+export const getStaticProps = () => getAdjacentArticleProps(meta.path);
+
+export default ({children, adjacent}) => <ArticleLayout meta={meta} adjacent={adjacent}>{children}</ArticleLayout>;
 
 # はじめに
 最近生成AIのコードの「品質」についてよく分からなくなり、うまく言語化できなくて懸念点も伝えられないので整理したい。

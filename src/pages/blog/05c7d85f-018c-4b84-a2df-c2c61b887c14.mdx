@@ -9,6 +9,7 @@ description: "Figma MCPのデスクトップサーバを有効にしてClaude Co
 ---
 
 import { ArticleLayout } from '../../components/ArticleLayout';
+import { getAdjacentArticleProps } from '../../libraries/adjacentArticles';
 
 export const meta = {
   path: "/blog/05c7d85f-018c-4b84-a2df-c2c61b887c14",
@@ -20,7 +21,9 @@ export const meta = {
   description: "Figma MCPのデスクトップサーバを有効にしてClaude Codeに接続し、Figmaのデザインから実装させる手順を試した記録。AngularとTailwind CSSのプロジェクトで見た目の修正も試し、使用感をまとめている。",
 };
 
-export default ({ children }) => <ArticleLayout meta={meta}>{children}</ArticleLayout>;
+export const getStaticProps = () => getAdjacentArticleProps(meta.path);
+
+export default ({ children, adjacent }) => <ArticleLayout meta={meta} adjacent={adjacent}>{children}</ArticleLayout>;
 
 # 概要
 

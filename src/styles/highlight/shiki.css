@@ -81,29 +81,52 @@ pre span[style*="--shiki-light:#22863A" i] {
   }
 }
 
-/* タイトル */
-[data-rehype-pretty-code-title] {
-  padding: 0.5rem 1rem;
-  font-size: 0.75rem;
-  font-weight: 600;
-  background-color: #e5e7eb;
-  border-top-left-radius: 0.5rem;
-  border-top-right-radius: 0.5rem;
-  color: #374151;
+/*
+ * コードブロック全体 (figure) を bg/code・枠 1px・角丸 8px の1つの箱にし、
+ * 上部のバー (言語名 / title とコピーボタン) と pre を内側に並べる。pre 自身の枠・角丸は外して二重枠を防ぐ。
+ */
+figure[data-rehype-pretty-code-figure] {
+  overflow: hidden;
+  border: 1px solid var(--color-border);
+  border-radius: 8px;
+  background-color: var(--color-bg-code);
 }
 
-[data-rehype-pretty-code-title] + pre {
-  margin-top: 0;
-  border-top-left-radius: 0;
-  border-top-right-radius: 0;
+figure[data-rehype-pretty-code-figure] > pre {
+  margin: 0;
+  border: 0;
+  border-radius: 0;
+}
+
+.code-block-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem;
+  min-height: 2rem;
+  padding: 0.25rem 0.5rem 0.25rem 1rem;
+  border-bottom: 1px solid var(--color-border);
+  font-size: 12px;
+  line-height: 1.5;
+  color: var(--color-text-muted);
+}
+
+.code-block-copy {
+  min-height: 1.5rem;
+  padding: 0.125rem 0.5rem;
+  border: 0;
+  border-radius: 4px;
+  background: transparent;
+  font-size: 12px;
+  color: var(--color-text-muted);
+  cursor: pointer;
+}
+
+.code-block-copy:hover {
+  background-color: var(--color-bg-code-inline);
 }
 
 @media (prefers-color-scheme: dark) {
-  [data-rehype-pretty-code-title] {
-    background-color: #374151;
-    color: #e5e7eb;
-  }
-
   /* github-dark-dimmed コメント色のコントラスト改善 (3.87:1 → 4.5:1+) */
   pre span[style*="--shiki-dark:#768390"] {
     --shiki-dark: #8b949e !important;

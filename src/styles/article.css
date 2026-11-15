@@ -35,23 +35,42 @@
   }
   .prose-article .toc-title {
     margin: 0 0 0.5rem;
+    font-size: 13px;
     font-weight: 700;
     color: var(--color-text-muted);
   }
+  /* 目次項目: 番号・下線なし、高さ 32px 以上。段が深くなるごとに左余白を 16px ずつ増やす */
   .prose-article .toc ol {
     margin: 0;
-    padding-left: 1.25rem;
-    list-style: decimal;
+    padding: 0;
+    list-style: none;
   }
   .prose-article .toc li {
-    margin: 0.25rem 0;
+    margin: 0;
+    padding: 0;
   }
   .prose-article .toc a {
-    display: inline-block;
-    min-width: 1.5rem;
-    min-height: 1.5rem;
+    display: flex;
+    align-items: center;
+    min-height: 32px;
+    padding: 4px 12px 4px 9px;
+    border-left: 3px solid transparent;
+    font-size: 14px;
+    line-height: 1.5;
     color: var(--color-text-base);
-    text-decoration: underline;
+    text-decoration: none;
+  }
+  .prose-article .toc ol ol a {
+    padding-left: 25px;
+  }
+  .prose-article .toc ol ol ol a {
+    padding-left: 41px;
+  }
+  /* 現在読んでいる見出し (サイドバー目次のみに aria-current が付く) */
+  .prose-article .toc a[aria-current='location'] {
+    border-left-color: var(--color-focus-ring);
+    font-weight: 700;
+    color: var(--color-text-link);
   }
   /*
    * 目次は2種類出力され、画面幅で切り替える。

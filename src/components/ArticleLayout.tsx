@@ -1,5 +1,6 @@
-import { FC, ReactNode } from 'react';
+import { FC, ReactNode, useEffect } from 'react';
 import Head from 'next/head';
+import Link from 'next/link';
 import { PageTemplate } from '../templates/PageTemplate';
 import { HeadComponent } from './HeadComponent';
 import { XShareButton } from './atoms/XShareButton';
@@ -7,6 +8,8 @@ import { GithubArticleButton } from './atoms/GithubArticleButton';
 import { LinkComponent } from './atoms/LinkComponent';
 import { metaData } from '../constants/metaData';
 import { buildBlogPostingJsonLd, serializeJsonLd } from '../libraries/jsonLd';
+import { setupTocHighlight } from '../libraries/tocHighlight';
+import type { AdjacentArticles } from '../libraries/adjacentArticles';
 
 export interface ArticleMeta {
   path: string;
@@ -20,6 +23,7 @@ export interface ArticleMeta {
 
 interface Props {
   meta: ArticleMeta;
+  adjacent?: AdjacentArticles;
   children: ReactNode;
 }
 
@@ -36,7 +40,35 @@ const TagLink = ({ tag }: { tag: string }) => {
   );
 };
 
-export const ArticleLayout: FC<Props> = ({ meta, children }) => {
+const AdjacentArticleCard = ({
+  href,
+  label,
+  title,
+  className,
+}: {
+  href: string;
+  label: string;
+  title: string;
+  className: string;
+}) => (
+  <Link
+    href={href}
+    className={`flex flex-col gap-1 rounded-lg border border-solid border-(--color-border) px-4 py-3 no-underline ${className}`}
+  >
+    <span className="text-xs leading-[1.5] text-(--color-text-muted)">
+      {label}
+    </span>
+    <span className="text-[15px] font-medium leading-[1.5] text-(--color-text-link)">
+      {title}
+    </span>
+  </Link>
+);
+
+export const ArticleLayout: FC<Props> = ({ meta, adjacent, children }) => {
+  useEffect(() => setupTocHighlight(document), [meta.path]);
+
+  const hasAdjacent = adjacent !== undefined && (adjacent.prev || adjacent.next);
+
   return (
     <>
       <HeadComponent
@@ -82,6 +114,29 @@ export const ArticleLayout: FC<Props> = ({ meta, children }) => {
             <div className="prose prose-slate prose-article dark:prose-invert max-w-none mt-6 text-base">
               {children}
             </div>
+            {hasAdjacent && (
+              <nav
+                aria-label="前後の記事"
+                className="mt-8 grid grid-cols-1 gap-3 sm:grid-cols-2"
+              >
+                {adjacent.prev && (
+                  <AdjacentArticleCard
+                    href={adjacent.prev.path}
+                    label="← 前の記事"
+                    title={adjacent.prev.title}
+                    className="sm:col-start-1"
+                  />
+                )}
+                {adjacent.next && (
+                  <AdjacentArticleCard
+                    href={adjacent.next.path}
+                    label="次の記事 →"
+                    title={adjacent.next.title}
+                    className="sm:col-start-2"
+                  />
+                )}
+              </nav>
+            )}
           </div>
           <div className="flex mt-2 content-center items-center gap-x-2">
             <XShareButton title={meta.title} path={meta.path} />

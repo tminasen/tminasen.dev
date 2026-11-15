@@ -1,3 +1,4 @@
+import { ComponentProps } from 'react';
 import { render, screen, waitFor, within } from '@testing-library/react';
 import { afterEach, describe, expect, it, vi } from 'vitest';
 import '@testing-library/jest-dom/vitest';
@@ -119,6 +120,26 @@ describe('IndexPage', () => {
       const headings = screen.getAllByRole('heading', { level: 1 });
       expect(headings).toHaveLength(1);
       expect(headings[0].textContent).toBe('水無瀬のプログラミング日記');
+    });
+
+    it('カード一覧の上に「記事一覧」の h2 がある', async () => {
+      // Given
+      setupIntersectionObserverMock();
+      getArticleMetaDataMock.mockResolvedValue(buildArticles(10));
+      const { props } = (await getStaticProps()) as { props: ComponentProps<typeof IndexPage> };
+
+      // When
+      render(<IndexPage {...props} />);
+
+      // Then
+      const heading = screen.getByRole('heading', {
+        level: 2,
+        name: '記事一覧',
+      });
+      expect(
+        heading.compareDocumentPosition(screen.getByTestId('article-list')) &
+          Node.DOCUMENT_POSITION_FOLLOWING,
+      ).toBeTruthy();
     });
 
     it('should show skeleton on intersect and render 24 articles after fetch resolves', async () => {

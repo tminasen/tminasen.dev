@@ -32,6 +32,15 @@ const IndexPage: React.FC<{
   // PageTemplate の children は JSX.Element | JSX.Element[] のみを受け付けるため、
   // 条件付きで含める要素は配列に集約してから渡す
   const children: JSX.Element[] = [
+    // 見出しの左端を先頭カードに揃えるため、カード一覧と同じ列定義・列の間隔（gap-x）のグリッドの先頭列に置く
+    <div
+      key="article-list-heading"
+      className="mx-auto max-w-[1048px] mb-6 grid justify-center [grid-template-columns:repeat(auto-fill,var(--card-image-width))] gap-x-[20px]"
+    >
+      <h2 className="text-[28px] font-bold leading-[1.4] text-(--color-text-base)">
+        記事一覧
+      </h2>
+    </div>,
     <ArticleCardListComponent
       key="article-list"
       articleMetaDataList={articles}
