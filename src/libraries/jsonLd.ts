@@ -4,6 +4,7 @@ import { toIsoDateString } from './date';
 type BlogPostingSource = {
   path: string;
   date: string;
+  updatedAt?: string;
   title: string;
   tag: string[];
   ogpImage: string;
@@ -17,21 +18,56 @@ type BlogPostingSource = {
  */
 export function buildBlogPostingJsonLd(meta: BlogPostingSource) {
   const url = `${metaData.domain}${meta.path}`;
+  const datePublished = toIsoDateString(meta.date);
+  const person = {
+    '@type': 'Person',
+    name: metaData.authorName,
+    url: metaData.githubUrl,
+  };
   return {
     '@context': 'https://schema.org',
     '@type': 'BlogPosting',
     headline: meta.title,
-    datePublished: toIsoDateString(meta.date),
-    author: {
-      '@type': 'Person',
-      name: metaData.authorName,
-      url: metaData.githubUrl,
-    },
+    datePublished,
+    dateModified: meta.updatedAt ? toIsoDateString(meta.updatedAt) : datePublished,
+    author: person,
+    publisher: person,
     ...(meta.tag.length > 0 ? { keywords: meta.tag.join(',') } : {}),
     ...(meta.description ? { description: meta.description } : {}),
     image: `${metaData.domain}${meta.ogpImage}`,
     url,
     mainEntityOfPage: url,
+  };
+}
+
+/**
+ * トップページ用のschema.orgのWebSite(JSON-LD)オブジェクトを組み立てる
+ */
+export function buildWebSiteJsonLd() {
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'WebSite',
+    name: metaData.title,
+    description: metaData.description,
+    url: `${metaData.domain}/`,
+    author: {
+      '@type': 'Person',
+      name: metaData.authorName,
+      url: metaData.githubUrl,
+    },
+  };
+}
+
+/**
+ * タグ個別ページ用のschema.orgのCollectionPage(JSON-LD)オブジェクトを組み立てる
+ * @param tagName タグ名
+ */
+export function buildTagPageJsonLd(tagName: string) {
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'CollectionPage',
+    name: `${tagName}の記事一覧`,
+    url: `${metaData.domain}/tags/${encodeURIComponent(tagName)}`,
   };
 }
 

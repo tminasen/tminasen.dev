@@ -93,10 +93,38 @@ describe('ArticleLayout', () => {
     const { container } = render(<ArticleLayout meta={meta}>本文</ArticleLayout>);
 
     // Then
-    const time = container.querySelector('time[datetime="2020/10/25"]')!;
+    const time = container.querySelector('time[datetime="2020-10-25"]')!;
     const tagList = screen.getByRole('link', { name: 'vue' }).closest('ul')!;
     expect(time).not.toBeNull();
     expect(time.compareDocumentPosition(tagList) & Node.DOCUMENT_POSITION_FOLLOWING).toBeTruthy();
+  });
+
+  it('should set time dateTime attribute to YYYY-MM-DD while keeping YYYY/MM/DD as text content (T18)', () => {
+    // Given / When
+    const { container } = render(<ArticleLayout meta={meta}>本文</ArticleLayout>);
+
+    // Then
+    const time = container.querySelector('time')!;
+    expect(time.getAttribute('datetime')).toBe('2020-10-25');
+    expect(time.textContent).toBe('2020/10/25');
+  });
+
+  it('should render JSON-LD with dateModified and publisher when meta.updatedAt is specified (T19)', () => {
+    // Given
+    const metaWithUpdatedAt = { ...meta, updatedAt: '2021/05/01' };
+
+    // When
+    const { container } = render(
+      <ArticleLayout meta={metaWithUpdatedAt}>本文</ArticleLayout>,
+    );
+
+    // Then
+    const script = container.ownerDocument.querySelector(
+      'script[type="application/ld+json"]',
+    )!;
+    const jsonLd = JSON.parse(script.textContent ?? '');
+    expect(jsonLd.dateModified).toBe('2021-05-01');
+    expect(jsonLd.publisher.name).toBe('tminasen');
   });
 
   it('記事のタグがタグ別一覧へのリンクとして表示される', () => {

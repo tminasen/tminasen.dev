@@ -49,6 +49,26 @@ describe('src/pages/blog/*.mdx (実記事)', () => {
   );
 
   it.each(mdxFiles)(
+    'should have the same updatedAt in frontmatter and export const meta (both undefined when omitted): %s (T9)',
+    file => {
+      // Given
+      const source = readSource(file);
+
+      // When
+      const { data, content } = matter(source);
+      const metaBlock = content.match(
+        /export const meta = \{([\s\S]*?)\n\};/,
+      )?.[1];
+      const metaUpdatedAt = metaBlock?.match(
+        /^\s*updatedAt:\s*"(.*)",\s*$/m,
+      )?.[1];
+
+      // Then
+      expect(metaUpdatedAt).toBe(data.updatedAt);
+    },
+  );
+
+  it.each(mdxFiles)(
     'should convert to markdown without any preamble: %s',
     file => {
       // Given

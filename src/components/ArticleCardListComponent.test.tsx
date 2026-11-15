@@ -15,7 +15,7 @@ const createArticle = (id: number): ArticleMetaData => ({
     url: `/image-${id}.png`,
     size: { pc: { width: 300, height: 200 }, sp: { width: 300, height: 200 } },
   },
-  date: '2023-01-01',
+  date: '2023/01/01',
   tag: ['tag1'],
   ogpImage: `/ogp-${id}.png`,
 });

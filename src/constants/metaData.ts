@@ -1,6 +1,6 @@
 export const metaData = {
   title: '水無瀬のプログラミング日記',
-  description: 'プログラミング周りのメモ',
+  description: 'tminasen（水無瀬）によるプログラミング・Web開発・AI活用の技術ブログ',
   author: '@tminasen',
   authorName: 'tminasen',
   domain: 'https://tminasen.dev',

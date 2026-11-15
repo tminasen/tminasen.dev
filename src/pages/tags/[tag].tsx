@@ -1,7 +1,10 @@
 import { JSX } from 'react';
 import { GetStaticPaths, GetStaticProps } from 'next';
+import Head from 'next/head';
 import { PageTemplate } from '../../templates/PageTemplate';
 import { getArticleMetaData } from '../../libraries/articles';
+import { toIsoDateString } from '../../libraries/date';
+import { buildTagPageJsonLd, serializeJsonLd } from '../../libraries/jsonLd';
 import { ArticleMetaData } from '../../types/article';
 import { LinkComponent } from '../../components/atoms/LinkComponent';
 import { Image } from '../../components/atoms/ImageComponent';
@@ -38,7 +41,7 @@ const getArticles = (
               </LinkComponent>
               <time
                 className="text-xs sm:text-base text-(--color-text-muted)"
-                dateTime={data.date}
+                dateTime={toIsoDateString(data.date)}
               >
                 {data.date}
               </time>
@@ -74,12 +77,24 @@ const getArticles = (
 
 const tagPage: React.FC<Props> = ({ tagName, articleMetaDataList }) => {
   return (
-    <PageTemplate>
-      <article className="text-(--color-text-base)">
-        <h1 className="text-2xl sm:text-3xl mb-4">{tagName}の記事一覧</h1>
-        {getArticles(tagName, articleMetaDataList)}
-      </article>
-    </PageTemplate>
+    <>
+      {tagName ? (
+        <Head>
+          <script
+            type="application/ld+json"
+            dangerouslySetInnerHTML={{
+              __html: serializeJsonLd(buildTagPageJsonLd(tagName)),
+            }}
+          />
+        </Head>
+      ) : null}
+      <PageTemplate>
+        <article className="text-(--color-text-base)">
+          <h1 className="text-2xl sm:text-3xl mb-4">{tagName}の記事一覧</h1>
+          {getArticles(tagName, articleMetaDataList)}
+        </article>
+      </PageTemplate>
+    </>
   );
 };
 export default tagPage;

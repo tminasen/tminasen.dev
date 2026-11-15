@@ -17,7 +17,7 @@ describe('CardComponent', () => {
     path: '/test-path',
     excerpt: 'Test Excerpt',
     image: mockImage,
-    date: '2023-01-01',
+    date: '2023/01/01',
     tags: ['tag1', 'tag2'],
   };
 
@@ -68,5 +68,23 @@ describe('CardComponent', () => {
           Node.DOCUMENT_POSITION_FOLLOWING,
       ).toBeTruthy();
     }
+  });
+
+  it('should set time dateTime attribute to YYYY-MM-DD while keeping YYYY/MM/DD as text content (T17)', () => {
+    // Given
+    const props = {
+      title: 'Test Title',
+      path: '/test-path',
+      excerpt: 'Test Excerpt',
+      image: mockImage,
+      date: '2023/01/05',
+      tags: ['tag1'],
+    };
+    // When
+    const { container } = render(<CardComponent {...props} />);
+    // Then
+    const time = container.querySelector('time')!;
+    expect(time.getAttribute('datetime')).toBe('2023-01-05');
+    expect(time.textContent).toBe('2023/01/05');
   });
 });

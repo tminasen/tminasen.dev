@@ -1,10 +1,12 @@
 import { JSX } from 'react';
+import Head from 'next/head';
 import { getArticleMetaData } from '../libraries/articles';
 import { ArticleMetaData } from '../types/article';
 import { ArticleCardListComponent } from '../components/ArticleCardListComponent';
 import { ArticleCardSkeletonListComponent } from '../components/ArticleCardSkeletonListComponent';
 import { PageTemplate } from '../templates/PageTemplate';
 import { paginate, getTotalPages, ARTICLES_PER_PAGE } from '../libraries/pagination';
+import { buildWebSiteJsonLd, serializeJsonLd } from '../libraries/jsonLd';
 import { useInfiniteArticles } from '../hooks/useInfiniteArticles';
 import { useIntersectionObserver } from '../hooks/useIntersectionObserver';
 
@@ -55,7 +57,19 @@ const IndexPage: React.FC<{
     children.push(<div key="sentinel" ref={sentinelRef} aria-hidden="true" />);
   }
 
-  return <PageTemplate isTopPage>{children}</PageTemplate>;
+  return (
+    <>
+      <Head>
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: serializeJsonLd(buildWebSiteJsonLd()),
+          }}
+        />
+      </Head>
+      <PageTemplate isTopPage>{children}</PageTemplate>
+    </>
+  );
 };
 
 export default IndexPage;
