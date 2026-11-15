@@ -179,4 +179,28 @@ describe('ArticleLayout', () => {
       ).toBeTruthy();
     });
   });
+
+  describe('目次のスムーズスクロール', () => {
+    it('記事内の目次リンクをクリックすると見出しへスムーズにスクロールする', () => {
+      // Given
+      const scrollIntoView = vi.fn();
+      Element.prototype.scrollIntoView = scrollIntoView as unknown as Element['scrollIntoView'];
+      vi.stubGlobal('matchMedia', vi.fn(() => ({ matches: false })));
+      render(
+        <ArticleLayout meta={meta}>
+          <nav className="toc toc-sidebar" aria-label="目次">
+            <a href="#intro">はじめに</a>
+          </nav>
+          <h2 id="intro">はじめに</h2>
+        </ArticleLayout>,
+      );
+
+      // When
+      screen.getByRole('link', { name: 'はじめに' }).click();
+
+      // Then
+      expect(scrollIntoView).toHaveBeenCalledWith({ behavior: 'smooth', block: 'start' });
+      vi.unstubAllGlobals();
+    });
+  });
 });

@@ -9,6 +9,7 @@ import { LinkComponent } from './atoms/LinkComponent';
 import { metaData } from '../constants/metaData';
 import { buildBlogPostingJsonLd, serializeJsonLd } from '../libraries/jsonLd';
 import { setupTocHighlight } from '../libraries/tocHighlight';
+import { setupTocSmoothScroll } from '../libraries/tocSmoothScroll';
 import type { AdjacentArticles } from '../libraries/adjacentArticles';
 
 export interface ArticleMeta {
@@ -66,6 +67,7 @@ const AdjacentArticleCard = ({
 
 export const ArticleLayout: FC<Props> = ({ meta, adjacent, children }) => {
   useEffect(() => setupTocHighlight(document), [meta.path]);
+  useEffect(() => setupTocSmoothScroll(document), []);
 
   const hasAdjacent = adjacent !== undefined && (adjacent.prev || adjacent.next);
 
