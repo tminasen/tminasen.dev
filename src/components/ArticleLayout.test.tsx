@@ -1,3 +1,5 @@
+import fs from 'node:fs';
+import path from 'node:path';
 import { render, screen, within } from '@testing-library/react';
 import { describe, expect, it, vi } from 'vitest';
 import '@testing-library/jest-dom/vitest';
@@ -229,6 +231,38 @@ describe('ArticleLayout', () => {
       // Then
       expect(scrollIntoView).toHaveBeenCalledWith({ behavior: 'smooth', block: 'start' });
       vi.unstubAllGlobals();
+    });
+  });
+
+  describe('article.css の長 URL 折り返しスタイル', () => {
+    it('記事本文のリンク（.prose-article a:not(.toc a)）に長い URL を折り返す overflow-wrap: anywhere が定義されている', () => {
+      // Given
+      const articleCssPath = path.resolve(__dirname, '../styles/article.css');
+      const cssContent = fs.readFileSync(articleCssPath, 'utf-8');
+
+      // When
+      const ruleMatch = cssContent.match(
+        /\.prose-article a:not\(\.toc a\)\s*\{([^}]*)\}/,
+      );
+
+      // Then
+      expect(ruleMatch).not.toBeNull();
+      expect(ruleMatch![1]).toMatch(/overflow-wrap:\s*anywhere\s*;/);
+    });
+
+    it('記事本文の段落・リスト項目（.prose-article p, .prose-article li）にも長い URL テキストを折り返す overflow-wrap: anywhere が定義されている', () => {
+      // Given
+      const articleCssPath = path.resolve(__dirname, '../styles/article.css');
+      const cssContent = fs.readFileSync(articleCssPath, 'utf-8');
+
+      // When
+      const ruleMatch = cssContent.match(
+        /\.prose-article p,\s*\.prose-article li\s*\{([^}]*)\}/,
+      );
+
+      // Then
+      expect(ruleMatch).not.toBeNull();
+      expect(ruleMatch![1]).toMatch(/overflow-wrap:\s*anywhere\s*;/);
     });
   });
 });

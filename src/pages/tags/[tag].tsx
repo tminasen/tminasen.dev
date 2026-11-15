@@ -3,79 +3,41 @@ import { GetStaticPaths, GetStaticProps } from 'next';
 import Head from 'next/head';
 import { PageTemplate } from '../../templates/PageTemplate';
 import { getArticleMetaData } from '../../libraries/articles';
-import { toIsoDateString } from '../../libraries/date';
 import { buildTagPageJsonLd, serializeJsonLd } from '../../libraries/jsonLd';
 import { ArticleMetaData } from '../../types/article';
-import { LinkComponent } from '../../components/atoms/LinkComponent';
-import { Image } from '../../components/atoms/ImageComponent';
+import { ArticleCardListComponent } from '../../components/ArticleCardListComponent';
 
 interface Props {
   tagName: string;
   articleMetaDataList: ArticleMetaData[];
 }
 
-const getArticles = (
-  tagName: string,
-  articleMetaDataList: ArticleMetaData[],
-): JSX.Element | null => {
-  const articleList = articleMetaDataList
-    .filter(data => data.tag.includes(tagName))
-    .map((data, index): JSX.Element | null => {
-      const tagList = data.tag.map(tag => (
-        <li
-          className="flex *:flex *:min-h-6 *:min-w-6 *:items-center *:justify-center mr-1.5"
-          key={`/tags/${tag}`}
-        >
-          <LinkComponent url={`/tags/${tag}`} color="black">
-            {tag}
-          </LinkComponent>
-        </li>
-      ));
-
-      return (
-        <li className="basis-full" key={`${data.path}`}>
-          <section>
-            <div className="flex flex-col justify-around min-h-20 py-1 px-5 bg-(--color-bg-card)">
-              <LinkComponent url={data.path} color="black">
-                <h2 className="text-xl sm:text-2xl">{data.title}</h2>
-              </LinkComponent>
-              <time
-                className="text-xs sm:text-base text-(--color-text-muted)"
-                dateTime={toIsoDateString(data.date)}
-              >
-                {data.date}
-              </time>
-              {tagList.length !== 0 ? (
-                <ul className="flex text-xs sm:text-base -my-0.5">{tagList}</ul>
-              ) : null}
-            </div>
-            <div className="flex h-25 bg-(--color-bg-base)">
-              <Image
-                imageSrc={data.thumbnailImage.url}
-                isRounded={false}
-                alt={data.title}
-                width={{ pc: 150, sp: 150 }}
-                height={{ pc: 100, sp: 100 }}
-                loading={index === 0 ? 'eager' : 'lazy'}
-              />
-              <p className="text-base sm:text-xl p-2">
-                <LinkComponent url={data.path} color="black">
-                  {data.description}
-                </LinkComponent>
-              </p>
-            </div>
-          </section>
-        </li>
-      );
-    })
-    .filter((element): element is JSX.Element => element !== null);
-  if (articleList.length === 0) {
-    return null;
-  }
-  return <ul className="flex flex-wrap gap-y-2">{articleList}</ul>;
-};
-
 const tagPage: React.FC<Props> = ({ tagName, articleMetaDataList }) => {
+  const filteredArticles = (articleMetaDataList ?? []).filter(data =>
+    data.tag.includes(tagName),
+  );
+
+  const children: JSX.Element[] = [
+    // 見出しの左端を先頭カードに揃えるため、カード一覧と同じ列定義・列の間隔（gap-x）のグリッドの先頭列に置く
+    <div
+      key="article-list-heading"
+      className="mx-auto max-w-[1048px] mb-6 grid justify-center [grid-template-columns:repeat(auto-fill,var(--card-image-width))] gap-x-[20px]"
+    >
+      <h1 className="text-[28px] font-bold leading-[1.4] text-(--color-text-base)">
+        {tagName}の記事一覧
+      </h1>
+    </div>,
+  ];
+
+  if (filteredArticles.length > 0) {
+    children.push(
+      <ArticleCardListComponent
+        key="article-list"
+        articleMetaDataList={filteredArticles}
+      />,
+    );
+  }
+
   return (
     <>
       {tagName ? (
@@ -88,12 +50,7 @@ const tagPage: React.FC<Props> = ({ tagName, articleMetaDataList }) => {
           />
         </Head>
       ) : null}
-      <PageTemplate>
-        <article className="text-(--color-text-base)">
-          <h1 className="text-2xl sm:text-3xl mb-4">{tagName}の記事一覧</h1>
-          {getArticles(tagName, articleMetaDataList)}
-        </article>
-      </PageTemplate>
+      <PageTemplate>{children}</PageTemplate>
     </>
   );
 };
@@ -112,7 +69,7 @@ export const getStaticPaths: GetStaticPaths = async () => {
 export const getStaticProps: GetStaticProps = async ({ params }) => {
   const tagName = params?.tag;
   if (tagName == null || Array.isArray(tagName)) {
-    return { props: { tagName: null, articleMetaData: [] } };
+    return { props: { tagName: '', articleMetaDataList: [] } };
   }
   const articleMetaDataList: ArticleMetaData[] = await getArticleMetaData();
   return {
