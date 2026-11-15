@@ -122,11 +122,11 @@ describe('rehypeDemoteHeadings と目次の連携', () => {
     // When
     const root = pipeline(md);
     // Then
-    const top = Array.from(root.querySelectorAll('nav > ol > li')).map(
+    const top = Array.from(root.querySelectorAll('nav.toc-sidebar > ol > li')).map(
       (li) => li.querySelector(':scope > a')?.textContent ?? '',
     );
     expect(top).toEqual(['A', 'D']);
-    const hrefs = Array.from(root.querySelectorAll('nav a')).map((a) => a.getAttribute('href'));
+    const hrefs = Array.from(root.querySelectorAll('nav.toc-sidebar a')).map((a) => a.getAttribute('href'));
     expect(hrefs).toEqual(['#a', '#b', '#c', '#d']);
     expect(root.querySelector('h2#a')).not.toBeNull();
     expect(root.querySelector('h3#b')).not.toBeNull();
@@ -141,7 +141,7 @@ describe('rehypeDemoteHeadings と目次の連携', () => {
     // When
     const root = pipeline(md);
     // Then
-    const hrefs = Array.from(root.querySelectorAll('nav a')).map((a) => a.getAttribute('href'));
+    const hrefs = Array.from(root.querySelectorAll('nav.toc-sidebar a')).map((a) => a.getAttribute('href'));
     expect(hrefs).toEqual(['#a', '#b']);
     expect(root.querySelector('h5#deep')).not.toBeNull();
   });

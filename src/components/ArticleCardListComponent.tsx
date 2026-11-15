@@ -32,7 +32,7 @@ export const ArticleCardListComponent: React.FC<{
   articleMetaDataList: ArticleMetaData[];
 }> = ({ articleMetaDataList }) => {
   return (
-    <ul className="text-base grid justify-center [grid-template-columns:repeat(auto-fill,var(--card-image-width))] gap-[20px]">
+    <ul className="mx-auto max-w-[1048px] text-base grid justify-center [grid-template-columns:repeat(auto-fill,var(--card-image-width))] gap-x-[20px] gap-y-6">
       {articleMetaDataList.map((article, index) => (
         <ArticleCardItem
           articleData={article}

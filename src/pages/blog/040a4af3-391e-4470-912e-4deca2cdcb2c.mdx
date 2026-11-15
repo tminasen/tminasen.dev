@@ -10,6 +10,7 @@ description: "Angular v21とSignals・Tailwind CSSで、ボードゲーム「世
 
 
 import {ArticleLayout} from '../../components/ArticleLayout';
+import { getAdjacentArticleProps } from '../../libraries/adjacentArticles';
 import {Lightbox} from '../../components/atoms/Lightbox';
 
 export const meta = {
@@ -22,7 +23,9 @@ export const meta = {
   description: "Angular v21とSignals・Tailwind CSSで、ボードゲーム「世界の七不思議」の得点計算ツールを作った記録。状態管理の設計と、使って得られた知見、AIフレンドリーな雛形への驚きをまとめている。",
 };
 
-export default ({children}) => <ArticleLayout meta={meta}>{children}</ArticleLayout>;
+export const getStaticProps = () => getAdjacentArticleProps(meta.path);
+
+export default ({children, adjacent}) => <ArticleLayout meta={meta} adjacent={adjacent}>{children}</ArticleLayout>;
 
 ## はじめに
 

@@ -9,6 +9,7 @@ description: "markdownからhtmlを生成するNext.jsのブログで、markdown
 ---
 
 import { ArticleLayout } from '../../components/ArticleLayout';
+import { getAdjacentArticleProps } from '../../libraries/adjacentArticles';
 
 export const meta = {
   path: "/blog/jzle6s7y8qa1gscz9ecv",
@@ -20,7 +21,9 @@ export const meta = {
   description: "markdownからhtmlを生成するNext.jsのブログで、markdown内の画像がimgタグに変換されてしまう問題に対し、remarkを使ってamp-imgへ変換するようにした対応のメモ。",
 };
 
-export default ({ children }) => <ArticleLayout meta={meta}>{children}</ArticleLayout>;
+export const getStaticProps = () => getAdjacentArticleProps(meta.path);
+
+export default ({ children, adjacent }) => <ArticleLayout meta={meta} adjacent={adjacent}>{children}</ArticleLayout>;
 
 # はじめに
 

@@ -5,6 +5,7 @@ export const metaData = {
   authorName: 'tminasen',
   domain: 'https://tminasen.dev',
   githubUrl: 'https://github.com/tminasen/',
+  xUrl: 'https://x.com/tminasen',
   ogpImage: '/images/ogp.png',
   XIcon: '/images/XSocialIcon.png',
   githubIcon: '/images/GithubIcon.png',

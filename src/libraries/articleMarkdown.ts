@@ -2,10 +2,11 @@ import matter from 'gray-matter';
 import { metaData } from '../constants/metaData';
 import { toIsoDateString } from './date';
 
-// MDX先頭のプリアンブル（import行・export const meta・export default行）
+// MDX先頭のプリアンブル（import行・export const meta・export const getStaticProps・export default行）
 const PREAMBLE_PATTERNS: RegExp[] = [
   /^import [^\n]*(\n|$)/,
   /^export const meta = \{[\s\S]*?\n\};?[ \t]*(\n|$)/,
+  /^export const getStaticProps = [^\n]*(\n|$)/,
   /^export default [^\n]*(\n|$)/,
 ];
 

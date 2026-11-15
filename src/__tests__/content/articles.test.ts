@@ -67,4 +67,26 @@ describe('src/pages/blog/*.mdx (実記事)', () => {
       expect(result.startsWith(`# ${data.title}\n`)).toBe(true);
     },
   );
+
+  it.each(mdxFiles)(
+    'should pass the adjacent articles to ArticleLayout via getStaticProps: %s',
+    file => {
+      // Given
+      const source = readSource(file);
+
+      // When
+      const { content } = matter(source);
+
+      // Then
+      expect(content).toContain(
+        "import { getAdjacentArticleProps } from '../../libraries/adjacentArticles';",
+      );
+      expect(content).toContain(
+        'export const getStaticProps = () => getAdjacentArticleProps(meta.path);',
+      );
+      expect(content).toMatch(
+        /^export default \(\{ ?children, adjacent ?\}\) => <ArticleLayout meta=\{meta\} adjacent=\{adjacent\}>\{children\}<\/ArticleLayout>;$/m,
+      );
+    },
+  );
 });

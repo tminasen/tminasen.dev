@@ -27,8 +27,11 @@ export const CardComponent: FC<DeepReadonly<Props>> = ({
   const displayTags = tags.slice(0, 3);
 
   return (
-    <article className="flex flex-col w-(--card-image-width) h-(--card-max-height) rounded-lg bg-(--color-bg-card) shadow-md">
-      <a className="text-(--color-text-base) no-underline" href={path}>
+    <article className="flex flex-col w-(--card-image-width) overflow-hidden rounded-xl outline -outline-offset-1 outline-(--color-border) bg-(--color-bg-card) shadow-[0_1px_3px_rgba(0,0,0,0.06)]">
+      <a
+        className="text-(--color-text-base) no-underline focus-visible:-outline-offset-2"
+        href={path}
+      >
         <Image
           imageSrc={image.url}
           isRounded={true}
@@ -38,22 +41,24 @@ export const CardComponent: FC<DeepReadonly<Props>> = ({
           fetchPriority={fetchPriority}
           loading={loading}
         />
-        <div className="px-2">
-          <h2 className="text-2xl font-bold text-center mt-2 max-h-(--card-title-height) leading-(--card-title-line-height) line-clamp-2 overflow-hidden">
-            {title}
-          </h2>
+        <div className="flex flex-col gap-2 p-4">
           <time
-            className="text-sm mt-1 text-(--color-text-muted)"
+            className="text-[13px] text-(--color-text-muted)"
             dateTime={date}
           >
             {date}
           </time>
-          <div className="flex gap-2 text-xs text-(--color-text-muted) mt-1">
+          <h2 className="text-lg font-bold text-left leading-[1.45] line-clamp-2">
+            {title}
+          </h2>
+          <p className="text-sm leading-[1.7] text-(--color-text-muted) line-clamp-3">
+            {excerpt}
+          </p>
+          <div className="flex flex-wrap gap-2 text-[13px] text-(--color-text-muted)">
             {displayTags.map(tag => (
               <span key={tag}>#{tag}</span>
             ))}
           </div>
-          <p className="text-base mt-3 line-clamp-4">{excerpt}</p>
         </div>
       </a>
     </article>

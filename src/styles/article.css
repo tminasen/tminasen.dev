@@ -3,6 +3,9 @@
   .prose-article h2 {
     font-size: 1.25rem;
     line-height: 1.75rem;
+    padding-top: 12px;
+    padding-bottom: 8px;
+    border-bottom: 1px solid var(--color-border);
   }
   .prose-article h3 {
     font-size: 1.125rem;
@@ -32,48 +35,103 @@
   }
   .prose-article .toc-title {
     margin: 0 0 0.5rem;
+    font-size: 13px;
     font-weight: 700;
     color: var(--color-text-muted);
   }
+  /* 目次項目: 番号・下線なし、高さ 32px 以上。段が深くなるごとに左余白を 16px ずつ増やす */
   .prose-article .toc ol {
     margin: 0;
-    padding-left: 1.25rem;
-    list-style: decimal;
+    padding: 0;
+    list-style: none;
   }
   .prose-article .toc li {
-    margin: 0.25rem 0;
+    margin: 0;
+    padding: 0;
   }
   .prose-article .toc a {
-    display: inline-block;
-    min-width: 1.5rem;
-    min-height: 1.5rem;
+    display: flex;
+    align-items: center;
+    min-height: 32px;
+    padding: 4px 12px 4px 9px;
+    border-left: 3px solid transparent;
+    font-size: 14px;
+    line-height: 1.5;
     color: var(--color-text-base);
-    text-decoration: underline;
+    text-decoration: none;
+  }
+  .prose-article .toc ol ol a {
+    padding-left: 25px;
+  }
+  .prose-article .toc ol ol ol a {
+    padding-left: 41px;
+  }
+  /* 現在読んでいる見出し (サイドバー目次のみに aria-current が付く) */
+  .prose-article .toc a[aria-current='location'] {
+    border-left-color: var(--color-focus-ring);
+    font-weight: 700;
+    color: var(--color-text-link);
   }
   /*
-   * xl (1280px) 以上: 目次を本文カードの右外側に追従表示する。
-   * 目次幅 --toc-width = clamp(14rem, 100vw - 67.25rem, 20rem)。
-   *   67.25rem = main 左右余白 1rem (PageTemplate の mx-2 = 8px x 2)
-   *            + カード 64rem (max-w-5xl) + 間隔 1rem
-   *            + スクロールバー分の余裕 1.25rem (20px。100vw はスクロールバー幅を含むため)。
-   *   1280px で下限 14rem、約 1396px 以上で上限 20rem。
-   * 中央寄せの 65rem = カード 64rem + 間隔 1rem。
-   * margin-right の calc(-1 * var(--toc-width) - 2rem) の 2rem は、
-   * prose div の sm:px-4 (1rem) + 間隔 1rem。prose div の左右 padding に依存する。
+   * 目次は2種類出力され、画面幅で切り替える。
+   *   .toc-sidebar: 1280px 以上で右側に追従表示する (1280px 未満は非表示)
+   *   .toc-collapsible: 1280px 未満で閉じた <details> として本文先頭に表示する (1280px 以上は非表示)
+   */
+  .prose-article .toc-sidebar {
+    display: none;
+  }
+  .prose-article .toc-collapsible {
+    padding: 10px 16px;
+  }
+  .prose-article .toc-collapsible > .toc-title {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    min-height: 1.5rem;
+    margin: 0;
+    font-size: 15px;
+    color: var(--color-text-base);
+    cursor: pointer;
+    list-style: none;
+  }
+  .prose-article .toc-collapsible > .toc-title::-webkit-details-marker {
+    display: none;
+  }
+  .prose-article .toc-collapsible > .toc-title::after {
+    content: '\25BC';
+    font-size: 12px;
+    color: var(--color-text-muted);
+  }
+  .prose-article .toc-collapsible[open] > .toc-title {
+    margin-bottom: 0.5rem;
+  }
+  .prose-article .toc-collapsible[open] > .toc-title::after {
+    transform: rotate(180deg);
+  }
+  /*
+   * xl (1280px) 以上: 目次を記事カードの右外側に追従表示する。
+   * Figma の PC 記事ページに合わせ、記事カード 760px + 間隔 40px + 目次 260px = 1060px を main 内で中央に寄せる。
+   * margin-right の calc(-1 * var(--toc-width) - var(--toc-gap) - 2.5rem) の 2.5rem は、
+   * 記事カードの sm:px-10 (40px)。目次は prose div の中にあるため、カードの右 padding 分も外へ出す。
    */
   @media (min-width: theme('screens.xl')) {
     /* 目次を持つ記事のみ、カード＋目次の組を main 内で中央揃えにする */
-    article:has(.prose-article > .toc) {
-      --toc-width: clamp(14rem, 100vw - 67.25rem, 20rem);
-      margin-left: max(0px, calc((100% - 65rem - var(--toc-width)) / 2));
+    article:has(.prose-article > .toc-sidebar) {
+      --toc-width: 260px;
+      --toc-gap: 40px;
+      margin-left: max(0px, calc((100% - 760px - var(--toc-gap) - var(--toc-width)) / 2));
       margin-right: auto;
     }
-    .prose-article .toc {
+    .prose-article .toc-collapsible {
+      display: none;
+    }
+    .prose-article .toc-sidebar {
+      display: block;
       float: right;
       position: sticky;
       top: 1rem;
       width: var(--toc-width);
-      margin: 0 calc(-1 * var(--toc-width) - 2rem) 0 0;
+      margin: 0 calc(-1 * var(--toc-width) - var(--toc-gap) - 2.5rem) 0 0;
       max-height: calc(100vh - 2rem);
       overflow-y: auto;
       background: var(--color-bg-card);
@@ -81,13 +139,36 @@
   }
   @media (min-width: theme('screens.sm')) {
     .prose-article h2 {
-      font-size: 1.5rem;
-      line-height: 2rem;
+      font-size: 1.375rem;
+      line-height: 1.4;
     }
     .prose-article h3 {
-      font-size: 1.25rem;
-      line-height: 1.75rem;
+      font-size: 1.125rem;
+      line-height: 1.5;
     }
+  }
+  /* 本文リンク (目次内を除く) */
+  .prose-article a:not(.toc a) {
+    color: var(--color-text-link);
+    text-decoration: underline;
+  }
+  /* インラインコード (コードブロックの pre > code は対象外) */
+  .prose-article :not(pre) > code {
+    padding: 2px 6px;
+    border-radius: 4px;
+    background-color: var(--color-bg-code-inline);
+    color: var(--color-text-base);
+    font-size: 0.875em;
+    font-weight: 400;
+  }
+  .prose-article :not(pre) > code::before,
+  .prose-article :not(pre) > code::after {
+    content: none;
+  }
+  .prose-article p,
+  .prose-article li {
+    font-size: 1rem;
+    line-height: 1.8;
   }
   .prose-article p {
     margin-top: 0.5rem;

@@ -49,4 +49,24 @@ describe('CardComponent', () => {
       screen.queryByRole('link', { name: /Test Title[\s\S]*Test Title/ }),
     ).toBeNull();
   });
+
+  it('カードの中身が 日付 → タイトル → 抜粋 → タグ の順に並ぶ', () => {
+    // Given
+    const props = defaultProps;
+    // When
+    const { container } = render(<CardComponent {...props} />);
+    // Then
+    const ordered = [
+      container.querySelector('time')!,
+      screen.getByRole('heading', { level: 2, name: 'Test Title' }),
+      screen.getByText('Test Excerpt'),
+      screen.getByText('#tag1'),
+    ];
+    for (let i = 0; i < ordered.length - 1; i++) {
+      expect(
+        ordered[i].compareDocumentPosition(ordered[i + 1]) &
+          Node.DOCUMENT_POSITION_FOLLOWING,
+      ).toBeTruthy();
+    }
+  });
 });

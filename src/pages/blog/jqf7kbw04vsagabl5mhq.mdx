@@ -9,6 +9,7 @@ description: "Next.jsでMDXを使えるようにするまでの手順。next.con
 ---
 
 import { ArticleLayout } from '../../components/ArticleLayout';
+import { getAdjacentArticleProps } from '../../libraries/adjacentArticles';
 
 export const meta = {
   path: "/blog/jqf7kbw04vsagabl5mhq",
@@ -20,7 +21,9 @@ export const meta = {
   description: "Next.jsでMDXを使えるようにするまでの手順。next.config.jsの修正、サンプルページの追加、コンポーネントの読み込み、コードブロックの表示までを試している。",
 };
 
-export default ({ children }) => <ArticleLayout meta={meta}>{children}</ArticleLayout>;
+export const getStaticProps = () => getAdjacentArticleProps(meta.path);
+
+export default ({ children, adjacent }) => <ArticleLayout meta={meta} adjacent={adjacent}>{children}</ArticleLayout>;
 
 # はじめに
 

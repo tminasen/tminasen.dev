@@ -24,7 +24,7 @@ const run = (markdown: string, options?: { slug?: boolean; toc?: boolean }): HTM
   parse(convert(markdown, options));
 
 const hrefsOf = (root: HTMLElement): string[] =>
-  Array.from(root.querySelectorAll('nav a')).map((a) => a.getAttribute('href') ?? '');
+  Array.from(root.querySelectorAll('nav.toc-sidebar a')).map((a) => a.getAttribute('href') ?? '');
 
 const liText = (li: Element): string => li.querySelector(':scope > a')?.textContent ?? '';
 
@@ -50,7 +50,7 @@ describe('rehypeToc', () => {
     // When
     const root = run(md);
     // Then
-    const top = root.querySelectorAll('nav > ol > li');
+    const top = root.querySelectorAll('nav.toc-sidebar > ol > li');
     expect(Array.from(top).map(liText)).toEqual(['A', 'D']);
     const b = top[0].querySelector(':scope > ol > li')!;
     expect(liText(b)).toBe('B');
@@ -63,7 +63,7 @@ describe('rehypeToc', () => {
     // When
     const root = run(md);
     // Then
-    const top = root.querySelectorAll('nav > ol > li');
+    const top = root.querySelectorAll('nav.toc-sidebar > ol > li');
     expect(Array.from(top).map(liText)).toEqual(['Setup', 'Usage']);
     expect(liText(top[0].querySelector(':scope > ol > li')!)).toBe('Install');
   });
@@ -86,8 +86,9 @@ describe('rehypeToc', () => {
     // Then
     const children = Array.from(root.children);
     expect(children[0].tagName).toBe('NAV');
-    expect(children[1].tagName).toBe('P');
-    expect(children[1].textContent).toBe('導入文');
+    expect(children[1].tagName).toBe('DETAILS');
+    expect(children[2].tagName).toBe('P');
+    expect(children[2].textContent).toBe('導入文');
   });
 
   it('装飾付き見出しはプレーンテキストでリンク化される', () => {
@@ -127,7 +128,7 @@ describe('rehypeToc', () => {
     const root = run(md);
     // Then
     expect(root.querySelector('nav')).not.toBeNull();
-    const top = root.querySelectorAll('nav > ol > li');
+    const top = root.querySelectorAll('nav.toc-sidebar > ol > li');
     expect(Array.from(top).map(liText)).toEqual(['A']);
     expect(liText(top[0].querySelector(':scope > ol > li')!)).toBe('C');
   });
@@ -187,6 +188,68 @@ describe('rehypeToc', () => {
   });
 });
 
+describe('rehypeToc 折りたたみ用目次', () => {
+  const MD_TWO = '# はじめに\n\n本文\n\n# まとめ\n\n本文';
+  const MD_NESTED = '# A\n\n## B\n\n### C\n\n# D';
+
+  it('見出し2件の記事では、サイドバー用 nav の直後に折りたたみ用 details が挿入される', () => {
+    // Given
+    const md = MD_TWO;
+    // When
+    const root = run(md);
+    // Then
+    expect(root.children[0].matches('nav.toc.toc-sidebar[aria-label="目次"]')).toBe(true);
+    expect(root.children[1].matches('details.toc.toc-collapsible')).toBe(true);
+  });
+
+  it('折りたたみ用 details は閉じた状態で出力される', () => {
+    // Given
+    const md = MD_TWO;
+    // When
+    const root = run(md);
+    // Then
+    const details = root.querySelector('details.toc-collapsible');
+    expect(details).not.toBeNull();
+    expect(details!.hasAttribute('open')).toBe(false);
+  });
+
+  it('details の開閉ボタンは「目次」の summary である', () => {
+    // Given
+    const md = MD_TWO;
+    // When
+    const root = run(md);
+    // Then
+    const details = root.querySelector('details.toc-collapsible');
+    expect(details).not.toBeNull();
+    const summary = details!.firstElementChild!;
+    expect(summary.matches('summary.toc-title')).toBe(true);
+    expect(summary.textContent).toBe('目次');
+  });
+
+  it('折りたたみ用目次のリンク一覧はサイドバー用目次と同一である', () => {
+    // Given
+    const md = MD_NESTED;
+    // When
+    const root = run(md);
+    // Then
+    const collapsibleList = root.querySelector('details.toc-collapsible nav[aria-label="目次"] > ol');
+    const sidebarList = root.querySelector('nav.toc-sidebar > ol');
+    expect(collapsibleList).not.toBeNull();
+    expect(sidebarList).not.toBeNull();
+    expect(collapsibleList!.outerHTML).toBe(sidebarList!.outerHTML);
+  });
+
+  it('見出し1件では折りたたみ用目次も出さない', () => {
+    // Given
+    const md = '# A\n\n本文';
+    // When
+    const root = run(md);
+    // Then
+    expect(root.querySelector('details')).toBeNull();
+    expect(root.querySelector('nav')).toBeNull();
+  });
+});
+
 describe('rehypeToc 不変条件', () => {
   const inputs = [
     '# はじめに\n\n本文\n\n# まとめ\n\n本文',
@@ -219,6 +282,20 @@ describe('rehypeToc 不変条件', () => {
     expect(hrefs.map((h) => h.slice(1))).toEqual(bodyIds);
     // P4
     expect(new Set(hrefs).size).toBe(hrefs.length);
+  });
+
+  it.each(inputs)('目次はちょうど1組出力され、2つの目次の中身は一致する: %j', (md) => {
+    // Given
+    // When
+    const root = run(md);
+    // Then
+    expect(root.querySelectorAll('nav.toc-sidebar')).toHaveLength(1);
+    expect(root.querySelectorAll('details.toc-collapsible')).toHaveLength(1);
+    const sidebarList = root.querySelector('nav.toc-sidebar > ol');
+    const collapsibleList = root.querySelector('details.toc-collapsible nav > ol');
+    expect(sidebarList).not.toBeNull();
+    expect(collapsibleList).not.toBeNull();
+    expect(collapsibleList!.outerHTML).toBe(sidebarList!.outerHTML);
   });
 });
 

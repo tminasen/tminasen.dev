@@ -94,6 +94,7 @@ function toList(items) {
 }
 
 /**
+ * 1280px 以上で右側に追従表示するサイドバー用の目次。
  * @param {HastElement} list
  * @returns {HastElement}
  */
@@ -101,7 +102,7 @@ function toNav(list) {
   return {
     type: 'element',
     tagName: 'nav',
-    properties: { ariaLabel: TOC_LABEL, className: ['toc'] },
+    properties: { ariaLabel: TOC_LABEL, className: ['toc', 'toc-sidebar'] },
     children: [
       {
         type: 'element',
@@ -115,13 +116,41 @@ function toNav(list) {
 }
 
 /**
- * rehypeHeadingIds の後に置き、h1〜h3 の目次 nav を本文先頭に挿入する。
+ * 1280px 未満で本文先頭に閉じた状態で表示する折りたたみ用の目次。
+ * @param {HastElement} list
+ * @returns {HastElement}
+ */
+function toCollapsible(list) {
+  return {
+    type: 'element',
+    tagName: 'details',
+    properties: { className: ['toc', 'toc-collapsible'] },
+    children: [
+      {
+        type: 'element',
+        tagName: 'summary',
+        properties: { className: ['toc-title'] },
+        children: [{ type: 'text', value: TOC_LABEL }],
+      },
+      {
+        type: 'element',
+        tagName: 'nav',
+        properties: { ariaLabel: TOC_LABEL },
+        children: [list],
+      },
+    ],
+  };
+}
+
+/**
+ * rehypeHeadingIds の後に置き、h1〜h3 の目次（サイドバー用 nav と折りたたみ用 details）を本文先頭に挿入する。
  * @returns {(tree: HastNode) => void}
  */
 export default function rehypeToc() {
   return (tree) => {
     const entries = collectHeadings(tree);
     if (entries.length < MIN_ENTRIES) return;
-    tree.children.unshift(toNav(toList(buildTree(entries))));
+    const items = buildTree(entries);
+    tree.children.unshift(toNav(toList(items)), toCollapsible(toList(items)));
   };
 }

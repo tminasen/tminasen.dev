@@ -9,6 +9,7 @@ description: "ReactのHooks(useState、useEffect、useContext、useReducer、use
 ---
 
 import { ArticleLayout } from '../../components/ArticleLayout';
+import { getAdjacentArticleProps } from '../../libraries/adjacentArticles';
 
 export const meta = {
   path: "/blog/20200520",
@@ -20,7 +21,9 @@ export const meta = {
   description: "ReactのHooks(useState、useEffect、useContext、useReducer、useCallback、useMemoなど)について、APIリファレンスを見ながら使い方とサンプルコードをざっくりまとめた記事。",
 };
 
-export default ({ children }) => <ArticleLayout meta={meta}>{children}</ArticleLayout>;
+export const getStaticProps = () => getAdjacentArticleProps(meta.path);
+
+export default ({ children, adjacent }) => <ArticleLayout meta={meta} adjacent={adjacent}>{children}</ArticleLayout>;
 
 # はじめに
 

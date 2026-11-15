@@ -5,12 +5,12 @@ type Props = {
 };
 
 /**
- * `CardComponent` と同一の寸法・角丸・影を持つスケルトンを1件表示する
+ * `CardComponent` と同一の幅・角丸・枠（高さは可変のカードに対し固定）を持つスケルトンを1件表示する
  */
 const ArticleCardSkeletonItem: FC = () => (
   <li>
     <div
-      className="animate-pulse w-(--card-image-width) h-(--card-max-height) rounded-lg bg-(--color-bg-card) shadow-md"
+      className="animate-pulse w-(--card-image-width) h-(--card-max-height) rounded-xl border border-solid border-(--color-border) bg-(--color-bg-card)"
       aria-hidden="true"
     />
   </li>
@@ -30,7 +30,7 @@ export const ArticleCardSkeletonListComponent: FC<Props> = ({ count }) => {
     <ul
       role="status"
       aria-label="記事を読み込み中"
-      className="text-base grid justify-center [grid-template-columns:repeat(auto-fill,var(--card-image-width))] gap-[20px]"
+      className="mx-auto max-w-[1048px] text-base grid justify-center [grid-template-columns:repeat(auto-fill,var(--card-image-width))] gap-x-[20px] gap-y-6"
     >
       {Array.from({ length: count }, (_, i) => (
         <ArticleCardSkeletonItem key={i} />

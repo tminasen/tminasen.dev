@@ -9,6 +9,7 @@ description: "Next.jsアプリのディレクトリ構成を、Bulletproof React
 ---
 
 import { ArticleLayout } from '../../components/ArticleLayout';
+import { getAdjacentArticleProps } from '../../libraries/adjacentArticles';
 
 export const meta = {
   path: "/blog/1ba0f384ec9f09200bac8ef1a98542",
@@ -20,7 +21,9 @@ export const meta = {
   description: "Next.jsアプリのディレクトリ構成を、Bulletproof Reactや4層Layered Architectureを参考に検討したメモ。pages・features・componentsなど各ディレクトリの役割と配置ルールを整理している。",
 };
 
-export default ({ children }) => <ArticleLayout meta={meta}>{children}</ArticleLayout>;
+export const getStaticProps = () => getAdjacentArticleProps(meta.path);
+
+export default ({ children, adjacent }) => <ArticleLayout meta={meta} adjacent={adjacent}>{children}</ArticleLayout>;
 
 # はじめに
 

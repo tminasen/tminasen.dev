@@ -9,6 +9,7 @@ description: "styled-componentsがメンテナンスモードになったため�
 ---
 
 import { ArticleLayout } from '../../components/ArticleLayout';
+import { getAdjacentArticleProps } from '../../libraries/adjacentArticles';
 
 export const meta = {
   path: "/blog/eab71937-2e30-4b94-86ef-2655be02c38e",
@@ -20,7 +21,9 @@ export const meta = {
   description: "styled-componentsがメンテナンスモードになったため、Next.jsのプロジェクトをTailwind CSSへ移行した際に困った点の記録。tailwind.cssが404になる問題やテキスト指定が効かない問題の原因と対処をまとめている。",
 };
 
-export default ({ children }) => <ArticleLayout meta={meta}>{children}</ArticleLayout>;
+export const getStaticProps = () => getAdjacentArticleProps(meta.path);
+
+export default ({ children, adjacent }) => <ArticleLayout meta={meta} adjacent={adjacent}>{children}</ArticleLayout>;
 
 # styled-componentsからTailwind CSSに移行
 

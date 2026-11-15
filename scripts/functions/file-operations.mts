@@ -47,6 +47,7 @@ thumbnailImage: "/images/article/${fileId}/thumbnail.png"
 ---
 
 import { ArticleLayout } from '../../components/ArticleLayout';
+import { getAdjacentArticleProps } from '../../libraries/adjacentArticles';
 
 export const meta = {
   path: "/blog/${fileId}",
@@ -58,7 +59,9 @@ export const meta = {
   thumbnailImage: "/images/article/${fileId}/thumbnail.png",
 };
 
-export default ({ children }) => <ArticleLayout meta={meta}>{children}</ArticleLayout>;
+export const getStaticProps = () => getAdjacentArticleProps(meta.path);
+
+export default ({ children, adjacent }) => <ArticleLayout meta={meta} adjacent={adjacent}>{children}</ArticleLayout>;
 
 # はじめに
 
