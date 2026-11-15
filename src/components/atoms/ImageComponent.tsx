@@ -29,7 +29,7 @@ export const Image: FC<Props> = ({
     <picture>
       <source type="image/webp" srcSet={imageSrc.replace(/\.png$/, '.webp')} />
       <img
-        className={`${isRounded ? 'rounded-t-lg' : ''} w-(--image-sp-width) sm:w-(--image-pc-width) max-h-(--card-image-max-height) object-cover`}
+        className={`${isRounded ? 'rounded-t-lg' : ''} w-(--image-sp-width) sm:w-(--image-pc-width) aspect-video object-cover`}
         src={imageSrc}
         alt={alt}
         width={width.sp}

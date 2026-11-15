@@ -5,7 +5,8 @@ pre {
   overflow-x: auto;
   padding: 1rem;
   margin: 0.5rem 0;
-  border-radius: 0.5rem;
+  border: 1px solid var(--color-border);
+  border-radius: 8px;
   font-family: Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace;
   font-size: 0.875rem;
   line-height: 1.5;
@@ -28,7 +29,6 @@ pre [data-line] {
 pre,
 pre span {
   color: var(--shiki-light) !important;
-  background-color: var(--shiki-light-bg) !important;
   font-style: var(--shiki-light-font-style) !important;
   font-weight: var(--shiki-light-font-weight) !important;
   text-decoration: var(--shiki-light-text-decoration) !important;
@@ -39,11 +39,35 @@ pre span {
   pre,
   pre span {
     color: var(--shiki-dark) !important;
-    background-color: var(--shiki-dark-bg) !important;
     font-style: var(--shiki-dark-font-style) !important;
     font-weight: var(--shiki-dark-font-weight) !important;
     text-decoration: var(--shiki-dark-text-decoration) !important;
   }
+}
+
+/*
+ * コードブロックの背景は Shiki のテーマ背景ではなくトークン (--color-bg-code) を使う。
+ * Shiki の --shiki-*-bg は pre 内の span にも継承されるため、span は透明にして帯状に塗られるのを防ぐ。
+ */
+pre {
+  background-color: var(--color-bg-code) !important;
+}
+
+pre span {
+  background-color: transparent !important;
+}
+
+/*
+ * ライトモードの背景を #f3f4f6 にすると github-light のコメント (#6A737D: 4.38:1) と
+ * 文字列 (#22863A: 4.22:1) が 4.5:1 を下回るため、濃い色に差し替える。
+ * rehype-pretty-code が出力する色コードの大文字・小文字に依存しないよう i フラグを付ける。
+ */
+pre span[style*="--shiki-light:#6A737D" i] {
+  --shiki-light: #57606a !important;
+}
+
+pre span[style*="--shiki-light:#22863A" i] {
+  --shiki-light: #1a7f37 !important;
 }
 
 /* 行ハイライト */

@@ -71,4 +71,36 @@ describe('ArticleLayout', () => {
     expect(headings).toHaveLength(1);
     expect(headings[0].textContent).toBe('記事A');
   });
+
+  it('タイトル（h1）と本文が同じカード要素に入る', () => {
+    // Given
+    // When
+    render(<ArticleLayout meta={meta}>本文テキスト</ArticleLayout>);
+
+    // Then
+    const card = screen.getByRole('heading', { level: 1 }).parentElement!;
+    expect(card.contains(screen.getByText('本文テキスト'))).toBe(true);
+  });
+
+  it('メタ行では日付がタグ一覧より前に並ぶ', () => {
+    // Given
+    // When
+    const { container } = render(<ArticleLayout meta={meta}>本文</ArticleLayout>);
+
+    // Then
+    const time = container.querySelector('time[datetime="2020/10/25"]')!;
+    const tagList = screen.getByRole('link', { name: 'vue' }).closest('ul')!;
+    expect(time).not.toBeNull();
+    expect(time.compareDocumentPosition(tagList) & Node.DOCUMENT_POSITION_FOLLOWING).toBeTruthy();
+  });
+
+  it('記事のタグがタグ別一覧へのリンクとして表示される', () => {
+    // Given
+    // When
+    render(<ArticleLayout meta={meta}>本文</ArticleLayout>);
+
+    // Then
+    expect(screen.getByRole('link', { name: 'vue' })).toHaveAttribute('href', '/tags/vue');
+    expect(screen.getByRole('link', { name: 'ts' })).toHaveAttribute('href', '/tags/ts');
+  });
 });
