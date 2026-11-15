@@ -39,6 +39,8 @@ export const XShareButton: FC<Props> = ({ title, path }) => {
             className="object-contain w-full h-full"
             src={metaData.XIcon}
             alt="Xに投稿する"
+            width={28}
+            height={28}
           />
         </picture>
       </span>

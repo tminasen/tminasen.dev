@@ -8,7 +8,7 @@ import {
   TagCount,
 } from '../types/article';
 import { parseStringDate } from './date';
-import { getImageSize } from './image';
+import { getImageSize, getThumbnailSrcSet } from './image';
 
 /**
  * markdown文字列から以下のタグを取り除く
@@ -130,6 +130,8 @@ function convertArticleMetaData(
   if (!isArticleMetaData(data)) {
     throw new Error('data is invalid.');
   }
+  // undefined のキーは getStaticProps の JSON シリアライズで例外になるため、値があるときだけ含める
+  const srcSet = getThumbnailSrcSet(data.thumbnailImage);
   return {
     path: data.path,
     date: data.date,
@@ -137,6 +139,7 @@ function convertArticleMetaData(
     tag: data.tag,
     thumbnailImage: {
       url: data.thumbnailImage,
+      ...(srcSet !== undefined ? { srcSet } : {}),
       size: getImageSize(data.thumbnailImage, 'thumbnail'),
     },
     ogpImage: data.ogpImage,

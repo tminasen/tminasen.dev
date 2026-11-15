@@ -14,6 +14,7 @@ interface Props {
   };
   fetchPriority?: 'high' | 'low' | 'auto';
   loading?: 'lazy' | 'eager';
+  srcSet?: string;
 }
 
 export const Image: FC<Props> = ({
@@ -24,10 +25,15 @@ export const Image: FC<Props> = ({
   height,
   fetchPriority,
   loading,
+  srcSet,
 }) => {
   return (
     <picture>
-      <source type="image/webp" srcSet={imageSrc.replace(/\.png$/, '.webp')} />
+      <source
+        type="image/webp"
+        srcSet={srcSet ?? imageSrc.replace(/\.png$/, '.webp')}
+        sizes={srcSet ? `${width.sp}px` : undefined}
+      />
       <img
         className={`${isRounded ? 'rounded-t-lg' : ''} w-(--image-sp-width) sm:w-(--image-pc-width) aspect-video object-cover`}
         src={imageSrc}

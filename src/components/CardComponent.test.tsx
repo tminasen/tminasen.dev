@@ -29,6 +29,19 @@ describe('CardComponent', () => {
     expect(img).toHaveAttribute('loading', 'lazy');
   });
 
+  it('サムネイルの srcSet が Image に伝わる', () => {
+    // Given
+    const image: ThumbnailImage = { ...mockImage, srcSet: '/x-336w.webp 336w' };
+    // When
+    const { container } = render(
+      <CardComponent {...defaultProps} image={image} />,
+    );
+    // Then
+    const source = container.querySelector('source[type="image/webp"]');
+    expect(source).toHaveAttribute('srcset', '/x-336w.webp 336w');
+    expect(source).toHaveAttribute('sizes', '336px');
+  });
+
   it('画像の alt が空', () => {
     // Given
     const props = defaultProps;

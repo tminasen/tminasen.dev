@@ -27,6 +27,21 @@ describe('src/pages/blog/*.mdx (実記事)', () => {
     });
   });
 
+  it('should set the thumbnail srcSet from the actual image width', async () => {
+    // Given
+    const imageUrl =
+      '/images/article/040a4af3-391e-4470-912e-4deca2cdcb2c/thumbnail.png';
+
+    // When
+    const articles = await getArticleMetaData();
+
+    // Then
+    const article = articles.find(a => a.thumbnailImage.url === imageUrl);
+    expect(article?.thumbnailImage.srcSet).toBe(
+      '/images/article/040a4af3-391e-4470-912e-4deca2cdcb2c/thumbnail-336w.webp 336w, /images/article/040a4af3-391e-4470-912e-4deca2cdcb2c/thumbnail-672w.webp 672w',
+    );
+  });
+
   it.each(mdxFiles)(
     'should have the same description in frontmatter and export const meta: %s',
     file => {

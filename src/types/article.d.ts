@@ -12,6 +12,7 @@ export type MarkdownMetaData = Readonly<_MarkdownMetaData>;
 
 interface ThumbnailImage {
   readonly url: string;
+  readonly srcSet?: string;
   readonly size: {
     readonly pc: {
       readonly width: number;
