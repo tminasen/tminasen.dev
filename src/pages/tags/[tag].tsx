@@ -1,7 +1,9 @@
 import { JSX } from 'react';
 import { GetStaticPaths, GetStaticProps } from 'next';
+import Head from 'next/head';
 import { PageTemplate } from '../../templates/PageTemplate';
 import { getArticleMetaData } from '../../libraries/articles';
+import { buildTagPageJsonLd, serializeJsonLd } from '../../libraries/jsonLd';
 import { ArticleMetaData } from '../../types/article';
 import { ArticleCardListComponent } from '../../components/ArticleCardListComponent';
 
@@ -36,7 +38,21 @@ const tagPage: React.FC<Props> = ({ tagName, articleMetaDataList }) => {
     );
   }
 
-  return <PageTemplate>{children}</PageTemplate>;
+  return (
+    <>
+      {tagName ? (
+        <Head>
+          <script
+            type="application/ld+json"
+            dangerouslySetInnerHTML={{
+              __html: serializeJsonLd(buildTagPageJsonLd(tagName)),
+            }}
+          />
+        </Head>
+      ) : null}
+      <PageTemplate>{children}</PageTemplate>
+    </>
+  );
 };
 export default tagPage;
 

@@ -2,6 +2,7 @@ import { FC } from 'react';
 import { DeepReadonly } from '../types/utility';
 import { Image } from './atoms/ImageComponent';
 import { ThumbnailImage } from '../types/article';
+import { toIsoDateString } from '../libraries/date';
 
 type Props = {
   title: string;
@@ -44,7 +45,7 @@ export const CardComponent: FC<DeepReadonly<Props>> = ({
         <div className="flex flex-col gap-2 p-4">
           <time
             className="text-[13px] text-(--color-text-muted)"
-            dateTime={date}
+            dateTime={toIsoDateString(date)}
           >
             {date}
           </time>

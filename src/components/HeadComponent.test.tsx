@@ -117,5 +117,88 @@ describe('HeadComponent', () => {
         0,
       );
     });
+
+    it('should fallback to metaData.description for description and og:description when description prop is undefined (T11)', () => {
+      // Given
+      const props = { ...defaultProps, description: undefined };
+      // When
+      render(<HeadComponent {...props} />);
+      // Then
+      expect(
+        document
+          .querySelector('meta[name="description"]')
+          ?.getAttribute('content'),
+      ).toBe('tminasen（水無瀬）によるプログラミング・Web開発・AI活用の技術ブログ');
+      expect(
+        document
+          .querySelector('meta[property="og:description"]')
+          ?.getAttribute('content'),
+      ).toBe('tminasen（水無瀬）によるプログラミング・Web開発・AI活用の技術ブログ');
+    });
+
+    it('should fallback to metaData.description when description prop is an empty string (T12)', () => {
+      // Given
+      const props = { ...defaultProps, description: '' };
+      // When
+      render(<HeadComponent {...props} />);
+      // Then
+      expect(
+        document
+          .querySelector('meta[name="description"]')
+          ?.getAttribute('content'),
+      ).toBe('tminasen（水無瀬）によるプログラミング・Web開発・AI活用の技術ブログ');
+    });
+
+    it('should render og:url with canonicalPath when canonicalPath is specified (T13)', () => {
+      // Given
+      const props = { ...defaultProps, canonicalPath: '/blog/abc' };
+      // When
+      render(<HeadComponent {...props} />);
+      // Then
+      expect(
+        document
+          .querySelector('meta[property="og:url"]')
+          ?.getAttribute('content'),
+      ).toBe('https://tminasen.dev/blog/abc');
+    });
+
+    it('should render og:url as https://tminasen.dev/ when canonicalPath is undefined (T14)', () => {
+      // Given
+      const props = { ...defaultProps, canonicalPath: undefined };
+      // When
+      render(<HeadComponent {...props} />);
+      // Then
+      expect(
+        document
+          .querySelector('meta[property="og:url"]')
+          ?.getAttribute('content'),
+      ).toBe('https://tminasen.dev/');
+    });
+
+    it('should render og:site_name with metaData.title (T15)', () => {
+      // Given / When
+      render(<HeadComponent {...defaultProps} />);
+      // Then
+      expect(
+        document
+          .querySelector('meta[property="og:site_name"]')
+          ?.getAttribute('content'),
+      ).toBe('水無瀬のプログラミング日記');
+    });
+
+    it('should render RSS link[rel="alternate"][type="application/rss+xml"] inside Head (T16)', () => {
+      // Given / When
+      render(<HeadComponent {...defaultProps} />);
+      // Then
+      const rssLink = document.querySelector(
+        'link[rel="alternate"][type="application/rss+xml"]',
+      );
+      expect(rssLink).not.toBeNull();
+      expect(rssLink).toHaveAttribute(
+        'href',
+        'https://tminasen.dev/rss/feed.xml',
+      );
+      expect(rssLink).toHaveAttribute('title', '水無瀬のプログラミング日記');
+    });
   });
 });

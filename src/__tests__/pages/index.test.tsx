@@ -1,9 +1,16 @@
-import { ComponentProps } from 'react';
+import { ComponentProps, ReactNode } from 'react';
 import { render, screen, waitFor, within } from '@testing-library/react';
 import { afterEach, describe, expect, it, vi } from 'vitest';
 import '@testing-library/jest-dom/vitest';
 import IndexPage, { getStaticProps } from '../../pages/index';
+import { buildWebSiteJsonLd } from '../../libraries/jsonLd';
 import { ArticleMetaData } from '../../types/article';
+
+vi.mock('next/head', () => ({
+  default: ({ children }: { children: ReactNode }) => (
+    <div data-testid="mock-head">{children}</div>
+  ),
+}));
 
 vi.mock('../../components/ArticleCardListComponent', () => ({
   ArticleCardListComponent: ({
@@ -28,7 +35,7 @@ const buildArticles = (count: number): ArticleMetaData[] =>
       size: { pc: { width: 100, height: 100 }, sp: { width: 50, height: 50 } },
     },
     description: `desc${i + 1}`,
-    date: '2023-01-01',
+    date: '2023/01/01',
     tag: ['tag1'],
     ogpImage: '/ogp.jpg',
   }));
@@ -257,6 +264,28 @@ describe('IndexPage', () => {
       intersect();
       const status = await screen.findByRole('status');
       expect(within(status).getAllByRole('listitem')).toHaveLength(3);
+    });
+
+    it('should render a WebSite JSON-LD script on the top page (T21)', () => {
+      // Given
+      setupIntersectionObserverMock();
+      const props = {
+        articleMetaDataList: buildArticles(10),
+        totalPages: 1,
+        totalArticles: 10,
+      };
+
+      // When
+      const { container } = render(<IndexPage {...props} />);
+
+      // Then
+      const scripts = container.ownerDocument.querySelectorAll(
+        'script[type="application/ld+json"]',
+      );
+      expect(scripts).toHaveLength(1);
+      expect(JSON.parse(scripts[0].textContent ?? '')).toEqual(
+        buildWebSiteJsonLd(),
+      );
     });
   });
 });

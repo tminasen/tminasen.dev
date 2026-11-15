@@ -7,6 +7,7 @@ import { XShareButton } from './atoms/XShareButton';
 import { GithubArticleButton } from './atoms/GithubArticleButton';
 import { LinkComponent } from './atoms/LinkComponent';
 import { metaData } from '../constants/metaData';
+import { toIsoDateString } from '../libraries/date';
 import { buildBlogPostingJsonLd, serializeJsonLd } from '../libraries/jsonLd';
 import { setupTocHighlight } from '../libraries/tocHighlight';
 import { setupTocSmoothScroll } from '../libraries/tocSmoothScroll';
@@ -15,6 +16,7 @@ import type { AdjacentArticles } from '../libraries/adjacentArticles';
 export interface ArticleMeta {
   path: string;
   date: string;
+  updatedAt?: string;
   title: string;
   tag: string[];
   ogpImage: string;
@@ -103,7 +105,7 @@ export const ArticleLayout: FC<Props> = ({ meta, adjacent, children }) => {
             <div className="flex flex-wrap items-center gap-x-3 gap-y-2 mt-3">
               <time
                 className="text-sm leading-[1.5] text-(--color-text-muted)"
-                dateTime={meta.date}
+                dateTime={toIsoDateString(meta.date)}
               >
                 {meta.date}
               </time>

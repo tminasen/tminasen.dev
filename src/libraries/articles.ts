@@ -123,7 +123,7 @@ export function resolveDescription(
   return `${removeTags(descriptionSource).substring(0, 130)}…`;
 }
 
-function convertArticleMetaData(
+export function convertArticleMetaData(
   data: Record<string, any>,
   context: string,
 ): ArticleMetaData | undefined {
@@ -133,6 +133,7 @@ function convertArticleMetaData(
   return {
     path: data.path,
     date: data.date,
+    ...(data.updatedAt ? { updatedAt: data.updatedAt } : {}),
     title: data.title,
     tag: data.tag,
     thumbnailImage: {

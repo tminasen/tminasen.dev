@@ -40,6 +40,11 @@ export const HeadComponent: FC<Props> = ({
         <meta property="og:description" content={metaDescription} />
         <meta property="og:type" content={ogType} />
         <meta
+          property="og:url"
+          content={`${metaData.domain}${canonicalPath ?? '/'}`}
+        />
+        <meta property="og:site_name" content={metaData.title} />
+        <meta
           property="og:image"
           content={metaImage ?? `${metaData.domain}${metaData.ogpImage}`}
         />
@@ -54,6 +59,12 @@ export const HeadComponent: FC<Props> = ({
         <link
           rel="canonical"
           href={`${metaData.domain}${canonicalPath ?? '/'}`}
+        />
+        <link
+          rel="alternate"
+          type="application/rss+xml"
+          title={metaData.title}
+          href={`${metaData.domain}/rss/feed.xml`}
         />
         {additionalMetaData
           ? additionalMetaData.map(item => (

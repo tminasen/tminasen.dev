@@ -1,10 +1,18 @@
+import { ReactNode } from 'react';
 import { render, screen, within } from '@testing-library/react';
 import { describe, expect, it, vi } from 'vitest';
 import '@testing-library/jest-dom/vitest';
 import { GetStaticPropsContext } from 'next';
 import TagPage, { getStaticPaths, getStaticProps } from '../../../pages/tags/[tag]';
 import { getArticleMetaData } from '../../../libraries/articles';
+import { buildTagPageJsonLd } from '../../../libraries/jsonLd';
 import { ArticleMetaData } from '../../../types/article';
+
+vi.mock('next/head', () => ({
+  default: ({ children }: { children: ReactNode }) => (
+    <div data-testid="mock-head">{children}</div>
+  ),
+}));
 
 vi.mock('../../../libraries/articles', () => ({
   getArticleMetaData: vi.fn(),
@@ -328,5 +336,39 @@ describe('TagPage (src/pages/tags/[tag].tsx)', () => {
         unmount();
       });
     });
+  });
+
+  it('should set time dateTime attribute to YYYY-MM-DD while keeping YYYY/MM/DD as text content (T20)', () => {
+    // Given
+    const articles = [{ ...createMockArticle(1, ['test-tag']), date: '2023/01/01' }];
+
+    // When
+    const { container } = render(
+      <TagPage tagName="test-tag" articleMetaDataList={articles} />,
+    );
+
+    // Then
+    const time = container.querySelector('time')!;
+    expect(time.getAttribute('datetime')).toBe('2023-01-01');
+    expect(time.textContent).toBe('2023/01/01');
+  });
+
+  it('should render a CollectionPage JSON-LD script on the tag page (T22)', () => {
+    // Given
+    const articles = [createMockArticle(1, ['test-tag'])];
+
+    // When
+    const { container } = render(
+      <TagPage tagName="test-tag" articleMetaDataList={articles} />,
+    );
+
+    // Then
+    const scripts = container.ownerDocument.querySelectorAll(
+      'script[type="application/ld+json"]',
+    );
+    expect(scripts).toHaveLength(1);
+    expect(JSON.parse(scripts[0].textContent ?? '')).toEqual(
+      buildTagPageJsonLd('test-tag'),
+    );
   });
 });

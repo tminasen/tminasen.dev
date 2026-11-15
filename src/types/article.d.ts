@@ -1,6 +1,7 @@
 interface _MarkdownMetaData {
   path: string;
   date: string;
+  updatedAt?: string;
   title: string;
   tag: string[];
   thumbnailImage: string;
@@ -27,6 +28,7 @@ interface ThumbnailImage {
 interface _ArticleMetaData {
   path: string;
   date: string;
+  updatedAt?: string;
   title: string;
   tag: string[];
   thumbnailImage: ThumbnailImage;
