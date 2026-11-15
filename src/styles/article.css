@@ -151,6 +151,7 @@
   .prose-article a:not(.toc a) {
     color: var(--color-text-link);
     text-decoration: underline;
+    overflow-wrap: anywhere;
   }
   /* インラインコード (コードブロックの pre > code は対象外) */
   .prose-article :not(pre) > code {
@@ -169,6 +170,7 @@
   .prose-article li {
     font-size: 1rem;
     line-height: 1.8;
+    overflow-wrap: anywhere;
   }
   .prose-article p {
     margin-top: 0.5rem;
