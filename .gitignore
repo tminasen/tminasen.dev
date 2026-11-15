@@ -10,6 +10,8 @@
 /playwright-report
 /playwright/.cache
 /tests/visual-regression/__screenshots__
+# Playwright MCP がブラウザ検証時に出力するスナップショット・スクリーンショット・ログ
+/.playwright-mcp/
 
 # next.js
 /.next/
