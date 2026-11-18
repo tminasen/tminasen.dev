@@ -32,6 +32,7 @@ VERCEL_PREVIEW_URL=https://example-preview.vercel.app pnpm test:visual tests/vis
 - GitHub Actions: `.github/workflows/visual-regression.yml`
 - GitHub Deployment API から Vercel プレビューURLを取得して比較します
 - 失敗時は `test-results` / `playwright-report` がアーティファクトに保存されます。
+- HTML レポートは `gh-pages` ブランチ（GitHub Pages）の `pr-{PR番号}/` に配置されます
 
 ## OGP画像生成
 
